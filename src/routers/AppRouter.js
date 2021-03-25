@@ -1,9 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Home, Login, PasswordReset } from "../components/pages/index";
+import { AuthContext } from "../auth/AuthContext";
+import { Login, PasswordReset } from "../components/pages/index";
+import { DashboardRoutes } from "./DashboardRoutes";
+import { PrivateRoute } from "./PrivateRoute";
 
 export const AppRouter = () => {
-    return (
+  const { user } = useContext(AuthContext);
+
+  return (
     <Router>
       <div className="container">
         Navbar
@@ -13,9 +18,13 @@ export const AppRouter = () => {
       </div>
       <Switch>
         <Route component={Login} path={"/login"} exact />
-        <Route component={Home} path="/" exact />
         <Route component={PasswordReset} path="/contrasena_olvidada" />
+        <PrivateRoute
+          component={DashboardRoutes}
+          path="/"
+          isAuthenticated={!!user.logged}
+        />
       </Switch>
     </Router>
   );
-}
+};
