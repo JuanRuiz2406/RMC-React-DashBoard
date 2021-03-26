@@ -2,30 +2,42 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
+import { login, getUserByEmail } from "../../services/user";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = (data) => {
-    console.log(data);
-    handleLogin();
+    handleLogin(data.email, data.password);
   };
-  console.log(errors);
 
-  const handleLogin = () => {
+  const handleLogin = async (email, password) => {
     const lastPath = localStorage.getItem("lastPath") || "/";
 
-    dispatch({
-      type: types.login,
-      payload: {
-        name: "Juan",
-        email: "juan@email.com",
-      },
+    const token = await login({
+      email: email,
+      password: password,
     });
+
+    handleUser(email);
 
     history.replace(lastPath);
   };
+
+  const handleUser = async (email) => {
+    const user = await getUserByEmail(email);
+
+    if (localStorage.getItem("token") !== undefined) {
+      dispatch({
+        type: types.login,
+        payload: {
+          token: localStorage.getItem("token"),
+          user: localStorage.getItem("userData"),
+        },
+      });
+    }
+  }
 
   return (
     <div>
@@ -36,7 +48,7 @@ const Login = ({ history }) => {
         <input
           type="text"
           placeholder="Email"
-          name="Email"
+          name="email"
           ref={register({
             required: {
               value: true,
@@ -48,13 +60,13 @@ const Login = ({ history }) => {
             },
           })}
         />
-        <span>{errors?.Email?.message}</span>
+        <span>{errors?.email?.message}</span>
 
         <h3>Contraseña</h3>
         <input
           type="password"
           placeholder="Contraseña"
-          name="Password"
+          name="password"
           ref={register({
             required: {
               value: true,
@@ -66,7 +78,7 @@ const Login = ({ history }) => {
             },
           })}
         />
-        <span>{errors?.Password?.message}</span>
+        <span>{errors?.password?.message}</span>
 
         <input type="submit" />
       </form>

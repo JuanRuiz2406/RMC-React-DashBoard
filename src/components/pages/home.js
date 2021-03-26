@@ -5,7 +5,7 @@ import { types } from "../../types/types";
 
 const Home = () => {
 
-    const { user:{ name }, dispatch } = useContext(AuthContext);
+    const { dispatch } = useContext(AuthContext);
     const history = useHistory();
 
     const handleLogout = () => {
@@ -19,7 +19,7 @@ const Home = () => {
 
     return (
         <div>
-            <h1>Home, Bienvenido { name }</h1>
+            <h1>Home, Bienvenido a RMC </h1>
 
             <button
                 onClick={ handleLogout }
