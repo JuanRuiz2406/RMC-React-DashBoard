@@ -15,29 +15,31 @@ const Login = ({ history }) => {
   const handleLogin = async (email, password) => {
     const lastPath = localStorage.getItem("lastPath") || "/";
 
-    const token = await login({
+    const loginResponse = await login({
       email: email,
       password: password,
     });
 
-    handleUser(email);
+    const userResponse = await getUserByEmail(
+      "Bearer " + loginResponse.token,
+      loginResponse.email
+    );
 
-    history.replace(lastPath);
-  };
+    if (loginResponse.token !== undefined) {
+      localStorage.setItem("token", "Bearer " + loginResponse.token);
+      localStorage.setItem("userData", JSON.stringify(userResponse));
 
-  const handleUser = async (email) => {
-    const user = await getUserByEmail(email);
-
-    if (localStorage.getItem("token") !== undefined) {
       dispatch({
         type: types.login,
         payload: {
-          token: localStorage.getItem("token"),
-          user: localStorage.getItem("userData"),
+          token: "Bearer " + loginResponse.token,
+          user: userResponse,
         },
       });
     }
-  }
+
+    history.replace(lastPath);
+  };
 
   return (
     <div>

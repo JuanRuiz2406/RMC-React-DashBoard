@@ -4,30 +4,24 @@ import { AuthContext } from "../../auth/AuthContext";
 import { types } from "../../types/types";
 
 const Home = () => {
+  const { dispatch } = useContext(AuthContext);
+  const history = useHistory();
 
-    const { dispatch } = useContext(AuthContext);
-    const history = useHistory();
+  const handleLogout = () => {
+    history.replace("/login");
 
-    const handleLogout = () => {
+    dispatch({
+      type: types.logout,
+    });
+  };
 
-        history.replace('/login');
-        
-        dispatch({
-            type: types.logout
-        });
-    }
+  return (
+    <div>
+      <h1>Home, Bienvenido a RMC </h1>
 
-    return (
-        <div>
-            <h1>Home, Bienvenido a RMC </h1>
+      <button onClick={handleLogout}>Cerrar Sesión</button>
+    </div>
+  );
+};
 
-            <button
-                onClick={ handleLogout }
-            >
-                Cerrar Sesión
-            </button>
-        </div>
-    )
-}
-
-export default Home
+export default Home;

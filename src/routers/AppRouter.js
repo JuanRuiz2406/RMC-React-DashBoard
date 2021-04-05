@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { BrowserRouter as Router, Switch, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
 import { Login, PasswordReset } from "../components/pages";
 
@@ -12,12 +12,6 @@ export const AppRouter = () => {
 
   return (
     <Router>
-      <div className="container">
-        Navbar
-        <Link to="/login">Login</Link>
-        <Link to="/">Home</Link>
-        <Link to="/contrasena_olvidada">Olvidé mi Contraseña</Link>
-      </div>
       <Switch>
         <PublicRoute
           exact

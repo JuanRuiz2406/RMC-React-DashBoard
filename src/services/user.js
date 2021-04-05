@@ -1,7 +1,7 @@
 const baseUrl = process.env.REACT_APP_API_URL;
 
 export const login = async (user) => {
-  await fetch(baseUrl + "auth/login", {
+  return fetch(baseUrl + "auth/login", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -11,9 +11,7 @@ export const login = async (user) => {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      saveToken(responseJson.bearer + " " + responseJson.token);
-      saveEmail(responseJson.email);
-      return responseJson.bearer + " " + responseJson.token;
+      return responseJson;
     })
     .catch((error) => {
       console.log(error);
@@ -21,31 +19,15 @@ export const login = async (user) => {
     });
 };
 
-const saveToken = (token) => {
-  localStorage.setItem("token", token);
-};
-
-const saveEmail = (email) => {
-  localStorage.setItem("email", email);
-};
-
-export const getUserByEmail = async (userEmail) => {
-  await fetch(baseUrl + "user/byEmail/" + userEmail, {
+export const getUserByEmail = async (token, userEmail) => {
+  return fetch(baseUrl + "user/byEmail/" + userEmail, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: localStorage.getItem("token"),
+      Authorization: token,
     },
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
-      saveUser(responseJson);
       return responseJson;
     });
 };
-
-const saveUser = (user) => {
-  localStorage.setItem("userData", JSON.stringify(user));
-};
-
-

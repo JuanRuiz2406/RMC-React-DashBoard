@@ -1,24 +1,21 @@
-import React from 'react';
+import React from "react";
 // import { Navbar } from '../components/ui/Navbar';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Switch, Route, Redirect } from "react-router-dom";
 
-import { Home } from "../components/pages/index";
+import { Home, Reports } from "../components/pages/index";
+import { NavBar } from "../components/ui/navbar";
 
 export const DashboardRoutes = () => {
-    return (
-        <>
-            {/* <Navbar /> */}
+  return (
+    <>
+      <NavBar />
 
-            {/* <div className="container mt-2"> */}
-                <Switch>
-                    <Route exact path="/reportes" component={ Home } />
-                    <Route exact path="/reporte" component={ Home } />
+      <Switch>
+        <Route exact path="/reportes" component={Reports} />
+        <Route exact path="/reporte" component={Home} />
 
-                    <Redirect to="/reportes" />
-                </Switch>
-            {/* </div> */}
-
-
-        </>
-    )
-}
+        <Redirect to="/reportes" />
+      </Switch>
+    </>
+  );
+};
