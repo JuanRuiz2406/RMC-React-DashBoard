@@ -1,7 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { AuthContext } from "../../auth/AuthContext";
-import { getReports } from "../../services/reports";
+import { getReports, updateReportState } from "../../services/reports";
 import { types } from "../../types/types";
 
 const Reports = () => {
@@ -22,12 +22,24 @@ const Reports = () => {
     setLoading(false);
   };
 
+  const refreshPage = () => {
+    window.location.reload();
+  };
+
   const handleLogout = () => {
     history.replace("/login");
 
     dispatch({
       type: types.logout,
     });
+  };
+
+  const replyReport = async (report, newState) => {
+    const response = await updateReportState(report, newState);
+
+    console.log(response);
+
+    refreshPage();
   };
 
   if (loading) {
@@ -45,6 +57,22 @@ const Reports = () => {
             <h5>
               {report.coordenates.latitude} {report.coordenates.longitude}
             </h5>
+
+            <button
+              onClick={() => {
+                replyReport(report, "Aceptado");
+              }}
+            >
+              Aceptar
+            </button>
+
+            <button
+              onClick={() => {
+                replyReport(report, "Rechazado");
+              }}
+            >
+              Rechazar
+            </button>
           </ul>
         ))}
       </ul>
