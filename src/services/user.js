@@ -31,3 +31,42 @@ export const getUserByEmail = async (token, userEmail) => {
       return responseJson;
     });
 };
+
+export const sendVerificationCode = async (email) => {
+  return fetch(baseUrl + "user/verificationCode/"+ email, {
+    method: "PUT",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(email),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
+};
+
+export const verificationCode = async (email, code) => {
+  return fetch(baseUrl + "user/verificationCode/"+ email + "/" + code, {
+    method: "GET",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.log(error);
+      return error;
+    });
+};

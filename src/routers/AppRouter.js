@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import { AuthContext } from "../auth/AuthContext";
-import { Login, PasswordReset } from "../components/pages";
+import { Login } from "../components/pages";
+import ForgotPassword from "../components/pages/forgotPassword";
+import PasswordReset from "../components/pages/passwordReset";
+import VerificationCode from "../components/pages/verificationCode"
+import { verificationCode } from "../services/user";
 
 import { DashboardRoutes } from "./DashboardRoutes";
 import { PrivateRoute } from "./PrivateRoute";
@@ -21,8 +25,20 @@ export const AppRouter = () => {
         />
         <PublicRoute
           exact
-          path={"/contrasena_olvidada"}
+          path={"/forgot_password"}
+          component={ForgotPassword}
+          isAuthenticated={!!user.logged}
+        />
+        <PublicRoute
+          exact
+          path={"/password_reset"}
           component={PasswordReset}
+          isAuthenticated={!!user.logged}
+        />
+          <PublicRoute
+          exact
+          path={"/verification_code"}
+          component={VerificationCode}
           isAuthenticated={!!user.logged}
         />
 
