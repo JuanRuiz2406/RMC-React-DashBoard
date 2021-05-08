@@ -2,7 +2,8 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
-import { login, getUserByEmail } from "../../services/user";
+import { login } from "../../services/user";
+import { Link } from "react-router-dom";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -20,20 +21,15 @@ const Login = ({ history }) => {
       password: password,
     });
 
-    const userResponse = await getUserByEmail(
-      "Bearer " + loginResponse.token,
-      loginResponse.email
-    );
-
     if (loginResponse.token !== undefined) {
       localStorage.setItem("token", "Bearer " + loginResponse.token);
-      localStorage.setItem("userData", JSON.stringify(userResponse));
+      localStorage.setItem("userData", JSON.stringify(loginResponse.user));
 
       dispatch({
         type: types.login,
         payload: {
           token: "Bearer " + loginResponse.token,
-          user: userResponse,
+          user: loginResponse.user,
         },
       });
     }
@@ -82,10 +78,10 @@ const Login = ({ history }) => {
         />
         <span>{errors?.password?.message}</span>
 
-        <input type="submit" />
+        <input type="submit" value="Iniciar Sesión" />
       </form>
 
-      {/* <button onClick={handleLogin}>Iniciar Sesión</button> */}
+      <Link to="/forgot_password">Olvidé mi Contraseña</Link>
     </div>
   );
 };

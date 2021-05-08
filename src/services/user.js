@@ -19,19 +19,6 @@ export const login = async (user) => {
     });
 };
 
-export const getUserByEmail = async (token, userEmail) => {
-  return fetch(baseUrl + "user/byEmail/" + userEmail, {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization: token,
-    },
-  })
-    .then((response) => response.json())
-    .then((responseJson) => {
-      return responseJson;
-    });
-};
-
 export const sendVerificationCode = async (email) => {
   return fetch(baseUrl + "user/verificationCode/"+ email, {
     method: "PUT",

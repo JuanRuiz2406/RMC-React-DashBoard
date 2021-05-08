@@ -4,8 +4,7 @@ import { AuthContext } from "../auth/AuthContext";
 import { Login } from "../components/pages";
 import ForgotPassword from "../components/pages/forgotPassword";
 import PasswordReset from "../components/pages/passwordReset";
-import VerificationCode from "../components/pages/verificationCode"
-import { verificationCode } from "../services/user";
+import VerificationCode from "../components/pages/verificationCode";
 
 import { DashboardRoutes } from "./DashboardRoutes";
 import { PrivateRoute } from "./PrivateRoute";
@@ -35,7 +34,7 @@ export const AppRouter = () => {
           component={PasswordReset}
           isAuthenticated={!!user.logged}
         />
-          <PublicRoute
+        <PublicRoute
           exact
           path={"/verification_code"}
           component={VerificationCode}
