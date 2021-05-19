@@ -23,16 +23,22 @@ const Municipalities = () => {
     window.location.reload();
   };
 
-  const createMunicipality = () => {
-    history.replace("/municipalidades/crear");
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
 
   return (
     <div>
+      <button
+        onClick={() =>
+          history.push("/municipalidades/crear", {
+            from: "municipalidades",
+          })
+        }
+      >
+        Crear
+      </button>
+
       <ul>
         {municipalities.map((municipalities) => (
           <ul key={municipalities.id}>
@@ -42,14 +48,6 @@ const Municipalities = () => {
             <h4>{municipalities.telephone}</h4>
             <h4>{municipalities.schedule}</h4>
             <h4>{municipalities.webSite}</h4>
-
-            <button
-              onClick={() => {
-                createMunicipality();
-              }}
-            >
-              Crear
-            </button>
           </ul>
         ))}
       </ul>

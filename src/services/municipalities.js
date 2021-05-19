@@ -13,33 +13,31 @@ export const getMunicipalities = async () => {
     });
 };
 
-export const newMunicipality = async (municipality) => {
-    return fetch(baseUrl + "municipality", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: localStorage.getItem("token"),
+export const newMunicipality = async (municipality, manager) => {
+  return fetch(baseUrl + "municipality", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
     },
-      body: JSON.stringify({
-        name: municipality.name,
-        adress: municipality.adress,
-        email: municipality.email,
-        telephone: municipality.telephone,
-        website: municipality.website,
-        manager: municipality.manager,
-        // state: "Activo",
-        // schedule: "Nuevo",
+    body: JSON.stringify({
+      name: municipality.name,
+      adress: municipality.adress,
+      email: municipality.email,
+      telephone: municipality.telephone,
+      state: "Activo",
+      website: municipality.website,
+      manager: manager,
     }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
     })
-      .then((response) => response.json())
-      .then((responseJson) => {
-        console.log(responseJson);
-        return responseJson;
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };  
+    .catch((error) => {
+      console.error(error);
+    });
+};
 
 export const updateMunicipalitiestate = async (report, newState) => {
   return fetch(baseUrl + "report", {

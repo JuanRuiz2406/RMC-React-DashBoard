@@ -1,22 +1,40 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
+import { newMunicipality } from "../../services/municipalities";
 
 const CreateMunicipality = () => {
   const history = useHistory();
 
   const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = (data) => {
-    // handleLogin(data.email, data.password);
-  };
+  const onSubmit = async (data) => {
+    const municipality = {
+      name: data.name,
+      adress: data.adress,
+      email: data.email,
+      website: data.website,
+      telephone: data.telephone,
+    };
+    const manager = {
+      name: data.userName,
+      lastname: data.lastName,
+      idCard: data.idCard,
+      email: data.userEmail,
+      password: data.password,
+      direction: data.direction,
+      role: "MunicipalityAdmin",
+      state: "Activo",
+    };
 
-  const refreshPage = () => {
-    window.location.reload();
-  };
+    const createResponse = await newMunicipality(municipality, manager);
 
-  const createMunicipality = () => {
-    history.replace("/municipalidades/crear");
+    if (createResponse.code === 200) {
+        alert(createResponse.message)
+    }
+    if (createResponse.status === 401) {
+        alert(createResponse.error)
+    }
   };
 
   return (
@@ -99,7 +117,7 @@ const CreateMunicipality = () => {
         <input
           type="text"
           placeholder="Nombre del Encargado"
-          name="name"
+          name="userName"
           ref={register({
             required: {
               value: true,
@@ -111,12 +129,12 @@ const CreateMunicipality = () => {
             },
           })}
         />
-        <span>{errors?.name?.message}</span>
+        <span>{errors?.userName?.message}</span>
 
-        <h3>Apellidos</h3>
+        <h3>Apellido</h3>
         <input
           type="text"
-          placeholder="Apellidos del Encargado"
+          placeholder="Apellido del Encargado"
           name="lastName"
           ref={register({
             required: {
@@ -131,11 +149,25 @@ const CreateMunicipality = () => {
         />
         <span>{errors?.lastName?.message}</span>
 
+        <h3>Identificacion</h3>
+        <input
+          type="text"
+          placeholder="Cédula"
+          name="idCard"
+          ref={register({
+            required: {
+              value: true,
+              message: "*La Cédula es obligatoria*",
+            },
+          })}
+        />
+        <span>{errors?.idCard?.message}</span>
+
         <h3>Correo Electrónico</h3>
         <input
           type="text"
           placeholder="Email"
-          name="email"
+          name="userEmail"
           ref={register({
             required: {
               value: true,
@@ -147,7 +179,7 @@ const CreateMunicipality = () => {
             },
           })}
         />
-        <span>{errors?.email?.message}</span>
+        <span>{errors?.userEmail?.message}</span>
 
         <h3>Contraseña</h3>
         <input
@@ -167,8 +199,29 @@ const CreateMunicipality = () => {
         />
         <span>{errors?.password?.message}</span>
 
+        <h3>Dirección</h3>
+        <input
+          type="text"
+          placeholder="Dirección"
+          name="direction"
+          ref={register({
+            required: {
+              value: true,
+              message: "*La Dirección es obligatoria*",
+            },
+          })}
+        />
+        <span>{errors?.direction?.message}</span>
 
         <input type="submit" value="Crear" />
+
+        <button
+          onClick={() => {
+            history.goBack();
+          }}
+        >
+          Volver
+        </button>
       </form>
     </div>
   );
