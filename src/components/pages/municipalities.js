@@ -19,6 +19,14 @@ const Municipalities = () => {
     setLoading(false);
   };
 
+  const municipalityCities = (municipality) => {
+    localStorage.setItem("municipality", JSON.stringify(municipality));
+
+    history.push("/municipalidad/ciudades", {
+      from: "municipalidades",
+    });
+  };
+
   const refreshPage = () => {
     window.location.reload();
   };
@@ -48,6 +56,20 @@ const Municipalities = () => {
             <h4>{municipalities.telephone}</h4>
             <h4>{municipalities.schedule}</h4>
             <h4>{municipalities.webSite}</h4>
+
+            <button
+              onClick={() =>
+                history.push("/municipalidades/crear", {
+                  from: "municipalidades",
+                })
+              }
+            >
+              Ver Departamentos
+            </button>
+
+            <button onClick={() => municipalityCities(municipalities)}>
+              Ver Ciudades
+            </button>
           </ul>
         ))}
       </ul>

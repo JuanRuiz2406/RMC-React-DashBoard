@@ -24,7 +24,7 @@ const CreateMunicipality = () => {
       password: data.password,
       direction: data.direction,
       role: "MunicipalityAdmin",
-      state: "Activo",
+      state: "activo",
     };
 
     const createResponse = await newMunicipality(municipality, manager);

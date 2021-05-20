@@ -27,6 +27,9 @@ export const NavBar = () => {
       {user.role === "RMCTeam" && (
         <Link to="/municipalidades">Municipalidades</Link>
       )}
+      {user.role === "MunicipalityAdmin" && (
+        <Link to="/municipalidades">Ver Municipalidad</Link>
+      )}
       <button onClick={handleLogout}>Cerrar Sesión</button>
     </div>
   );
