@@ -5,6 +5,8 @@ import { getMunicipalities } from "../../services/municipalities";
 const Municipalities = () => {
   const history = useHistory();
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const [municipalities, setMunicipalities] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -19,8 +21,20 @@ const Municipalities = () => {
     setLoading(false);
   };
 
+  const municipalityDepartments = (municipality) => {
+    if (user.role === "RMCTeam") {
+      localStorage.setItem("municipality", JSON.stringify(municipality));
+    }
+
+    history.push("/municipalidades/departamentos", {
+      from: "municipalidades",
+    });
+  };
+
   const municipalityCities = (municipality) => {
-    localStorage.setItem("municipality", JSON.stringify(municipality));
+    if (user.role === "RMCTeam") {
+      localStorage.setItem("municipality", JSON.stringify(municipality));
+    }
 
     history.push("/municipalidad/ciudades", {
       from: "municipalidades",
@@ -54,16 +68,10 @@ const Municipalities = () => {
             <h4>{municipalities.adress}</h4>
             <h4>{municipalities.email}</h4>
             <h4>{municipalities.telephone}</h4>
-            <h4>{municipalities.schedule}</h4>
+            <h4>{municipalities.state}</h4>
             <h4>{municipalities.webSite}</h4>
 
-            <button
-              onClick={() =>
-                history.push("/municipalidades/crear", {
-                  from: "municipalidades",
-                })
-              }
-            >
+            <button onClick={() => municipalityDepartments()}>
               Ver Departamentos
             </button>
 

@@ -5,7 +5,9 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import {
   Cities,
   CreateCity,
+  CreateDepartment,
   CreateMunicipality,
+  Departments,
   Home,
   Municipalities,
   Reports,
@@ -28,6 +30,18 @@ export const DashboardRoutes = () => {
           path="/municipalidades/crear"
           component={CreateMunicipality}
         />
+
+        <Route
+          exact
+          path="/municipalidades/departamentos"
+          component={Departments}
+        />
+        <Route
+          exact
+          path="/municipalidades/departamentos/crear"
+          component={CreateDepartment}
+        />
+
         <Route exact path="/municipalidad/ciudades" component={Cities} />
         <Route
           exact

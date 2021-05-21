@@ -1,33 +1,41 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { newMunicipality } from "../../services/municipalities";
+import { newDepartment } from "../../services/departments";
 
-const CreateMunicipality = () => {
+const CreateDepartment = () => {
   const history = useHistory();
+
+  const municipality = JSON.parse(localStorage.getItem("municipality"));
 
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
-    const municipality = {
+    const department = {
       name: data.name,
-      adress: data.adress,
+      description: data.description,
       email: data.email,
-      website: data.website,
       telephone: data.telephone,
+      state: "activo",
     };
     const manager = {
+      code: "",
+      codeDate: "",
       name: data.userName,
       lastname: data.lastName,
       idCard: data.idCard,
       email: data.userEmail,
       password: data.password,
       direction: data.direction,
-      role: "MunicipalityAdmin",
+      role: "DepartmentAdmin",
       state: "activo",
     };
 
-    const createResponse = await newMunicipality(municipality, manager);
+    const createResponse = await newDepartment(
+      department,
+      manager,
+      municipality
+    );
 
     if (createResponse.code === 200) {
       alert(createResponse.message);
@@ -41,7 +49,7 @@ const CreateMunicipality = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Crear Municipalidad</h1>
+        <h1>Crear Departamento</h1>
 
         <h3>Nombre</h3>
         <input
@@ -57,24 +65,24 @@ const CreateMunicipality = () => {
         />
         <span>{errors?.name?.message}</span>
 
-        <h3>Dirección</h3>
+        <h3>Descripción</h3>
         <input
           type="text"
-          placeholder="Dirección de Municipalidad"
-          name="adress"
+          placeholder="Descripción del Departamento"
+          name="description"
           ref={register({
             required: {
               value: true,
-              message: "*La dirección es obligatoria*",
+              message: "*La descripción es obligatoria*",
             },
           })}
         />
-        <span>{errors?.adress?.message}</span>
+        <span>{errors?.description?.message}</span>
 
         <h3>Correo Electrónico</h3>
         <input
           type="text"
-          placeholder="ejemplo@municipalidad.com"
+          placeholder="ejemplo@departamento.com"
           name="email"
           ref={register({
             required: {
@@ -102,15 +110,6 @@ const CreateMunicipality = () => {
           })}
         />
         <span>{errors?.telephone?.message}</span>
-
-        <h3>Sitio Web</h3>
-        <input
-          type="text"
-          placeholder="www.municipalidad.com"
-          name="website"
-          ref={register({})}
-        />
-        <span>{errors?.website?.message}</span>
 
         <h1>Crear Encargado</h1>
 
@@ -228,4 +227,4 @@ const CreateMunicipality = () => {
   );
 };
 
-export default CreateMunicipality;
+export default CreateDepartment;

@@ -17,6 +17,7 @@ const CreateMunicipality = () => {
 
     if (createResponse.code === 200 || createResponse.code === 400) {
       alert(createResponse.message);
+      history.goBack();
     }
     if (createResponse.status === 401) {
       alert(createResponse.error);

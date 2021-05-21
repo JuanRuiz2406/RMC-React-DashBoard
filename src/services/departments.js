@@ -1,7 +1,7 @@
 const baseUrl = process.env.REACT_APP_API_URL;
 
-export const getMunicipalities = async () => {
-  return fetch(baseUrl + "municipality", {
+export const getDepartments = async (municipalityId) => {
+  return fetch(baseUrl + "departament/byMunicipality/" + municipalityId, {
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization: localStorage.getItem("token"),
@@ -13,21 +13,32 @@ export const getMunicipalities = async () => {
     });
 };
 
-export const newMunicipality = async (municipality, manager) => {
-  return fetch(baseUrl + "municipality", {
+export const newDepartment = async (department, manager, municipality) => {
+  console.log(
+    JSON.stringify({
+      name: department.name,
+      description: department.description,
+      email: department.email,
+      telephone: department.telephone,
+      state: "activo",
+      manager: manager,
+      municipality: municipality,
+    })
+  );
+  return fetch(baseUrl + "departament", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
     },
     body: JSON.stringify({
-      name: municipality.name,
-      adress: municipality.adress,
-      email: municipality.email,
-      telephone: municipality.telephone,
+      name: department.name,
+      description: department.description,
+      email: department.email,
+      telephone: department.telephone,
       state: "activo",
-      website: municipality.website,
       manager: manager,
+      municipality: municipality,
     }),
   })
     .then((response) => response.json())
