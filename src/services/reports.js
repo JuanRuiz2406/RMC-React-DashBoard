@@ -38,3 +38,33 @@ export const updateReportState = async (report, newState) => {
       return responseJson;
     });
 };
+
+export const newDetail = async (detail, department, report) => {
+  console.log(
+    JSON.stringify({
+      updateDetail: detail,
+      departament: department,
+      report: report,
+    })
+  );
+  return fetch(baseUrl + "detailReport", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify({
+      updateDetail: detail,
+      departament: department,
+      report: report,
+    }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};

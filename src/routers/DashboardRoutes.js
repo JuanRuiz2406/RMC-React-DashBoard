@@ -6,6 +6,7 @@ import {
   Cities,
   CreateCity,
   CreateDepartment,
+  CreateDetail,
   CreateMunicipality,
   Departments,
   Home,
@@ -15,6 +16,8 @@ import {
 import { NavBar } from "../components/ui/navbar";
 
 export const DashboardRoutes = () => {
+  const user = JSON.parse(localStorage.getItem("userData"));
+
   return (
     <>
       <NavBar />
@@ -50,6 +53,14 @@ export const DashboardRoutes = () => {
         />
 
         {/* Rutas MunicipalityAdmin */}
+
+        {user.role === "DepartmentAdmin" && (
+          <Route
+            exact
+            path="/reportes/nuevo_detalle"
+            component={CreateDetail}
+          />
+        )}
 
         <Redirect to="/reportes" />
       </Switch>

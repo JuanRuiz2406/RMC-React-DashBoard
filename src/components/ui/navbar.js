@@ -22,12 +22,10 @@ export const NavBar = () => {
   return (
     <div className="container">
       Navbar
-      <Link to="/">Home</Link>
-      <Link to="/reporte">Reporte</Link>
-      {user.role === "RMCTeam" && (
+      <Link to="/">Reportes</Link>
+      {user.role === "RMCTeam" ? (
         <Link to="/municipalidades">Municipalidades</Link>
-      )}
-      {user.role === "MunicipalityAdmin" && (
+      ) : (
         <Link to="/municipalidades">Ver Municipalidad</Link>
       )}
       <button onClick={handleLogout}>Cerrar Sesión</button>

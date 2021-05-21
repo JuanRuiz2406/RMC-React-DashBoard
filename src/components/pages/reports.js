@@ -8,6 +8,8 @@ const Reports = () => {
   const { dispatch } = useContext(AuthContext);
   const history = useHistory();
 
+  const user = JSON.parse(localStorage.getItem("userData"));
+
   const [reports, setReports] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -42,6 +44,14 @@ const Reports = () => {
     refreshPage();
   };
 
+  const reportNewDetail = (report) => {
+    localStorage.setItem("report", JSON.stringify(report));
+
+    history.push("/reportes/nuevo_detalle", {
+      from: "reportes",
+    });
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -49,6 +59,13 @@ const Reports = () => {
   return (
     <div>
       <ul>
+        {user.role !== "DepartmentAdmin" && (
+          <h4>
+            Solo los Administradores de los departamentos pueden añadir detalles
+            a los reportes
+          </h4>
+        )}
+
         {reports.map((report) => (
           <ul key={report.id}>
             <h2>{report.title}</h2>
@@ -72,6 +89,24 @@ const Reports = () => {
               }}
             >
               Rechazar
+            </button>
+
+            {user.role === "DepartmentAdmin" && (
+              <button
+                onClick={() => {
+                  reportNewDetail(report);
+                }}
+              >
+                Añadir Nuevo Detalle
+              </button>
+            )}
+
+            <button
+              onClick={() => {
+                replyReport(report, "Aceptado");
+              }}
+            >
+              Ver más *falta*
             </button>
           </ul>
         ))}

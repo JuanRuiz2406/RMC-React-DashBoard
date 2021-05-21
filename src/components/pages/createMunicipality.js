@@ -13,7 +13,7 @@ const CreateMunicipality = () => {
       name: data.name,
       adress: data.adress,
       email: data.email,
-      website: data.website,
+      webSite: data.website,
       telephone: data.telephone,
     };
     const manager = {

@@ -4,6 +4,7 @@ import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
 import { Link } from "react-router-dom";
+import { getDepartmentAdmin } from "../../services/departments";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -25,13 +26,22 @@ const Login = ({ history }) => {
       localStorage.setItem("token", "Bearer " + loginResponse.token);
       localStorage.setItem("userData", JSON.stringify(loginResponse.user));
 
-      dispatch({
-        type: types.login,
-        payload: {
-          token: "Bearer " + loginResponse.token,
-          user: loginResponse.user,
-        },
-      });
+      if (loginResponse.user.role === "DepartmentAdmin") {
+        const departmentResponse = await getDepartmentAdmin(
+          loginResponse.user.id
+        );
+
+        console.log(departmentResponse);
+        localStorage.setItem("department", JSON.stringify(departmentResponse));
+
+        dispatch({
+          type: types.login,
+          payload: {
+            token: "Bearer " + loginResponse.token,
+            user: loginResponse.user,
+          },
+        });
+      }
     }
 
     history.replace(lastPath);

@@ -13,6 +13,19 @@ export const getDepartments = async (municipalityId) => {
     });
 };
 
+export const getDepartmentAdmin = async (userId) => {
+  return fetch(baseUrl + "departament/byUser/" + userId, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    });
+};
+
 export const newDepartment = async (department, manager, municipality) => {
   console.log(
     JSON.stringify({
