@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
 import { Link } from "react-router-dom";
 import { getDepartmentAdmin } from "../../services/departments";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
-import logo from "../../images/ReportsMyCity.png"
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+import logo from "../../images/ReportsMyCity.png";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -35,31 +35,38 @@ const Login = ({ history }) => {
 
         console.log(departmentResponse);
         localStorage.setItem("department", JSON.stringify(departmentResponse));
-
-        dispatch({
-          type: types.login,
-          payload: {
-            token: "Bearer " + loginResponse.token,
-            user: loginResponse.user,
-          },
-        });
       }
+      dispatch({
+        type: types.login,
+        payload: {
+          token: "Bearer " + loginResponse.token,
+          user: loginResponse.user,
+        },
+      });
     }
 
     history.replace(lastPath);
   };
 
   return (
-    <div className="row justify-content-center align-item-center" style={{ marginTop: '5%' }}>
+    <div
+      className="row justify-content-center align-item-center"
+      style={{ marginTop: "5%" }}
+    >
       <div className="col-8 text-center align-self-center rounded">
         <div className="row justify-content-center">
-          <div className="col-auto text-center align-self-center border border-3 border-secondary bg-white rounded" style={{ marginTop: '2%', marginBottom: '2%', padding: '2% 10%' }}>
-
+          <div
+            className="col-auto text-center align-self-center border border-3 border-secondary bg-white rounded"
+            style={{ marginTop: "2%", marginBottom: "2%", padding: "2% 10%" }}
+          >
             <form onSubmit={handleSubmit(onSubmit)}>
               <h2>Bienvenido</h2>
 
-              <img src={logo} style={{ width: '300px', height: '100px' }} />
-              <div className="form-group text-start" style={{ marginTop: '5%', marginBottom: '5%' }}>
+              <img src={logo} style={{ width: "300px", height: "100px" }} />
+              <div
+                className="form-group text-start"
+                style={{ marginTop: "5%", marginBottom: "5%" }}
+              >
                 <label>Correo Electrónico</label>
                 <input
                   className="form-control"
@@ -73,14 +80,18 @@ const Login = ({ history }) => {
                     },
                     pattern: {
                       value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message: "*El Correo Electrónico debe tener un formato válido*",
+                      message:
+                        "*El Correo Electrónico debe tener un formato válido*",
                     },
                   })}
                 />
                 <span>{errors?.email?.message}</span>
               </div>
 
-              <div className="form-group text-start" style={{ marginTop: '5%', marginBottom: '5%' }}>
+              <div
+                className="form-group text-start"
+                style={{ marginTop: "5%", marginBottom: "5%" }}
+              >
                 <label>Contraseña</label>
                 <input
                   className="form-control"
@@ -101,12 +112,15 @@ const Login = ({ history }) => {
                 <span>{errors?.password?.message}</span>
               </div>
               <div className="text-start">
-                <Link to="/forgot_password"><p>Olvidé mi Contraseña</p></Link>
+                <Link to="/forgot_password">
+                  <p>Olvidé mi Contraseña</p>
+                </Link>
               </div>
 
-              <button type="submit" className="btn btn-outline-primary">Iniciar Sesión</button>
+              <button type="submit" className="btn btn-outline-primary">
+                Iniciar Sesión
+              </button>
             </form>
-
           </div>
         </div>
       </div>
