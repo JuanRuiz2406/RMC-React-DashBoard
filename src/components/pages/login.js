@@ -48,50 +48,66 @@ const Login = ({ history }) => {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+    <div className="row justify-content-center align-item-center" style={{ marginTop: '5%' }}>
+      <div className="col-8 text-center align-self-center rounded">
+        <div className="row justify-content-center">
+          <div className="col-auto text-center align-self-center border border-3 border-secondary bg-white rounded" style={{ marginTop: '2%', marginBottom: '2%', padding: '2% 10%' }}>
 
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h3>Correo Electrónico</h3>
-        <input
-          type="text"
-          placeholder="Email"
-          name="email"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Correo Electrónico es obligatorio*",
-            },
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "*El Correo Electrónico debe tener un formato válido*",
-            },
-          })}
-        />
-        <span>{errors?.email?.message}</span>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <h2>Bienvenido</h2>
 
-        <h3>Contraseña</h3>
-        <input
-          type="password"
-          placeholder="Contraseña"
-          name="password"
-          ref={register({
-            required: {
-              value: true,
-              message: "*La Contraseña es obligatoria*",
-            },
-            minLength: {
-              value: 8,
-              message: "*La Contraseña debe tener mínimo 8 caracteres*",
-            },
-          })}
-        />
-        <span>{errors?.password?.message}</span>
+              <img src={logo} style={{ width: '300px', height: '100px' }} />
+              <div className="form-group text-start" style={{ marginTop: '5%', marginBottom: '5%' }}>
+                <label>Correo Electrónico</label>
+                <input
+                  className="form-control"
+                  type="text"
+                  placeholder="Email"
+                  name="email"
+                  ref={register({
+                    required: {
+                      value: true,
+                      message: "*El Correo Electrónico es obligatorio*",
+                    },
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: "*El Correo Electrónico debe tener un formato válido*",
+                    },
+                  })}
+                />
+                <span>{errors?.email?.message}</span>
+              </div>
 
-        <input type="submit" value="Iniciar Sesión" />
-      </form>
+              <div className="form-group text-start" style={{ marginTop: '5%', marginBottom: '5%' }}>
+                <label>Contraseña</label>
+                <input
+                  className="form-control"
+                  type="password"
+                  placeholder="Contraseña"
+                  name="password"
+                  ref={register({
+                    required: {
+                      value: true,
+                      message: "*La Contraseña es obligatoria*",
+                    },
+                    minLength: {
+                      value: 8,
+                      message: "*La Contraseña debe tener mínimo 8 caracteres*",
+                    },
+                  })}
+                />
+                <span>{errors?.password?.message}</span>
+              </div>
+              <div className="text-start">
+                <Link to="/forgot_password"><p>Olvidé mi Contraseña</p></Link>
+              </div>
 
-      <Link to="/forgot_password">Olvidé mi Contraseña</Link>
+              <button type="submit" className="btn btn-outline-primary">Iniciar Sesión</button>
+            </form>
+
+          </div>
+        </div>
+      </div>
     </div>
   );
 };
