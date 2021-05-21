@@ -1,11 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { AuthContext } from "../../auth/AuthContext";
 import { getDetails, updateReportState } from "../../services/reports";
-import { types } from "../../types/types";
 
 const SpecificReport = () => {
-  const { dispatch } = useContext(AuthContext);
   const history = useHistory();
 
   const user = JSON.parse(localStorage.getItem("userData"));

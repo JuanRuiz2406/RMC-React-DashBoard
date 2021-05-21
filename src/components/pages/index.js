@@ -9,3 +9,4 @@ export { default as CreateDepartment } from "./createDepartment";
 export { default as Cities } from "./cities";
 export { default as CreateCity } from "./createCity";
 export { default as CreateDetail } from "./createDetail";
+export { default as Search } from "./search";
