@@ -41,6 +41,14 @@ const Cities = () => {
         Crear
       </button>
 
+      <button
+        onClick={() => {
+          history.goBack();
+        }}
+      >
+        Volver
+      </button>
+
       <ul>
         {cities.map((cities) => (
           <ul key={cities.id}>

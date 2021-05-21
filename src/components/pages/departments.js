@@ -41,6 +41,14 @@ const Departments = () => {
         Crear
       </button>
 
+      <button
+        onClick={() => {
+          history.goBack();
+        }}
+      >
+        Volver
+      </button>
+
       <h2>Depts</h2>
 
       <ul>
