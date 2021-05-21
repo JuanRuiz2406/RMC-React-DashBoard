@@ -29,14 +29,6 @@ const SpecificReport = () => {
     window.location.reload();
   };
 
-  const handleLogout = () => {
-    history.replace("/login");
-
-    dispatch({
-      type: types.logout,
-    });
-  };
-
   const replyReport = async (report, newState) => {
     const response = await updateReportState(report, newState);
 

@@ -1,11 +1,8 @@
-import React, { useContext, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { AuthContext } from "../../auth/AuthContext";
 import { getReports, updateReportState } from "../../services/reports";
-import { types } from "../../types/types";
 
 const Reports = () => {
-  const { dispatch } = useContext(AuthContext);
   const history = useHistory();
 
   const user = JSON.parse(localStorage.getItem("userData"));
@@ -26,14 +23,6 @@ const Reports = () => {
 
   const refreshPage = () => {
     window.location.reload();
-  };
-
-  const handleLogout = () => {
-    history.replace("/login");
-
-    dispatch({
-      type: types.logout,
-    });
   };
 
   const replyReport = async (report, newState) => {
