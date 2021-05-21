@@ -26,6 +26,7 @@ const CreateDepartment = () => {
       idCard: data.idCard,
       email: data.userEmail,
       password: data.password,
+      passdecode: data.password,
       direction: data.direction,
       role: "DepartmentAdmin",
       state: "activo",

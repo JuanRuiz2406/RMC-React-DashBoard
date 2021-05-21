@@ -22,6 +22,7 @@ const CreateMunicipality = () => {
       idCard: data.idCard,
       email: data.userEmail,
       password: data.password,
+      passdecode: data.password,
       direction: data.direction,
       role: "MunicipalityAdmin",
       state: "activo",
