@@ -5,6 +5,8 @@ import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
 import { Link } from "react-router-dom";
 import { getDepartmentAdmin } from "../../services/departments";
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import logo from "../../images/ReportsMyCity.png"
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
