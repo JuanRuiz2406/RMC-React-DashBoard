@@ -44,6 +44,14 @@ const Reports = () => {
     refreshPage();
   };
 
+  const specificReport = (report) => {
+    localStorage.setItem("report", JSON.stringify(report));
+
+    history.push("/reporte", {
+      from: "reportes",
+    });
+  };
+
   const reportNewDetail = (report) => {
     localStorage.setItem("report", JSON.stringify(report));
 
@@ -103,16 +111,14 @@ const Reports = () => {
 
             <button
               onClick={() => {
-                replyReport(report, "Aceptado");
+                specificReport(report);
               }}
             >
-              Ver más *falta*
+              Ver más
             </button>
           </ul>
         ))}
       </ul>
-
-      <button onClick={handleLogout}>Cerrar Sesión</button>
     </div>
   );
 };

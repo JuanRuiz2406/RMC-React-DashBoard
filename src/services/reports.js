@@ -39,14 +39,21 @@ export const updateReportState = async (report, newState) => {
     });
 };
 
+export const getDetails = async (reportId) => {
+  return fetch(baseUrl + "detailReport/byReport/" + reportId, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    });
+};
+
 export const newDetail = async (detail, department, report) => {
-  console.log(
-    JSON.stringify({
-      updateDetail: detail,
-      departament: department,
-      report: report,
-    })
-  );
   return fetch(baseUrl + "detailReport", {
     method: "POST",
     headers: {
