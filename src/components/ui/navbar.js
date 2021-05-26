@@ -26,22 +26,30 @@ export const NavBar = () => {
     <div className="container-fluid">
       <nav className="navbar navbar-light bg-white">
         <Link className="navbar-brand" to="/user">
-          <img className="rounded rounded-circle" src={person} style={{ width: "70px", height: "70px", margin: '0% 10%' }} />
-          <Link className="navbar-brand" to="/">Reportes</Link>
+          <img
+            className="rounded rounded-circle"
+            src={person}
+            style={{ width: "70px", height: "70px", margin: "0% 10%" }}
+          />
+          <Link className="navbar-brand" to="/">
+            Reportes
+          </Link>
           {user.role === "RMCTeam" ? (
-            <Link className="navbar-brand" to="/municipalidades">Municipalidades</Link>
+            <Link className="navbar-brand" to="/municipalidades">
+              Municipalidades
+            </Link>
           ) : (
-            <Link className="navbar-brand" to="/municipalidades">Ver Municipalidad</Link>
+            <Link className="navbar-brand" to="/municipalidades">
+              Ver Municipalidad
+            </Link>
           )}
 
-
+          <button onClick={handleLogout}>Cerrar Sesión</button>
         </Link>
 
         <span className="navbar-text">
           <img src={logo} style={{ width: "300px", height: "70px" }} />
         </span>
-
-
       </nav>
     </div>
   );
