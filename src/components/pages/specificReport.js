@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { getDetails, updateReportState } from "../../services/reports";
+import Map from "../ui/map";
 
 const SpecificReport = () => {
   const history = useHistory();
@@ -48,13 +49,20 @@ const SpecificReport = () => {
 
   return (
     <div>
+      <h2>Título:</h2>
       <h2>{report.title}</h2>
+
+      <h4>Descripción:</h4>
       <h4>{report.description}</h4>
+
+      <h4>Privacidad</h4>
       <h4>{report.privacy}</h4>
+
+      <h4>Estado:</h4>
       <h4>{report.state}</h4>
-      <h5>
-        {report.coordenates.latitude} {report.coordenates.longitude}
-      </h5>
+
+      <h4>Ubicación:</h4>
+      <Map/>
 
       <ul>
         <h2>Detalles:</h2>
