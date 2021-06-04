@@ -43,12 +43,13 @@ export const NavBar = () => {
               Ver Municipalidad
             </Link>
           )}
-
-          <button onClick={handleLogout}>Cerrar Sesión</button>
+          <button className="btn text-danger border border-danger" onClick={handleLogout}>Cerrar Sesión</button>
         </Link>
 
         <span className="navbar-text">
-          <img src={logo} style={{ width: "300px", height: "70px" }} />
+
+          <img src={logo} style={{ width: "300px", height: "80px" }} />
+
         </span>
       </nav>
     </div>

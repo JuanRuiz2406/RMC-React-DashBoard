@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Search } from ".";
 import { getReports, updateReportState } from "../../services/reports";
+import Popup from 'reactjs-popup';
 
 const filterReports = (reports, query) => {
   if (!query) {
@@ -73,60 +74,97 @@ const Reports = () => {
     <div>
       <ul>
         {user.role !== "DepartmentAdmin" && (
-          <h4>
-            Solo los Administradores de los departamentos pueden añadir detalles
-            a los reportes
-          </h4>
+          <div className="container">
+            <div class="alert alert-info" role="alert">
+              <strong>Informacion: </strong>Solo los Administradores de los departamentos pueden añadir detalles
+              a los reportes
+          </div>
+          </div>
+
         )}
 
-        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
-        {filteredReports.map((report) => (
-          
-          <ul key={report.id}>
-            <h2>{report.title}</h2>
-            <h4>{report.description}</h4>
-            <img src={report.imgURL}></img>
-            <h4>{report.state}</h4>
-            <h5>
-              {report.coordenates.latitude} {report.coordenates.longitude}
-            </h5>
 
-            <button
-              onClick={() => {
-                replyReport(report, "Aceptado");
-              }}
-            >
-              Aceptar
-            </button>
+        <div className="container">
+          <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+          {filteredReports.map((report) => (
 
-            <button
-              onClick={() => {
-                replyReport(report, "Rechazado");
-              }}
-            >
-              Rechazar
-            </button>
+            <ul key={report.id}>
 
-            {user.role === "DepartmentAdmin" && (
-              <button
-                onClick={() => {
-                  reportNewDetail(report);
-                }}
-              >
-                Añadir Nuevo Detalle
-              </button>
-            )}
+              <div className="container m-2 border border-secondary rounded">
+                <div className="row m-2 justify-content-center align-items-center">
+                  <div className="col m-2">
+                    <img className="rounded-circle" src={report.imgURL}></img>
+                  </div>
+                  <div className="col-6">
+                    <h4>Titulo:</h4>
+                    <p>{report.title}</p>
+                    <h6>Descripcion: </h6>
+                    <p>{report.description}</p>
 
-            <button
-              onClick={() => {
-                specificReport(report);
-              }}
-            >
-              Ver más
-            </button>
-          </ul>
-        ))}
+                    <h6>Estado:</h6>
+                    <p>{report.state}</p>
+                    <h6>Coordenadas:</h6>
+                    <p>
+                      {report.coordenates.latitude} {report.coordenates.longitude}
+                    </p>
+                  </div>
+                  <div className="col justify-content-center align-content-center">
+
+                    <div className="row m-4">
+                      <button className="btn btn-success rounded-pill"
+                        onClick={() => {
+                          replyReport(report, "Aceptado");
+                        }}
+                      >
+                        Aceptar
+                    </button>
+                    </div>
+                    <div className="row m-4">
+                      <button
+                        className="btn btn-danger rounded-pill"
+                        onClick={() => {
+                          replyReport(report, "Rechazado");
+                        }}
+                      >
+                        Rechazar
+                    </button>
+                    </div>
+                    <div className="row m-4">
+                      <button
+                        className="btn btn-info rounded-pill"
+                        onClick={() => {
+                          specificReport(report);
+                        }}
+                      >
+                        Ver más
+                    </button>
+                    </div>
+                    <div className="row m-4">
+                      {user.role === "DepartmentAdmin" && (
+                        <button
+                          className="rounded-pill"
+                          onClick={() => {
+                            reportNewDetail(report);
+                          }}
+                        >
+                          Añadir Nuevo Detalle
+                        </button>
+                      )}
+                    </div>
+
+                  </div >
+
+
+                </div>
+              </div>
+
+
+            </ul>
+          ))}
+        </div>
+
+
       </ul>
     </div>
   );
