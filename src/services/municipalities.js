@@ -26,9 +26,55 @@ export const newMunicipality = async (municipality, manager) => {
       email: municipality.email,
       telephone: municipality.telephone,
       state: "activo",
-      website: municipality.website,
+      webSite: municipality.webSite,
       manager: manager,
     }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const updateMunicipality = async (municipality, manager) => {
+  return fetch(baseUrl + "municipality", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify({
+      id: municipality.id,
+      name: municipality.name,
+      adress: municipality.adress,
+      email: municipality.email,
+      telephone: municipality.telephone,
+      state: municipality.state,
+      webSite: municipality.webSite,
+      manager: manager,
+    }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const deleteMunicipality = async (municipalityId) => {
+  return fetch(baseUrl + "municipality/" + municipalityId, {
+    method: "Delete",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
   })
     .then((response) => response.json())
     .then((responseJson) => {

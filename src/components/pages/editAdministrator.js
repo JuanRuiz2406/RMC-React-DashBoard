@@ -1,39 +1,39 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { newMunicipality } from "../../services/municipalities";
+import { updateUser } from "../../services/user";
 
-const CreateMunicipality = () => {
+const EditMunicipality = () => {
   const history = useHistory();
 
+  const userData = JSON.parse(localStorage.getItem("municipality")).manager;
+  console.log(userData);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
-    const municipality = {
-      name: data.name,
-      adress: data.adress,
-      email: data.email,
-      telephone: data.telephone,
-      webSite: data.webSite,
-    };
     const manager = {
+      id: userData.id,
       name: data.userName,
       lastname: data.lastName,
       idCard: data.idCard,
       email: data.userEmail,
       password: data.password,
-      passdecode: data.password,
       direction: data.direction,
-      role: "MunicipalityAdmin",
-      state: "activo",
+      role: userData.role,
+      state: userData.state,
     };
 
-    const createResponse = await newMunicipality(municipality, manager);
+    const createResponse = await updateUser(manager);
 
-    if (createResponse.code === 200) {
+    if (createResponse.code === 201) {
       alert(createResponse.message);
       history.goBack();
     }
+
+    if (createResponse.code === 400) {
+      alert(createResponse.message);
+    }
+
     if (createResponse.status === 401) {
       alert(createResponse.error);
     }
@@ -42,83 +42,13 @@ const CreateMunicipality = () => {
   return (
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Crear Municipalidad</h1>
-
-        <h3>Nombre</h3>
-        <input
-          type="text"
-          placeholder="Nombre de Municipalidad"
-          name="name"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Nombre es obligatorio*",
-            },
-          })}
-        />
-        <span>{errors?.name?.message}</span>
-
-        <h3>Dirección</h3>
-        <input
-          type="text"
-          placeholder="Dirección de Municipalidad"
-          name="adress"
-          ref={register({
-            required: {
-              value: true,
-              message: "*La dirección es obligatoria*",
-            },
-          })}
-        />
-        <span>{errors?.adress?.message}</span>
-
-        <h3>Correo Electrónico</h3>
-        <input
-          type="text"
-          placeholder="ejemplo@municipalidad.com"
-          name="email"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Correo Electrónico es obligatorio*",
-            },
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "*El Correo Electrónico debe tener un formato válido*",
-            },
-          })}
-        />
-        <span>{errors?.email?.message}</span>
-
-        <h3>Teléfono</h3>
-        <input
-          type="text"
-          placeholder="Número de teléfono"
-          name="telephone"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El teléfono es obligatorio*",
-            },
-          })}
-        />
-        <span>{errors?.telephone?.message}</span>
-
-        <h3>Sitio Web</h3>
-        <input
-          type="text"
-          placeholder="www.municipalidad.com"
-          name="webSite"
-          ref={register({})}
-        />
-        <span>{errors?.webSite?.message}</span>
-
-        <h1>Crear Encargado</h1>
+        <h1>Editar Encargado</h1>
 
         <h3>Nombre</h3>
         <input
           type="text"
           placeholder="Nombre del Encargado"
+          defaultValue={userData.name}
           name="userName"
           ref={register({
             required: {
@@ -137,6 +67,7 @@ const CreateMunicipality = () => {
         <input
           type="text"
           placeholder="Apellido del Encargado"
+          defaultValue={userData.lastname}
           name="lastName"
           ref={register({
             required: {
@@ -155,6 +86,7 @@ const CreateMunicipality = () => {
         <input
           type="text"
           placeholder="Cédula"
+          defaultValue={userData.idCard}
           name="idCard"
           ref={register({
             required: {
@@ -169,6 +101,7 @@ const CreateMunicipality = () => {
         <input
           type="text"
           placeholder="Email"
+          defaultValue={userData.email}
           name="userEmail"
           ref={register({
             required: {
@@ -187,6 +120,7 @@ const CreateMunicipality = () => {
         <input
           type="password"
           placeholder="Contraseña"
+          defaultValue={userData.password}
           name="password"
           ref={register({
             required: {
@@ -205,6 +139,7 @@ const CreateMunicipality = () => {
         <input
           type="text"
           placeholder="Dirección"
+          defaultValue={userData.direction}
           name="direction"
           ref={register({
             required: {
@@ -215,11 +150,11 @@ const CreateMunicipality = () => {
         />
         <span>{errors?.direction?.message}</span>
 
-        <input type="submit" value="Crear" />
+        <input type="submit" value="Editar" />
 
         <button
           onClick={() => {
-            history.goBack();
+            history.push("/municipalidades");
           }}
         >
           Volver
@@ -229,4 +164,4 @@ const CreateMunicipality = () => {
   );
 };
 
-export default CreateMunicipality;
+export default EditMunicipality;

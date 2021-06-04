@@ -1,9 +1,11 @@
 export { default as Login } from "./login";
 export { default as PasswordReset } from "./passwordReset";
+export { default as EditAdministrator } from "./editAdministrator";
 export { default as Reports } from "./reports";
 export { default as SpecificReport } from "./specificReport";
 export { default as Municipalities } from "./municipalities";
 export { default as CreateMunicipality } from "./createMunicipality";
+export { default as EditMunicipality } from "./editMunicipality";
 export { default as Departments } from "./departments";
 export { default as CreateDepartment } from "./createDepartment";
 export { default as Cities } from "./cities";
