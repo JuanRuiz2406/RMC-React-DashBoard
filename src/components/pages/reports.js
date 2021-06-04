@@ -93,10 +93,10 @@ const Reports = () => {
 
               <div className="container m-2 border border-secondary rounded">
                 <div className="row m-2 justify-content-center align-items-center">
-                  <div className="col-2 m-2">
+                  <div className="col m-2">
                     <img className="rounded-circle" src={report.imgURL}></img>
                   </div>
-                  <div className="col-8">
+                  <div className="col-6">
                     <h4>Titulo:</h4>
                     <p>{report.title}</p>
                     <h6>Descripcion: </h6>
@@ -109,7 +109,7 @@ const Reports = () => {
                       {report.coordenates.latitude} {report.coordenates.longitude}
                     </p>
                   </div>
-                  <div className="col-2 justify-content-center align-content-center">
+                  <div className="col justify-content-center align-content-center">
 
                     <div className="row m-4">
                       <button className="btn btn-success rounded-pill"
