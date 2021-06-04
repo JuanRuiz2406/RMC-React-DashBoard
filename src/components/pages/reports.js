@@ -104,10 +104,6 @@ const Reports = () => {
 
                     <h6>Estado:</h6>
                     <p>{report.state}</p>
-                    <h6>Coordenadas:</h6>
-                    <p>
-                      {report.coordenates.latitude} {report.coordenates.longitude}
-                    </p>
                   </div>
                   <div className="col-2 justify-content-center align-content-center">
 
