@@ -11,7 +11,7 @@ const ForgotPassword = ({ history }) => {
     console.log(response);
     if (response.code === 201) {
       localStorage.setItem("email", data.email);
-      history.replace("verification_code");
+      history.replace("password_reset");
     } else {
       <span>{response.message}</span>
     }

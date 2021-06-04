@@ -39,8 +39,8 @@ export const sendVerificationCode = async (email) => {
     });
 };
 
-export const verificationCode = async (email, code) => {
-  return fetch(baseUrl + "user/verificationCode/"+ email + "/" + code, {
+export const verificationCode = async (email, code, password) => {
+  return fetch(baseUrl + "user/verificationCode/"+ email + "/" + code + "/" +password, {
     method: "GET",
     headers: {
       Accept: "application/json",
