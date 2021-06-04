@@ -9,6 +9,8 @@ import {
   CreateDetail,
   CreateMunicipality,
   Departments,
+  EditAdministrator,
+  EditMunicipality,
   Municipalities,
   Reports,
   SpecificReport,
@@ -36,6 +38,18 @@ export const DashboardRoutes = () => {
 
         <Route
           exact
+          path="/municipalidades/editar"
+          component={EditMunicipality}
+        />
+
+        <Route
+          exact
+          path="/municipalidades/editarAdministrador"
+          component={EditAdministrator}
+        />
+
+        <Route
+          exact
           path="/municipalidades/departamentos"
           component={Departments}
         />
@@ -46,6 +60,7 @@ export const DashboardRoutes = () => {
         />
 
         <Route exact path="/municipalidad/ciudades" component={Cities} />
+
         <Route
           exact
           path="/municipalidades/ciudades/crear"

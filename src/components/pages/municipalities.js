@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { getMunicipalities } from "../../services/municipalities";
+import {
+  getMunicipalities,
+  deleteMunicipality,
+} from "../../services/municipalities";
 
 const Municipalities = () => {
   const history = useHistory();
@@ -19,6 +22,10 @@ const Municipalities = () => {
 
     setMunicipalities(apiMunicipalities);
     setLoading(false);
+  };
+
+  const refreshPage = () => {
+    window.location.reload();
   };
 
   const municipalityDepartments = (municipality) => {
@@ -41,8 +48,41 @@ const Municipalities = () => {
     });
   };
 
-  const refreshPage = () => {
-    window.location.reload();
+  const editMunicipality = (municipality) => {
+    if (user.role === "RMCTeam") {
+      localStorage.setItem("municipality", JSON.stringify(municipality));
+    }
+
+    history.push("/municipalidades/editar", {
+      from: "municipalidades",
+    });
+  };
+
+  const editMunicipalityAdministrator = (municipality) => {
+    if (user.role === "RMCTeam") {
+      localStorage.setItem("municipality", JSON.stringify(municipality));
+    }
+
+    history.push("/municipalidades/editarAdministrador", {
+      from: "municipalidades",
+    });
+  };
+
+  const deleteMunicipalitySelected = async (municipalityId) => {
+    const createResponse = await deleteMunicipality(municipalityId);
+
+    if (createResponse.code === 200) {
+      alert(createResponse.message);
+      refreshPage();
+    }
+
+    if (createResponse.code === 400) {
+      alert(createResponse.message);
+    }
+
+    if (createResponse.status === 401) {
+      alert(createResponse.error);
+    }
   };
 
   if (loading) {
@@ -77,6 +117,22 @@ const Municipalities = () => {
 
             <button onClick={() => municipalityCities(municipalities)}>
               Ver Ciudades
+            </button>
+
+            <button onClick={() => editMunicipality(municipalities)}>
+              Editar Municipalidad
+            </button>
+
+            <button
+              onClick={() => editMunicipalityAdministrator(municipalities)}
+            >
+              Editar Administrador
+            </button>
+
+            <button
+              onClick={() => deleteMunicipalitySelected(municipalities.id)}
+            >
+              Eliminar Municipalidad
             </button>
           </ul>
         ))}

@@ -57,3 +57,34 @@ export const verificationCode = async (email, code) => {
       return error;
     });
 };
+
+export const updateUser = async (user) => {
+  return fetch(baseUrl + "user", {
+      method: "PUT",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        id: user.id,
+        name: user.name,
+        lastname: user.lastname,
+        idCard: user.idCard,
+        email: user.email,
+        password: user.password,
+        direction: user.direction,
+        role: user.role,
+        state: user.state,
+        }),
+  })
+      .then((response) => response.json())
+      .then((responseJson) => {
+          console.log(responseJson);
+          return responseJson;
+      })
+      .catch((error) => {
+          console.error(error);
+      });
+
+
+}
