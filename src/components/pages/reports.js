@@ -33,7 +33,6 @@ const Reports = () => {
 
   const fetchReports = async () => {
     const apiReports = await getReports();
-
     setReports(apiReports);
     setLoading(false);
   };
@@ -83,9 +82,11 @@ const Reports = () => {
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
 
         {filteredReports.map((report) => (
+          
           <ul key={report.id}>
             <h2>{report.title}</h2>
             <h4>{report.description}</h4>
+            <img src={report.imgURL}></img>
             <h4>{report.state}</h4>
             <h5>
               {report.coordenates.latitude} {report.coordenates.longitude}

@@ -61,6 +61,9 @@ const SpecificReport = () => {
       <h4>Estado:</h4>
       <h4>{report.state}</h4>
 
+      <h4>Imagen:</h4>
+      <img src={report.imgURL}></img>
+
       <h4>Ubicación:</h4>
       <Map/>
 
