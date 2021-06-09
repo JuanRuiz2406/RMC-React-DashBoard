@@ -1,4 +1,5 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
+import clsx from "clsx"
 import { AuthContext } from "../../auth/AuthContext";
 import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
@@ -6,7 +7,25 @@ import { login } from "../../services/user";
 import { Link } from "react-router-dom";
 import { getDepartmentAdmin } from "../../services/departments";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../images/ReportsMyCity.png";
+import logo from "../../images/ReportsmycityLogo.png";
+
+import TextField from '@material-ui/core/TextField';
+import { makeStyles, ThemeProvider } from '@material-ui/core/styles';
+import theme from '../ui/themeConfig';
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import FormControl from '@material-ui/core/FormControl';
+import AlternateEmailIcon from '@material-ui/icons/AlternateEmail';
+
+//materia
+
+
+
+
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -47,69 +66,94 @@ const Login = ({ history }) => {
 
     history.replace(lastPath);
   };
+  const classes = useStyles();
+
+  const [values, setValues] = useState({
+    amount: '',
+    password: '',
+    weight: '',
+    weightRange: '',
+    showPassword: false,
+  });
+
+  const handleChange = (prop) => (event) => {
+    setValues({ ...values, [prop]: event.target.value });
+  };
+  
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+  
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   return (
+    
+<ThemeProvider theme={theme}>
     <div
       className="row justify-content-center align-item-center"
-      style={{ marginTop: "5%" }}
+      style={{ paddingTop: "5%", paddingBottom: "16%", backgroundColor: "#011B42" }}
     >
       <div className="col-8 text-center align-self-center rounded">
         <div className="row justify-content-center">
           <div
-            className="col-auto text-center align-self-center border border-3 border-secondary bg-white rounded"
+            className="col-auto text-center align-self-center border border-3 rounded"
             style={{ marginTop: "2%", marginBottom: "2%", padding: "2% 10%" }}
           >
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <h2>Bienvenido</h2>
+            
+            <form className={classes.root} noValidate onSubmit={handleSubmit(onSubmit)}>
 
-              <img src={logo} style={{ width: "300px", height: "100px" }} />
+              <img src={logo} style={{ width: "200px", height: "200px" }} />
               <div
                 className="form-group text-start"
                 style={{ marginTop: "5%", marginBottom: "5%" }}
               >
-                <label>Correo Electrónico</label>
-                <input
-                  className="form-control"
-                  type="text"
-                  placeholder="Email"
-                  name="email"
-                  ref={register({
-                    required: {
-                      value: true,
-                      message: "*El Correo Electrónico es obligatorio*",
-                    },
-                    pattern: {
-                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                      message:
-                        "*El Correo Electrónico debe tener un formato válido*",
-                    },
-                  })}
-                />
-                <span>{errors?.email?.message}</span>
+                 <FormControl className={clsx(classes.margin, classes.textField)}>
+               <InputLabel htmlFor="standard-adornment-password">Correo</InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  label="Correo"
+                  type='text'
+                  value={values.password}
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position="start">
+                      <IconButton
+                      >
+                        <AlternateEmailIcon />
+                      </IconButton>
+                    </InputAdornment>
+            }
+          />
+          </FormControl>
               </div>
 
               <div
                 className="form-group text-start"
                 style={{ marginTop: "5%", marginBottom: "5%" }}
               >
-                <label>Contraseña</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  placeholder="Contraseña"
-                  name="password"
-                  ref={register({
-                    required: {
-                      value: true,
-                      message: "*La Contraseña es obligatoria*",
-                    },
-                    minLength: {
-                      value: 8,
-                      message: "*La Contraseña debe tener mínimo 8 caracteres*",
-                    },
-                  })}
-                />
-                <span>{errors?.password?.message}</span>
+              <FormControl className={clsx(classes.margin, classes.textField)}>
+               <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
+                <Input
+                  id="standard-adornment-password"
+                  label="Contraseña"
+                  type={values.showPassword ? 'text' : 'password'}
+                  value={values.password}
+                  onChange={handleChange('password')}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                      >
+                        {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                      </IconButton>
+                    </InputAdornment>
+            }
+          />
+          </FormControl>
               </div>
               <div className="text-start">
                 <Link to="/forgot_password">
@@ -125,7 +169,26 @@ const Login = ({ history }) => {
         </div>
       </div>
     </div>
+    </ThemeProvider>
+    
   );
 };
 
 export default Login;
+
+
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    '& .MuiTextField-root': {
+      margin: theme.spacing(1),
+      width: 300,
+    },
+    textField: {
+      width: '25ch',
+    },
+  },
+
+}));
+
+
