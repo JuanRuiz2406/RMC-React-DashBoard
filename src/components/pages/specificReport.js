@@ -65,7 +65,7 @@ const SpecificReport = () => {
       <img src={report.imgURL}></img>
 
       <h4>Ubicación:</h4>
-      <Map/>
+      <Map />
 
       <ul>
         <h2>Detalles:</h2>

@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { sendVerificationCode } from "../../services/user";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css"
+import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../images/ReportsmycityTransp.png";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
@@ -15,13 +15,11 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import Send from "@material-ui/icons/Send";
-import Link from '@material-ui/core/Link';
-
+import Link from "@material-ui/core/Link";
 
 const ForgotPassword = ({ history }) => {
-
   const { register, handleSubmit, errors } = useForm();
   const onSubmit = async () => {
     const response = await sendVerificationCode(values.email);
@@ -30,9 +28,8 @@ const ForgotPassword = ({ history }) => {
       localStorage.setItem("email", values.email);
       history.replace("password_reset");
     } else {
-      <span>{response.message}</span>
+      <span>{response.message}</span>;
     }
-
   };
 
   const [values, setValues] = useState({
@@ -43,7 +40,6 @@ const ForgotPassword = ({ history }) => {
     weightRange: "",
     showPassword: false,
   });
-
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
@@ -73,7 +69,12 @@ const ForgotPassword = ({ history }) => {
           <div className="row justify-content-center">
             <div
               className="col-auto text-center align-self-center border border-2 rounded"
-              style={{ marginTop: "2%", marginBottom: "2%", padding: "2% 10%", background: "#032D6B" }}
+              style={{
+                marginTop: "2%",
+                marginBottom: "2%",
+                padding: "2% 10%",
+                background: "#032D6B",
+              }}
             >
               <form
                 className={classes.root}
@@ -108,8 +109,14 @@ const ForgotPassword = ({ history }) => {
                   </FormControl>
                 </div>
 
-                <Button type="submit" className={classes.button} style={{marginTop: '10%'}} variant="contained"
-                  color="primary" endIcon={<Send/>}>
+                <Button
+                  type="submit"
+                  className={classes.button}
+                  style={{ marginTop: "10%" }}
+                  variant="contained"
+                  color="primary"
+                  endIcon={<Send />}
+                >
                   Enviar codigo
                 </Button>
               </form>
@@ -118,9 +125,8 @@ const ForgotPassword = ({ history }) => {
         </div>
       </div>
     </ThemeProvider>
-
-  )
-}
+  );
+};
 
 export default ForgotPassword;
 

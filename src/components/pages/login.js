@@ -19,9 +19,9 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
-import Button from '@material-ui/core/Button';
+import Button from "@material-ui/core/Button";
 import LockOpen from "@material-ui/icons/LockOpen";
-import Link from '@material-ui/core/Link';
+import Link from "@material-ui/core/Link";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -99,7 +99,12 @@ const Login = ({ history }) => {
           <div className="row justify-content-center">
             <div
               className="col-auto text-center align-self-center border border-2 rounded"
-              style={{ marginTop: "2%", marginBottom: "2%", padding: "2% 10%", background: "#032D6B" }}
+              style={{
+                marginTop: "2%",
+                marginBottom: "2%",
+                padding: "2% 10%",
+                background: "#032D6B",
+              }}
             >
               <form
                 className={classes.root}
@@ -178,8 +183,14 @@ const Login = ({ history }) => {
                   </Link>
                 </div>
 
-                <Button type="submit" className={classes.button} style={{marginTop: '10%'}} variant="contained"
-                  color="primary" endIcon={<LockOpen/>}>
+                <Button
+                  type="submit"
+                  className={classes.button}
+                  style={{ marginTop: "10%" }}
+                  variant="contained"
+                  color="primary"
+                  endIcon={<LockOpen />}
+                >
                   Iniciar Sesión
                 </Button>
               </form>

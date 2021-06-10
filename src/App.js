@@ -13,8 +13,8 @@ export const App = () => {
   const [user, dispatch] = useReducer(authReducer, {}, init);
 
   useEffect(() => {
-    localStorage.setItem('user', JSON.stringify(user))
-  }, [user])
+    localStorage.setItem("user", JSON.stringify(user));
+  }, [user]);
 
   return (
     <AuthContext.Provider value={{ user, dispatch }}>

@@ -126,15 +126,11 @@ const Municipalities = () => {
               Editar Municipalidad
             </button>
 
-            <button
-              onClick={() => editMunicipalityAdministrator(municipality)}
-            >
+            <button onClick={() => editMunicipalityAdministrator(municipality)}>
               Editar Administrador
             </button>
 
-            <button
-              onClick={() => deleteMunicipalitySelected(municipality.id)}
-            >
+            <button onClick={() => deleteMunicipalitySelected(municipality.id)}>
               Eliminar Municipalidad
             </button>
           </ul>

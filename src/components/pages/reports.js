@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Search } from ".";
 import { getReports, updateReportState } from "../../services/reports";
-import Popup from 'reactjs-popup';
+import Popup from "reactjs-popup";
 
 const filterReports = (reports, query) => {
   if (!query) {
@@ -76,28 +76,26 @@ const Reports = () => {
         {user.role !== "DepartmentAdmin" && (
           <div className="container">
             <div class="alert alert-info" role="alert">
-              <strong>Informacion: </strong>Solo los Administradores de los departamentos pueden añadir detalles
-              a los reportes
+              <strong>Informacion: </strong>Solo los Administradores de los
+              departamentos pueden añadir detalles a los reportes
+            </div>
           </div>
-          </div>
-
         )}
-
-
 
         <div className="container">
           <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
           {filteredReports.map((report) => (
-
             <ul key={report.id}>
-
               <div className="container m-2 border border-secondary rounded">
                 <div className="row m-2 justify-content-center align-items-center">
                   <div className="col m-2">
                     <div>
-                    <img className="rounded-circle" style={{height: 200, width: 200}} src={report.imgURL}></img>
+                      <img
+                        className="rounded-circle"
+                        style={{ height: 200, width: 200 }}
+                        src={report.imgURL}
+                      ></img>
                     </div>
-                    
                   </div>
                   <div className="col-8 align-middle">
                     <h4>Titulo:</h4>
@@ -109,15 +107,15 @@ const Reports = () => {
                     <p>{report.state}</p>
                   </div>
                   <div className="col justify-content-center align-content-center">
-
                     <div className="row m-4">
-                      <button className="btn btn-success rounded-pill"
+                      <button
+                        className="btn btn-success rounded-pill"
                         onClick={() => {
                           replyReport(report, "Aceptado");
                         }}
                       >
                         Aceptar
-                    </button>
+                      </button>
                     </div>
                     <div className="row m-4">
                       <button
@@ -127,7 +125,7 @@ const Reports = () => {
                         }}
                       >
                         Rechazar
-                    </button>
+                      </button>
                     </div>
                     <div className="row m-4">
                       <button
@@ -137,7 +135,7 @@ const Reports = () => {
                         }}
                       >
                         Ver más
-                    </button>
+                      </button>
                     </div>
                     <div className="row m-4">
                       {user.role === "DepartmentAdmin" && (
@@ -151,19 +149,12 @@ const Reports = () => {
                         </button>
                       )}
                     </div>
-
-                  </div >
-
-
+                  </div>
                 </div>
               </div>
-
-
             </ul>
           ))}
         </div>
-
-
       </ul>
     </div>
   );
