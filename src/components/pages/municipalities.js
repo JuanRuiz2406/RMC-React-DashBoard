@@ -8,7 +8,7 @@ import {
 const Municipalities = () => {
   const history = useHistory();
 
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("user")).user;
 
   const [municipalities, setMunicipalities] = useState({});
   const [loading, setLoading] = useState(true);
@@ -60,7 +60,10 @@ const Municipalities = () => {
 
   const editMunicipalityAdministrator = (municipality) => {
     if (user.role === "RMCTeam") {
-      localStorage.setItem("municipality", JSON.stringify(municipality));
+      localStorage.setItem(
+        "updateAdministrator",
+        JSON.stringify(municipality.manager)
+      );
     }
 
     history.push("/municipalidades/editarAdministrador", {
@@ -102,35 +105,35 @@ const Municipalities = () => {
       </button>
 
       <ul>
-        {municipalities.map((municipalities) => (
-          <ul key={municipalities.id}>
-            <h2>{municipalities.name}</h2>
-            <h4>{municipalities.adress}</h4>
-            <h4>{municipalities.email}</h4>
-            <h4>{municipalities.telephone}</h4>
-            <h4>{municipalities.state}</h4>
-            <h4>{municipalities.webSite}</h4>
+        {municipalities.map((municipality) => (
+          <ul key={municipality.id}>
+            <h2>{municipality.name}</h2>
+            <h4>{municipality.adress}</h4>
+            <h4>{municipality.email}</h4>
+            <h4>{municipality.telephone}</h4>
+            <h4>{municipality.state}</h4>
+            <h4>{municipality.webSite}</h4>
 
-            <button onClick={() => municipalityDepartments()}>
+            <button onClick={() => municipalityDepartments(municipality)}>
               Ver Departamentos
             </button>
 
-            <button onClick={() => municipalityCities(municipalities)}>
+            <button onClick={() => municipalityCities(municipality)}>
               Ver Ciudades
             </button>
 
-            <button onClick={() => editMunicipality(municipalities)}>
+            <button onClick={() => editMunicipality(municipality)}>
               Editar Municipalidad
             </button>
 
             <button
-              onClick={() => editMunicipalityAdministrator(municipalities)}
+              onClick={() => editMunicipalityAdministrator(municipality)}
             >
               Editar Administrador
             </button>
 
             <button
-              onClick={() => deleteMunicipalitySelected(municipalities.id)}
+              onClick={() => deleteMunicipalitySelected(municipality.id)}
             >
               Eliminar Municipalidad
             </button>

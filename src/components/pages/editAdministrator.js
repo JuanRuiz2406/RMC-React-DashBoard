@@ -6,8 +6,7 @@ import { updateUser } from "../../services/user";
 const EditMunicipality = () => {
   const history = useHistory();
 
-  const userData = JSON.parse(localStorage.getItem("municipality")).manager;
-  console.log(userData);
+  const userData = JSON.parse(localStorage.getItem("updateAdministrator"));
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
@@ -120,7 +119,7 @@ const EditMunicipality = () => {
         <input
           type="password"
           placeholder="Contraseña"
-          defaultValue={userData.password}
+          defaultValue={userData.passdecode}
           name="password"
           ref={register({
             required: {
@@ -151,15 +150,14 @@ const EditMunicipality = () => {
         <span>{errors?.direction?.message}</span>
 
         <input type="submit" value="Editar" />
-
-        <button
-          onClick={() => {
-            history.push("/municipalidades");
-          }}
-        >
-          Volver
-        </button>
       </form>
+      <button
+        onClick={() => {
+          history.goBack();
+        }}
+      >
+        Volver
+      </button>
     </div>
   );
 };

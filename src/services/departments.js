@@ -63,3 +63,47 @@ export const newDepartment = async (department, manager, municipality) => {
       console.error(error);
     });
 };
+
+export const updateDepartment = async (department, manager, municipality) => {
+  return fetch(baseUrl + "departament", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify({
+      id: department.id,
+      name: department.name,
+      description: department.description,
+      email: department.email,
+      telephone: department.telephone,
+      state: department.state,
+      manager: manager,
+      municipality: municipality,
+    }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const deleteDepartment = async (departmentId) => {
+  return fetch(baseUrl + "departament/" + departmentId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};

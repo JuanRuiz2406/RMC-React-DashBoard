@@ -55,7 +55,7 @@ const CreateDepartment = () => {
         <h3>Nombre</h3>
         <input
           type="text"
-          placeholder="Nombre de Municipalidad"
+          placeholder="Nombre del Departamento"
           name="name"
           ref={register({
             required: {
@@ -122,7 +122,7 @@ const CreateDepartment = () => {
           ref={register({
             required: {
               value: true,
-              message: "*El Nombre es obligatorio*",
+              message: "*El Nombre del Encargado es obligatorio*",
             },
             pattern: {
               value: /^[a-zA-Z\s]*$/,

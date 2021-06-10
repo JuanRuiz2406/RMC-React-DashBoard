@@ -60,7 +60,6 @@ export const updateMunicipality = async (municipality, manager) => {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
       return responseJson;
     })
     .catch((error) => {
@@ -70,7 +69,7 @@ export const updateMunicipality = async (municipality, manager) => {
 
 export const deleteMunicipality = async (municipalityId) => {
   return fetch(baseUrl + "municipality/" + municipalityId, {
-    method: "Delete",
+    method: "DELETE",
     headers: {
       "Content-Type": "application/json",
       Authorization: localStorage.getItem("token"),
@@ -78,7 +77,6 @@ export const deleteMunicipality = async (municipalityId) => {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
       return responseJson;
     })
     .catch((error) => {
