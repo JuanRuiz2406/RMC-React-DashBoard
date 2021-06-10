@@ -4,10 +4,10 @@ import { AuthContext } from "../../auth/AuthContext";
 import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
-import { Link } from "react-router-dom";
 import { getDepartmentAdmin } from "../../services/departments";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../images/ReportsmycityLogo.png";
+import logo from "../../images/ReportsmycityTransp.png";
+import { Link as RouterLink } from "react-router-dom";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../ui/themeConfig";
@@ -19,6 +19,9 @@ import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
+import Button from '@material-ui/core/Button';
+import LockOpen from "@material-ui/icons/LockOpen";
+import Link from '@material-ui/core/Link';
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -88,25 +91,25 @@ const Login = ({ history }) => {
         className="row justify-content-center align-item-center"
         style={{
           paddingTop: "5%",
-          paddingBottom: "16%",
+          paddingBottom: "14%",
           backgroundColor: "#011B42",
         }}
       >
         <div className="col-8 text-center align-self-center rounded">
           <div className="row justify-content-center">
             <div
-              className="col-auto text-center align-self-center border border-3 rounded"
-              style={{ marginTop: "2%", marginBottom: "2%", padding: "2% 10%" }}
+              className="col-auto text-center align-self-center border border-2 rounded"
+              style={{ marginTop: "2%", marginBottom: "2%", padding: "2% 10%", background: "#032D6B" }}
             >
               <form
                 className={classes.root}
                 noValidate
                 onSubmit={handleSubmit(onSubmit)}
               >
-                <img src={logo} style={{ width: "200px", height: "200px" }} />
+                <img src={logo} style={{ width: "250px", height: "250px" }} />
                 <div
                   className="form-group text-start"
-                  style={{ marginTop: "5%", marginBottom: "5%" }}
+                  style={{ marginTop: "3%", marginBottom: "5%" }}
                 >
                   <FormControl
                     className={clsx(classes.margin, classes.textField)}
@@ -166,14 +169,19 @@ const Login = ({ history }) => {
                   </FormControl>
                 </div>
                 <div className="text-start">
-                  <Link to="/forgot_password">
-                    <p>Olvidé mi Contraseña</p>
+                  <Link
+                    component={RouterLink}
+                    variant="body2"
+                    to="/forgot_password"
+                  >
+                    Olvidé mi Contraseña
                   </Link>
                 </div>
 
-                <button type="submit" className="btn btn-outline-primary">
+                <Button type="submit" className={classes.button} style={{marginTop: '10%'}} variant="contained"
+                  color="primary" endIcon={<LockOpen/>}>
                   Iniciar Sesión
-                </button>
+                </Button>
               </form>
             </div>
           </div>
@@ -193,6 +201,9 @@ const useStyles = makeStyles((theme) => ({
     },
     textField: {
       width: "25ch",
+    },
+    button: {
+      margin: theme.spacing(1),
     },
   },
 }));
