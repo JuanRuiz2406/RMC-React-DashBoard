@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { getCities } from "../../services/cities";
+import {
+  Box,
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Divider,
+  Grid,
+  TextField,
+  Container,
+  Typography,
+  withStyles,
+  makeStyles,
+  CardActions,
+  ColorButton,
+} from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 
 const Cities = () => {
   const history = useHistory();
@@ -28,8 +45,62 @@ const Cities = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-
+  const ColorButton = withStyles((theme) => ({
+    root: {
+      color: theme.palette.getContrastText(green[500]),
+      backgroundColor: green[500],
+      "&:hover": {
+        backgroundColor: green[700],
+      },
+    },
+  }))(Button);
   return (
+    <Box bgcolor="background.paper" p={2}>
+      <Container>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={() => {
+            history.goBack();
+          }}
+        >
+          Volver
+        </Button>
+        <ColorButton
+          variant="contained"
+          color="primary"
+          onClick={() =>
+            history.push("/municipalidades/ciudades/crear", {
+              from: "municipalidades/ciudades",
+            })
+          }
+        >
+          Crear
+        </ColorButton>
+
+        {cities.map((cities) => (
+          <ul key={cities.id}>
+            <div>
+              <Grid item xs>
+                <Box bgcolor="common.black" p={1.5} boxShadow={2}>
+                  <Grid item xs={12}>
+                    <Typography variant="h2" component="h2">
+                      {cities.name}
+                    </Typography>
+                  </Grid>
+                </Box>
+              </Grid>
+            </div>
+          </ul>
+        ))}
+      </Container>
+    </Box>
+  );
+};
+
+export default Cities;
+
+/* 
     <div>
       <button
         onClick={() =>
@@ -57,7 +128,4 @@ const Cities = () => {
         ))}
       </ul>
     </div>
-  );
-};
-
-export default Cities;
+*/
