@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
     },
     offset: theme.mixins.toolbar,
     appBar: {
-        width: `calc(100% - ${250}px)`,
-        marginLeft: 250,
+        zIndex: theme.zIndex.drawer + 1,
+        backgroundColor: theme.palette.primary.light,
       },
   }));
 
@@ -51,7 +51,7 @@ export const NavBar = () => {
 
     return(
         <div className={classes.root}>
-            <AppBar className={classes.appBar} color='primary'>
+            <AppBar position="fixed" className={classes.appBar}>
                 <Toolbar>
                     <Typography className={classes.title} variant='h6'>
                         ReportsMyCity

@@ -6,22 +6,25 @@ import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
 import { getDepartmentAdmin } from "../../services/departments";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../images/ReportsmycityTransp.png";
+import logo from "../../images/LogoLogin.png";
 import { Link as RouterLink } from "react-router-dom";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../ui/themeConfig";
-import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import FormControl from "@material-ui/core/FormControl";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import Button from "@material-ui/core/Button";
 import LockOpen from "@material-ui/icons/LockOpen";
 import Link from "@material-ui/core/Link";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import Box from "@material-ui/core/Box";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -87,117 +90,70 @@ const Login = ({ history }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <div
-        className="row justify-content-center align-item-center"
-        style={{
-          paddingTop: "5%",
-          paddingBottom: "14%",
-          backgroundColor: "#011B42",
-        }}
-      >
-        <div className="col-8 text-center align-self-center rounded">
-          <div className="row justify-content-center">
-            <div
-              className="col-auto text-center align-self-center border border-2 rounded"
-              style={{
-                marginTop: "2%",
-                marginBottom: "2%",
-                padding: "2% 10%",
-                background: "#032D6B",
-              }}
+      <Container component="main" maxWidth="xs">
+        <CssBaseline/>     
+        <div className={classes.paper} >
+          <img src={logo} style={{ width: "250px", height: "250px" }} />
+          <Typography className={classes.title} component="h1" variant="h5">
+            Inicio de Sesion
+          </Typography>
+
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              id="standard-basic"
+              margin="normal"
+              required
+              fullWidth
+              label="Correo"
+              type="text"
+              value={values.email}
+              onChange={handleChange("email")}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton>
+                    <AlternateEmailIcon />
+                  </IconButton>
+                </InputAdornment>
+              }
+            />
+            <TextField
+              id="standard-password-input"
+              margin="normal"
+              className={classes.title}
+              required
+              fullWidth
+              label="Contraseña"
+              type={values.showPassword ? "text" : "password"}
+              value={values.password}
+              onChange={handleChange("password")}
+            />
+            <Grid container>
+              <Grid item xs>
+                <Link
+                  component={RouterLink}
+                  className={classes.forgot}
+                  variant="body2"
+                  to="/forgot_password"
+                >
+                  Olvidé mi Contraseña
+                </Link>
+              </Grid>
+            </Grid>
+            <Button
+              type="submit"
+              className={classes.submit}
+              fullWidth
+              style={{ marginTop: "10%" }}
+              variant="contained"
+              color="primary"
+              endIcon={<LockOpen />}
             >
-              <form
-                className={classes.root}
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <img src={logo} style={{ width: "250px", height: "250px" }} />
-                <div
-                  className="form-group text-start"
-                  style={{ marginTop: "3%", marginBottom: "5%" }}
-                >
-                  <FormControl
-                    className={clsx(classes.margin, classes.textField)}
-                  >
-                    <InputLabel htmlFor="standard-adornment-password">
-                      Correo
-                    </InputLabel>
-                    <Input
-                      id="standard-adornment-password"
-                      label="Correo"
-                      type="text"
-                      value={values.email}
-                      onChange={handleChange("email")}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton>
-                            <AlternateEmailIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                </div>
+              Iniciar Sesión
+            </Button>
+          </form>
 
-                <div
-                  className="form-group text-start"
-                  style={{ marginTop: "5%", marginBottom: "5%" }}
-                >
-                  <FormControl
-                    className={clsx(classes.margin, classes.textField)}
-                  >
-                    <InputLabel htmlFor="standard-adornment-password">
-                      Password
-                    </InputLabel>
-                    <Input
-                      id="standard-adornment-password"
-                      label="Contraseña"
-                      type={values.showPassword ? "text" : "password"}
-                      value={values.password}
-                      onChange={handleChange("password")}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton
-                            aria-label="toggle password visibility"
-                            onClick={handleClickShowPassword}
-                            onMouseDown={handleMouseDownPassword}
-                          >
-                            {values.showPassword ? (
-                              <Visibility />
-                            ) : (
-                              <VisibilityOff />
-                            )}
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                </div>
-                <div className="text-start">
-                  <Link
-                    component={RouterLink}
-                    variant="body2"
-                    to="/forgot_password"
-                  >
-                    Olvidé mi Contraseña
-                  </Link>
-                </div>
-
-                <Button
-                  type="submit"
-                  className={classes.button}
-                  style={{ marginTop: "10%" }}
-                  variant="contained"
-                  color="primary"
-                  endIcon={<LockOpen />}
-                >
-                  Iniciar Sesión
-                </Button>
-              </form>
-            </div>
-          </div>
         </div>
-      </div>
+      </Container>
     </ThemeProvider>
   );
 };
@@ -217,4 +173,28 @@ const useStyles = makeStyles((theme) => ({
       margin: theme.spacing(1),
     },
   },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center', 
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    width: '95%', // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 2),
+  },
+  forgot: {
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(8),
+  },
+  title: {
+    color: theme.palette.text.secondary,
+  }
 }));

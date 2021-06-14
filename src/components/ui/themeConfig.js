@@ -20,8 +20,8 @@ const theme = createMuiTheme({
         contrastText: '#fff',
       },
       text: {
-        primary: '#fff',
-        secondary: '#fff',
+        primary: '#000',
+        secondary: '#000',
         disabled: '#fff',
         hint: '#fff',
       },
@@ -63,7 +63,8 @@ const theme = createMuiTheme({
         activatedOpacity: 0.12,
       },
       background: {
-        default: '#011B42',
+        default: '#fff',
+        paper: '#fff',
       }
     },
   });

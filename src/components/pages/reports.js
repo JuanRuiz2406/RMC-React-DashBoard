@@ -6,11 +6,8 @@ import { getReports, updateReportState } from "../../services/reports";
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
-import Avatar from "@material-ui/core/Avatar";
 
-import Card from "@material-ui/core/Card";
 import CardActions from "@material-ui/core/CardActions";
-import CardContent from "@material-ui/core/CardContent";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
@@ -132,23 +129,27 @@ const Reports = () => {
   }))(Button);
 
   return (
-    <Box bgcolor="background.paper" p={2}>
-      {user.role !== "DepartmentAdmin" && (
-        <div className="container">
-          <div class="alert alert-info" role="alert">
-            <strong>Informacion: </strong>Solo los Administradores de los
-            departamentos pueden añadir detalles a los reportes
-          </div>
-        </div>
-      )}
+   
+    <Box bgcolor='background.paper' p={2}>
+        {user.role !== "DepartmentAdmin" && (
+          <Container>
+            <div class="alert alert-info" role="alert">
+              <strong>Informacion: </strong>Solo los Administradores de los departamentos pueden añadir detalles
+              a los reportes
+            </div>
+          </Container>
+        )}
 
       <Container>
         <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-
+        
+        {/*Container de lista*/}
         {filteredReports.map((report) => (
           <ul key={report.id}>
             <div>
               <Divider />
+
+              {/*Caja de reporte*/}
               <Box borderRadius="borderRadius" {...defaultProps}>
                 <Grid
                   container
@@ -156,108 +157,106 @@ const Reports = () => {
                   alignItems="center"
                   spacing={5}
                 >
+
+                  {/*Cajon de imagen*/}
                   <Grid item xs={6}>
                     <Box
                       borderRadius="borderRadius"
                       {...defaultProps2}
                       boxShadow={2}
                     >
-                      <img
-                        className="rounded"
-                        style={{ height: 355, width: 600 }}
-                        src={report.imgURL}
-                      />
+                      <img className="rounded" style={{height: 310, width: 600}} src={report.imgURL}/>
                     </Box>
                   </Grid>
+                  {/*Fin Cajon de imagen*/}
+
+                  {/*Cajon de detalles de reporte*/}
                   <Grid item xs>
-                    <Box bgcolor="common.black" p={1.5} boxShadow={2}>
+                    <Box bgcolor='common.black' p={1.5} boxShadow={2}>
                       <Box mb={1}>
-                        <Typography variant="h2" component="h2" color="#000">
-                          Titulo
-                        </Typography>
+                        <Grid container justify="center" alignItems="center" spacing={5}>
+                          <Grid item xs>
+                            <Typography variant="h3" component="h3" color="primary">
+                              {report.title}
+                            </Typography>
+                          </Grid>
+                        </Grid>
                       </Box>
                       <Box mb={1}>
-                        <Typography variant="h5" component="h2">
-                          {report.title}
-                        </Typography>
+                          <Typography variant="h4" component="h4" color="primary">Descripcion: </Typography>
                       </Box>
                       <Box mb={1}>
-                        <Typography
-                          variant="h4"
-                          component="h4"
-                          color="primary.dark"
-                        >
-                          Descripcion
-                        </Typography>
-                      </Box>
-                      <Box mb={1}>
-                        <Typography variant="body2" component="p">
+                        <Typography variant="body1" component="p">
                           {report.description}
                         </Typography>
                       </Box>
-                      <Box mb={1}>
-                        <Typography
-                          variant="h4"
-                          component="h4"
-                          color="primary.dark"
-                        >
-                          Estado
-                        </Typography>
-                      </Box>
-                      <Box mb={1}>
-                        <Typography variant="body2" component="p">
-                          {report.state}
-                          <br />
-                        </Typography>
-                      </Box>
-                      <Divider />
-                      <CardActions>
-                        <ColorButton
-                          variant="contained"
-                          color="primary"
-                          onClick={() => {
-                            replyReport(report, "Aceptado");
-                          }}
-                        >
-                          Aceptar
-                        </ColorButton>
-                        <Button
-                          variant="contained"
-                          color="secondary"
-                          onClick={() => {
-                            replyReport(report, "Rechazado");
-                          }}
-                        >
-                          Rechazar
-                        </Button>
-                        <Button
-                          variant="contained"
-                          color="primary"
-                          onClick={() => {
-                            specificReport(report);
-                          }}
-                        >
-                          Ver más
-                        </Button>
-                        {user.role === "DepartmentAdmin" && (
-                          <Button
-                            variant="contained"
+                        <Box mb={1}>
+                          <Typography variant="h4" component="h4" color="primary">
+                            Estado
+                          </Typography>
+                        </Box>
+                        <Box mb={1}>
+                          <Typography variant="body1" component="p">
+                            {report.state}
+                              <br />
+                          </Typography>
+                        </Box>
+                        <Divider/>
+
+                        {/*Seccion de botones de reporte*/}
+                        <CardActions>
+                          <ColorButton 
+                            variant="contained" 
                             color="primary"
                             onClick={() => {
-                              reportNewDetail(report);
+                              replyReport(report, "Aceptado");
                             }}
                           >
-                            Añadir Nuevo Detalle
+                            Aceptar
+                          </ColorButton>
+                          <Button 
+                            variant="contained" 
+                            color="secondary"
+                            onClick={() => {
+                              replyReport(report, "Rechazado");
+                            }}
+                          >
+                            Rechazar
                           </Button>
-                        )}
-                      </CardActions>
-                    </Box>
+                          <Button
+                            variant="contained" 
+                            color="primary"
+                            onClick={() => {
+                              specificReport(report);
+                            }}
+                          >
+                            Ver más
+                          </Button>
+                            {user.role === "DepartmentAdmin" && (
+                              <Button 
+                                variant="contained" 
+                                color="primary"
+                                onClick={() => {
+                                  reportNewDetail(report);
+                                }}
+                              >
+                                Añadir Nuevo Detalle
+                              </Button>
+                        )};
+                        </CardActions>
+                    </Box>                       
                   </Grid>
+                  {/*Fin Cajon de detalles de reporte*/}
+
                 </Grid>
               </Box>
+              {/*Fin Caja de reporte*/}
+
             </div>
           </ul>
         ))}
+         {/*Fin Container de listae*/}
+        
         <Divider />
       </Container>
     </Box>

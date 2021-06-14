@@ -3,7 +3,7 @@ import { useHistory } from "react-router";
 import { AuthContext } from "../../auth/AuthContext";
 import { types } from "../../types/types";
 import { Link as RouterLink } from "react-router-dom";
-import logo from "../../images/ReportsmycityTransp.png";
+import logo from "../../images/LogoBlanco.png";
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       maxWidth: 250,
       backgroundColor: theme.palette.primary.dark,
+      overflow: 'auto',
     },
     icon: {
         color: theme.palette.primary.main,
@@ -32,6 +33,12 @@ const useStyles = makeStyles((theme) => ({
     large: {
         width: theme.spacing(27),
         height: theme.spacing(27),
+      },
+    title: {
+        color: theme.palette.text.hint,
+      },
+    listItem: {
+        flexGrow: 1,
       },
   }));
 
@@ -67,34 +74,35 @@ export const Lists = () => {
                     <ListItemIcon>
                         <ReportIcon className={classes.icon}/>
                     </ListItemIcon>
-                    <ListItemText primary="Reportes"/>
+                    <ListItemText className={classes.title} primary="Reportes"/>
                 </ListItem>
                 {user.role === "RMCTeam" ? (
                     <ListItem button onClick={handletMuni}>
                             <ListItemIcon >
                                 <AccountBalanceIcon  className={classes.icon}/>
                             </ListItemIcon>
-                        <ListItemText primary="Ver Municipalidades" />
+                        <ListItemText className={classes.title} primary="Ver Municipalidades" />
                     </ListItem>
                 ):(
                     <ListItem button onClick={handletMuni}>
                             <ListItemIcon>
                                 <AccountBalanceIcon  className={classes.icon}/>
                             </ListItemIcon>
-                        <ListItemText primary="Municipalidad" onClick={handletMuni} />
+                        <ListItemText className={classes.title} primary="Municipalidad" onClick={handletMuni} />
                     </ListItem>
                 )}
-                <ListItem button>
+                <ListItem button >
                     <ListItemIcon>
                         <PersonIcon  className={classes.icon}/>
                     </ListItemIcon>
-                    <ListItemText primary="Perfil" />
+                    <ListItemText className={classes.title} primary="Perfil" />
                 </ListItem>
                 <ListItem>
                     <ListItemAvatar>
                         <Avatar alt="Logo" src={logo} className={classes.large}/>
                     </ListItemAvatar>
                 </ListItem>
+                
             </List>
         </div>
       );

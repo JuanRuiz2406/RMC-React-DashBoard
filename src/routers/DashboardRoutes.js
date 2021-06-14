@@ -22,40 +22,43 @@ import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../components/ui/themeConfig";
 
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Divider from '@material-ui/core/Divider';
-import Typography from '@material-ui/core/Typography';
+
+
 
 const drawerWidth = 250;
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiTextField-root": {
-      margin: theme.spacing(1),
-      width: 300, 
-    }, 
+    display: "flex",
+    backgroundColor: theme.palette.background.paper, 
    },
   appBar: {
-      width: `calc(100% - ${drawerWidth}px)`,
-      marginLeft: drawerWidth,
+      zIndex: theme.zIndex.drawer + 1,
     },
     drawer: {
       width: drawerWidth,
       flexShrink: 0,
     },
+    drawerContainer: {
+      overflow: 'auto',
+    },
     drawerPaper: {
-      width: drawerWidth,
       background: "#011B42",
     },
     // necessary for content to be below app bar
     toolbar: theme.mixins.toolbar,
     content: {
-      flexGrow: 1,
+      flexGrow: 50,
       backgroundColor: theme.palette.background.default,
+      paddingTop: theme.spacing(7),
     },
     title: {
       flexGrow: 1,
     },
+    bg: {
+      backgroundColor: theme.palette.background.paper, 
+    }
 }));
 
 export const DashboardRoutes = () => {
@@ -65,7 +68,6 @@ export const DashboardRoutes = () => {
 
   return (
   <ThemeProvider theme={theme}>
-
     <div className={classes.root}>
             <NavBar/>
             <Drawer 
@@ -149,6 +151,7 @@ export const DashboardRoutes = () => {
                     )}
                     <Redirect to="/reportes" />
                   </Switch>
+                  
                 </div>
             </div>
         </div>
