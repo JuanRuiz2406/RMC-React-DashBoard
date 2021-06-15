@@ -27,7 +27,7 @@ const Map = () => {
 
   console.log(map); // instance of created Map object (https://developers.google.com/maps/documentation/javascript/reference/map)
   console.log(google); // google API object (easily get google.maps.LatLng or google.maps.Marker or any other Google Maps class)
-  return <div ref={ref} style={{ width: 400, height: 300 }} />;
+  return <div ref={ref} style={{ width: '100%', height: 200 }} />;
 };
 
 export default Map;

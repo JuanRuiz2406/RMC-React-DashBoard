@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Search } from ".";
 import { getReports, updateReportState } from "../../services/reports";
+import Map from "../ui/map";
 
 import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
@@ -9,9 +10,22 @@ import Container from "@material-ui/core/Container";
 
 import CardActions from "@material-ui/core/CardActions";
 import Button from "@material-ui/core/Button";
+import { green,red } from "@material-ui/core/colors";
+
+import clsx from "clsx";
+import Card from "@material-ui/core/Card";
+import CardHeader from "@material-ui/core/CardHeader";
+import CardMedia from "@material-ui/core/CardMedia";
+import CardContent from "@material-ui/core/CardContent";
+import Collapse from "@material-ui/core/Collapse";
+import Avatar from "@material-ui/core/Avatar";
+import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
-import { green } from "@material-ui/core/colors";
+
+import DoneIcon from '@material-ui/icons/Done';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 
@@ -35,7 +49,9 @@ const Reports = () => {
   const user = JSON.parse(localStorage.getItem("userData"));
 
   const [reports, setReports] = useState({});
+  const [details, setDetails] = useState({});
   const [loading, setLoading] = useState(true);
+  const [expanded, setExpanded] = React.useState(false);
 
   useEffect(() => {
     fetchReports();
@@ -46,6 +62,7 @@ const Reports = () => {
   const fetchReports = async () => {
     const apiReports = await getReports();
     setReports(apiReports);
+    
     setLoading(false);
   };
 
@@ -77,6 +94,10 @@ const Reports = () => {
     });
   };
 
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
   if (loading) {
     return <div>Loading...</div>;
   }
@@ -92,29 +113,28 @@ const Reports = () => {
 
   const useStyles = makeStyles((theme) => ({
     root: {
-      flexGrow: 1,
+      maxWidth: 600,
     },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: "center",
-      color: theme.palette.text.secondary,
+    media: {
+      height: 0,
+      paddingTop: '56.25%', // 16:9
     },
-    bullet: {
-      display: "inline-block",
-      margin: "0 2px",
-      transform: "scale(0.8)",
+    expand: {
+      transform: 'rotate(0deg)',
+      marginLeft: 'auto',
+      transition: theme.transitions.create('transform', {
+        duration: theme.transitions.duration.shortest,
+      }),
     },
-    title: {
-      marginBottom: "10%",
+    expandOpen: {
+      transform: 'rotate(180deg)',
     },
-    pos: {
-      marginBottom: 12,
+    avatar: {
+      backgroundColor: red[500],
     },
-    card: {
-      flexGrow: 1,
-    },
-    colorCard: {
-      background: "#000",
+    gridContainer: {
+      marginTop: '10%',
+      color: '#011B42',
     },
   }));
 
@@ -141,123 +161,94 @@ const Reports = () => {
         )}
 
       <Container>
-        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        
+        <div className="mb-3">
+          <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+        </div>
+        <Grid
+          container
+          className={useStyles.gridContainer}
+        >
+
         {/*Container de lista*/}
         {filteredReports.map((report) => (
           <ul key={report.id}>
-            <div>
-              <Divider />
-
-              {/*Caja de reporte*/}
-              <Box borderRadius="borderRadius" {...defaultProps}>
-                <Grid
-                  container
-                  justify="center"
-                  alignItems="center"
-                  spacing={5}
+            <Grid item xs={12} sm={6} md={4} lg={3}>
+              <Card className={useStyles.root}>
+                <CardHeader
+                  title={report.title}
+                  subheader={report.createdAt}
+                />
+                <CardMedia
+                  className={useStyles.media}
+                  title="Imagen"
                 >
-
-                  {/*Cajon de imagen*/}
-                  <Grid item xs={6}>
-                    <Box
-                      borderRadius="borderRadius"
-                      {...defaultProps2}
-                      boxShadow={2}
+                  <img  style={{ height: '100%', width: '100%' }} src={report.imgURL}/>
+                </CardMedia>
+                <CardContent>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {report.description}
+                  </Typography>
+                  
+                  <Typography variant="body1" color="textSecondary" component="p">
+                    Estado:
+                  </Typography>
+                  <Typography variant="body2" color="textSecondary" component="p">
+                    {report.state}
+                  </Typography>
+                </CardContent>
+                <Divider/>
+                <CardActions disableSpacing>
+                  <IconButton>
+                    <DoneIcon style={{ color: "#4caf50"}}/>
+                  </IconButton>
+                  <IconButton>
+                    <DeleteForeverIcon color="secondary"/>
+                  </IconButton>
+                  <IconButton
+                    className={clsx(useStyles.expand, {
+                      [useStyles.expandOpen]: expanded,
+                    })}
+                    onClick={handleExpandClick}
+                    aria-expanded={expanded}
+                    aria-label="show more"
+                  >
+                    <ExpandMoreIcon />
+                  </IconButton>
+                </CardActions>
+                <Collapse in={expanded} timeout="auto" unmountOnExit>
+                  <CardContent>
+                  <Typography paragraph>Privacidad: </Typography>
+                  <Typography paragraph variant="body2">{report.privacy} </Typography>
+                    <Typography paragraph>Ubicacion: </Typography>
+                    <CardMedia
+                      className={useStyles.media}
+                      title="Map"
                     >
-                      <img className="rounded" style={{height: 310, width: 600}} src={report.imgURL}/>
-                    </Box>
-                  </Grid>
-                  {/*Fin Cajon de imagen*/}
+                      <Map />
+                    </CardMedia>
+                    <Typography paragraph>Detalles: </Typography>
+                    {details.length > 0 ? (
+                      details.map((details) => (
+                        <ul key={details.id}>
+                          <Typography variant="body1" color="textSecondary" component="p">{details.updateDetail}</Typography>
+                          <Typography variant="body2" color="textSecondary" component="p">{details.updateDetail}</Typography>
+                        </ul>
+                      ))
+                    ) : (
+                      <Typography variant="body2" color="textSecondary" component="p">No hay Detalles sobre este Reporte</Typography>
+                    )}
 
-                  {/*Cajon de detalles de reporte*/}
-                  <Grid item xs>
-                    <Box bgcolor='common.black' p={1.5} boxShadow={2}>
-                      <Box mb={1}>
-                        <Grid container justify="center" alignItems="center" spacing={5}>
-                          <Grid item xs>
-                            <Typography variant="h3" component="h3" color="primary">
-                              {report.title}
-                            </Typography>
-                          </Grid>
-                        </Grid>
-                      </Box>
-                      <Box mb={1}>
-                          <Typography variant="h4" component="h4" color="primary">Descripcion: </Typography>
-                      </Box>
-                      <Box mb={1}>
-                        <Typography variant="body1" component="p">
-                          {report.description}
-                        </Typography>
-                      </Box>
-                        <Box mb={1}>
-                          <Typography variant="h4" component="h4" color="primary">
-                            Estado
-                          </Typography>
-                        </Box>
-                        <Box mb={1}>
-                          <Typography variant="body1" component="p">
-                            {report.state}
-                              <br />
-                          </Typography>
-                        </Box>
-                        <Divider/>
+                  </CardContent>
+                </Collapse>
 
-                        {/*Seccion de botones de reporte*/}
-                        <CardActions>
-                          <ColorButton 
-                            variant="contained" 
-                            color="primary"
-                            onClick={() => {
-                              replyReport(report, "Aceptado");
-                            }}
-                          >
-                            Aceptar
-                          </ColorButton>
-                          <Button 
-                            variant="contained" 
-                            color="secondary"
-                            onClick={() => {
-                              replyReport(report, "Rechazado");
-                            }}
-                          >
-                            Rechazar
-                          </Button>
-                          <Button
-                            variant="contained" 
-                            color="primary"
-                            onClick={() => {
-                              specificReport(report);
-                            }}
-                          >
-                            Ver más
-                          </Button>
-                            {user.role === "DepartmentAdmin" && (
-                              <Button 
-                                variant="contained" 
-                                color="primary"
-                                onClick={() => {
-                                  reportNewDetail(report);
-                                }}
-                              >
-                                Añadir Nuevo Detalle
-                              </Button>
-                        )};
-                        </CardActions>
-                    </Box>                       
-                  </Grid>
-                  {/*Fin Cajon de detalles de reporte*/}
+              </Card>
 
-                </Grid>
-              </Box>
-              {/*Fin Caja de reporte*/}
-
-            </div>
+            </Grid>
+            
           </ul>
         ))}
          {/*Fin Container de listae*/}
-        
-        <Divider />
+         </Grid>
       </Container>
     </Box>
   );
