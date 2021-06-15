@@ -20,6 +20,8 @@ import {
   CardActions,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
+import Swal from "sweetalert2";
+import { ConfirmDelete } from "../alerts";
 
 const Municipalities = () => {
   const history = useHistory();
@@ -88,20 +90,11 @@ const Municipalities = () => {
   };
 
   const deleteMunicipalitySelected = async (municipalityId) => {
-    const createResponse = await deleteMunicipality(municipalityId);
-
-    if (createResponse.code === 200) {
-      alert(createResponse.message);
-      refreshPage();
-    }
-
-    if (createResponse.code === 400) {
-      alert(createResponse.message);
-    }
-
-    if (createResponse.status === 401) {
-      alert(createResponse.error);
-    }
+    ConfirmDelete(
+      "¿Estás seguro de eliminar esta municipalidad?",
+      "No podrás deshacer esta acción",
+      deleteMunicipality(municipalityId)
+    );
   };
 
   if (loading) {
@@ -208,20 +201,15 @@ const Municipalities = () => {
                     >
                       Editar Administrador
                     </Button>
-                    <Button variant="contained" color="secondary">
+                    <Button
+                      variant="contained"
+                      color="secondary"
+                      onClick={() =>
+                        deleteMunicipalitySelected(municipality.id)
+                      }
+                    >
                       Eliminar Municipalidad
                     </Button>
-                    {user.role === "DepartmentAdmin" && (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() =>
-                          deleteMunicipalitySelected(municipality.id)
-                        }
-                      >
-                        Añadir Nuevo Detalle
-                      </Button>
-                    )}
                   </CardActions>
                 </Box>
               </Grid>
@@ -234,59 +222,3 @@ const Municipalities = () => {
 };
 
 export default Municipalities;
-
-/*
-
-
-    <Box
-    bgcolor='background.paper'
-    p={2}
-  >
-    <div className="container">
-      <button
-        onClick={() =>
-          history.push("/municipalidades/crear", {
-            from: "municipalidades",
-          })
-        }
-      >
-        Crear
-      </button>
-
-      <ul>
-        {municipalities.map((municipality) => (
-          <ul key={municipality.id}>
-            <h2>{municipality.name}</h2>
-            <h4>{municipality.adress}</h4>
-            <h4>{municipality.email}</h4>
-            <h4>{municipality.telephone}</h4>
-            <h4>{municipality.state}</h4>
-            <h4>{municipality.webSite}</h4>
-
-            <button onClick={() => municipalityDepartments(municipality)}>
-              Ver Departamentos
-            </button>
-
-            <button onClick={() => municipalityCities(municipality)}>
-              Ver Ciudades
-            </button>
-
-            <button onClick={() => editMunicipality(municipality)}>
-              Editar Municipalidad
-            </button>
-
-            <button onClick={() => editMunicipalityAdministrator(municipality)}>
-              Editar Administrador
-            </button>
-
-            <button onClick={() => deleteMunicipalitySelected(municipality.id)}>
-              Eliminar Municipalidad
-            </button>
-          </ul>
-        ))}
-      </ul>
-    </div>
-    </Box>
-
-
-*/
