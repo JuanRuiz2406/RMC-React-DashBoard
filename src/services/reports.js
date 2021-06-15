@@ -48,7 +48,6 @@ export const getDetails = async (reportId) => {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
       return responseJson;
     });
 };

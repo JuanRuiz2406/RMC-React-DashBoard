@@ -80,19 +80,11 @@ const Login = ({ history }) => {
     setValues({ ...values, [prop]: event.target.value });
   };
 
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">
-        <CssBaseline/>     
-        <div className={classes.paper} >
+        <CssBaseline />
+        <div className={classes.paper}>
           <img src={logo} style={{ width: "250px", height: "250px" }} />
           <Typography className={classes.title} component="h1" variant="h5">
             Inicio de Sesion
@@ -151,7 +143,6 @@ const Login = ({ history }) => {
               Iniciar Sesión
             </Button>
           </form>
-
         </div>
       </Container>
     </ThemeProvider>
@@ -175,16 +166,16 @@ const useStyles = makeStyles((theme) => ({
   },
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center', 
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '95%', // Fix IE 11 issue.
+    width: "95%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
@@ -196,5 +187,5 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: theme.palette.text.secondary,
-  }
+  },
 }));
