@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
 import { getDepartmentAdmin } from "../../services/departments";
 import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
-import logo from "../../images/LogoLogin.png";
+import logo from "../../images/ReportsMyCityLogin.png";
 import { Link as RouterLink } from "react-router-dom";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
@@ -82,7 +82,7 @@ const Login = ({ history }) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
           <img src={logo} style={{ width: "250px", height: "250px" }} />
@@ -169,17 +169,23 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
+    background: "linear-gradient(45deg, #e3f2fd 10%, #64b5f6 90%)",
+    boxShadow: "0 3px 5px 2px rgba(33, 150, 243, .3)",
+    border: 1,
+    borderRadius: 8,
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: "95%", // Fix IE 11 issue.
+    marginLeft: "10%",
+    marginRight: "10%",
+    width: "80%", // Fix IE 11 issue.
     marginTop: theme.spacing(3),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(3, 0, 5),
   },
   forgot: {
     color: theme.palette.primary.main,
@@ -187,5 +193,8 @@ const useStyles = makeStyles((theme) => ({
   },
   title: {
     color: theme.palette.text.secondary,
+  },
+  containerColor: {
+    color: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
   },
 }));
