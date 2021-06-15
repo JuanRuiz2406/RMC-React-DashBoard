@@ -9,6 +9,7 @@ import {
   CreateMunicipality,
   Departments,
   EditAdministrator,
+  EditCity,
   EditDepartment,
   EditMunicipality,
   Municipalities,
@@ -134,6 +135,12 @@ export const DashboardRoutes = () => {
                 exact
                 path="/municipalidades/ciudades/crear"
                 component={CreateCity}
+              />
+
+              <Route
+                exact
+                path="/municipalidades/ciudades/editar"
+                component={EditCity}
               />
 
               {/* Rutas MunicipalityAdmin */}

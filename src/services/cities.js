@@ -34,3 +34,42 @@ export const newCity = async (cityName, municipality) => {
       console.error(error);
     });
 };
+
+export const updateCity = async (cityId, cityName, municipality) => {
+  return fetch(baseUrl + "city", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify({
+      id: cityId,
+      name: cityName,
+      municipality: municipality,
+    }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const deleteCity = async (cityId) => {
+  return fetch(baseUrl + "city/" + cityId, {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};

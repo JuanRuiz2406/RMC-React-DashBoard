@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
-import { newCity } from "../../services/cities";
+import { newCity, updateCity } from "../../services/cities";
 import {
   Box,
   Button,
@@ -19,9 +19,10 @@ import {
   ColorButton,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
-const CreateMunicipality = () => {
+const EditMunicipality = () => {
   const history = useHistory();
 
+  const cityData = JSON.parse(localStorage.getItem("city"));
   const municipalityStorage = JSON.parse(localStorage.getItem("municipality"));
 
   const { register, handleSubmit, errors } = useForm();
@@ -29,7 +30,11 @@ const CreateMunicipality = () => {
   const onSubmit = async (data) => {
     const municipality = municipalityStorage;
 
-    const createResponse = await newCity(data.cityName, municipality);
+    const createResponse = await updateCity(
+      cityData.id,
+      data.cityName,
+      municipality
+    );
 
     if (createResponse.code === 200 || createResponse.code === 400) {
       alert(createResponse.message);
@@ -59,6 +64,7 @@ const CreateMunicipality = () => {
           <input
             type="text"
             placeholder="Nombre de la Ciudad"
+            defaultValue={cityData.name}
             name="cityName"
             ref={register({
               required: {
@@ -76,4 +82,4 @@ const CreateMunicipality = () => {
   );
 };
 
-export default CreateMunicipality;
+export default EditMunicipality;

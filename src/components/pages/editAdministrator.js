@@ -177,13 +177,6 @@ const EditMunicipality = () => {
 
           <input type="submit" value="Editar" />
         </form>
-        <button
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          Volver
-        </button>
       </Container>
     </Box>
   );

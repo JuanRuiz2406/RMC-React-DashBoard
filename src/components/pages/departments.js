@@ -9,15 +9,15 @@ import {
   CardHeader,
   Divider,
   Grid,
-  TextField, 
+  TextField,
   Container,
   Typography,
   withStyles,
   makeStyles,
   CardActions,
-  ColorButton
-} from '@material-ui/core';
-import { green } from '@material-ui/core/colors';
+  ColorButton,
+} from "@material-ui/core";
+import { green } from "@material-ui/core/colors";
 const Departments = () => {
   const user = JSON.parse(localStorage.getItem("userData"));
 
@@ -112,11 +112,9 @@ const Departments = () => {
         <ColorButton
           variant="contained"
           color="primary"
-          onClick={() =>
-            history.push("/municipalidades/ciudades/crear", {
-              from: "municipalidades/ciudades",
-            })
-          }
+          onClick={() => {
+            history.push("/municipalidades/departamentos/crear");
+          }}
         >
           Crear
         </ColorButton>
@@ -183,7 +181,6 @@ const Departments = () => {
 };
 
 export default Departments;
-
 
 /*
 <div>

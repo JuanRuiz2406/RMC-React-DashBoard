@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { getCities } from "../../services/cities";
+import { getCities, deleteCity } from "../../services/cities";
 import {
   Box,
   Button,
@@ -36,6 +36,31 @@ const Cities = () => {
 
     setCities(apiCities);
     setLoading(false);
+  };
+
+  const editCity = (city) => {
+    localStorage.setItem("city", JSON.stringify(city));
+
+    history.push("/municipalidades/ciudades/editar", {
+      from: "municipalidades/departamentos",
+    });
+  };
+
+  const deleteCitySelected = async (cityId) => {
+    const createResponse = await deleteCity(cityId);
+
+    if (createResponse.code === 200) {
+      alert(createResponse.message);
+      refreshPage();
+    }
+
+    if (createResponse.code === 400) {
+      alert(createResponse.message);
+    }
+
+    if (createResponse.status === 401) {
+      alert(createResponse.error);
+    }
   };
 
   const refreshPage = () => {
@@ -78,16 +103,30 @@ const Cities = () => {
           Crear
         </ColorButton>
 
-        {cities.map((cities) => (
-          <ul key={cities.id}>
+        {cities.map((city) => (
+          <ul key={city.id}>
             <div>
               <Grid item xs>
                 <Box bgcolor="common.black" p={1.5} boxShadow={2}>
                   <Grid item xs={12}>
                     <Typography variant="h2" component="h2">
-                      {cities.name}
+                      {city.name}
                     </Typography>
                   </Grid>
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    onClick={() => editCity(city)}
+                  >
+                    Editar
+                  </Button>
+                  <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={() => deleteCitySelected(city.id)}
+                  >
+                    Eliminar
+                  </Button>
                 </Box>
               </Grid>
             </div>
