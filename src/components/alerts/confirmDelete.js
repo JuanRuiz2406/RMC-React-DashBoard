@@ -1,4 +1,6 @@
 import Swal from "sweetalert2";
+import Error from "./error";
+import Success from "./success";
 
 const Confirm = (title, text, action) => {
   const refreshPage = () => {
@@ -19,18 +21,18 @@ const Confirm = (title, text, action) => {
       const deleteResponse = await action;
 
       if (deleteResponse.code === 200) {
-        Swal.fire("Eliminado!", deleteResponse.message, "success");
+        Success("Eliminado!", deleteResponse.message);
         setTimeout(() => {
           refreshPage();
         }, 1000 * 2);
       }
 
       if (deleteResponse.code === 400) {
-        alert(deleteResponse.message);
+        Error(deleteResponse.message);
       }
 
       if (deleteResponse.status === 401) {
-        alert(deleteResponse.error);
+        Error(deleteResponse.error);
       }
     }
   });

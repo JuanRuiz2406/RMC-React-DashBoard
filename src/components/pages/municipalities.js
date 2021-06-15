@@ -20,7 +20,6 @@ import {
   CardActions,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
-import Swal from "sweetalert2";
 import { ConfirmDelete } from "../alerts";
 
 const Municipalities = () => {

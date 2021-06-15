@@ -18,6 +18,7 @@ import {
   ColorButton,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
+import { ConfirmDelete } from "../alerts";
 
 const Cities = () => {
   const history = useHistory();
@@ -47,20 +48,12 @@ const Cities = () => {
   };
 
   const deleteCitySelected = async (cityId) => {
-    const createResponse = await deleteCity(cityId);
-
-    if (createResponse.code === 200) {
-      alert(createResponse.message);
-      refreshPage();
-    }
-
-    if (createResponse.code === 400) {
-      alert(createResponse.message);
-    }
-
-    if (createResponse.status === 401) {
-      alert(createResponse.error);
-    }
+    ConfirmDelete(
+      "¿Estás seguro de eliminar esta ciudad?",
+      "No podrás deshacer esta acción",
+      deleteCity(cityId)
+    );
+    deleteCity(cityId);
   };
 
   const refreshPage = () => {
