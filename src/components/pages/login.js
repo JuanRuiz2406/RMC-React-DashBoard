@@ -5,7 +5,6 @@ import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
 import { getDepartmentAdmin } from "../../services/departments";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../images/ReportsMyCityLogin.png";
 import { Link as RouterLink } from "react-router-dom";
 

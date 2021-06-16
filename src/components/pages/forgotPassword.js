@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { sendVerificationCode } from "../../services/user";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../images/ReportsmycityTransp.png";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";

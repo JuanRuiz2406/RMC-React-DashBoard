@@ -1,6 +1,5 @@
 import React from "react";
 import { useForm } from "react-hook-form";
-import "../../../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import logo from "../../images/ReportsMyCity.png";
 import { verificationCode } from "../../services/user";
 

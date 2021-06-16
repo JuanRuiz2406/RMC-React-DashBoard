@@ -1,7 +1,7 @@
 const SearchBar = ({ searchQuery, setSearchQuery }) => (
   <form action="/" method="get">
     <label htmlFor="header-search">
-      <span className="visually-hidden">Filtrar Reportes...</span>
+      <span className="visually-hidden">Filtro por Estado:</span>
     </label>
     <input
       value={searchQuery}
