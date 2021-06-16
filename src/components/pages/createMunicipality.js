@@ -19,6 +19,8 @@ import {
   ColorButton,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
+import { Success, Error } from "../alerts";
+
 const CreateMunicipality = () => {
   const history = useHistory();
 
@@ -47,11 +49,16 @@ const CreateMunicipality = () => {
     const createResponse = await newMunicipality(municipality, manager);
 
     if (createResponse.code === 200) {
-      alert(createResponse.message);
-      history.goBack();
+      Success("Creado Correctamente!", createResponse.message);
+      setTimeout(() => {
+        history.goBack();
+      }, 1000 * 2);
+    }
+    if (createResponse.code === 400) {
+      Error(createResponse.message);
     }
     if (createResponse.status === 401) {
-      alert(createResponse.error);
+      Error(createResponse.error);
     }
   };
 

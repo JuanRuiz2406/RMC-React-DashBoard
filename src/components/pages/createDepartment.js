@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { newDepartment } from "../../services/departments";
+import { Success, Error } from "../alerts";
 
 const CreateDepartment = () => {
   const history = useHistory();
@@ -39,11 +40,16 @@ const CreateDepartment = () => {
     );
 
     if (createResponse.code === 200) {
-      alert(createResponse.message);
-      history.goBack();
+      Success("Creado Correctamente!", createResponse.message);
+      setTimeout(() => {
+        history.goBack();
+      }, 1000 * 2);
+    }
+    if (createResponse.code === 400) {
+      Error(createResponse.message);
     }
     if (createResponse.status === 401) {
-      alert(createResponse.error);
+      Error(createResponse.error);
     }
   };
 

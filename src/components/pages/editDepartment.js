@@ -2,6 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { updateDepartment } from "../../services/departments";
+import { Success, Error } from "../alerts";
 
 const EditDepartment = () => {
   const history = useHistory();
@@ -27,11 +28,16 @@ const EditDepartment = () => {
     );
 
     if (updateResponse.code === 200) {
-      alert(updateResponse.message);
-      history.goBack();
+      Success("Actualizado Correctamente!", updateResponse.message);
+      setTimeout(() => {
+        history.goBack();
+      }, 1000 * 2);
+    }
+    if (updateResponse.code === 400) {
+      Error(updateResponse.message);
     }
     if (updateResponse.status === 401) {
-      alert(updateResponse.error);
+      Error(updateResponse.error);
     }
   };
 

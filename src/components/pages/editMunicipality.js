@@ -19,6 +19,7 @@ import {
   ColorButton,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
+import { Success, Error } from "../alerts";
 
 const EditMunicipality = () => {
   const history = useHistory();
@@ -37,22 +38,22 @@ const EditMunicipality = () => {
       webSite: data.website,
     };
 
-    const createResponse = await updateMunicipality(
+    const updateResponse = await updateMunicipality(
       municipality,
       municipalityData.manager
     );
 
-    if (createResponse.code === 200) {
-      alert(createResponse.message);
-      history.goBack();
+    if (updateResponse.code === 200) {
+      Success("Actualizado Correctamente!", updateResponse.message);
+      setTimeout(() => {
+        history.goBack();
+      }, 1000 * 2);
     }
-
-    if (createResponse.code === 400) {
-      alert(createResponse.message);
+    if (updateResponse.code === 400) {
+      Error(updateResponse.message);
     }
-
-    if (createResponse.status === 401) {
-      alert(createResponse.error);
+    if (updateResponse.status === 401) {
+      Error(updateResponse.error);
     }
   };
 
