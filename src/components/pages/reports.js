@@ -95,7 +95,7 @@ const Reports = () => {
   }))(Button);
 
   return (
-    <Box bgcolor="background.paper" p={2}>
+    <Box bgcolor="background.default" p={2}>
       {user.role !== "DepartmentAdmin" && (
         <Container m={2}>
           <Alert severity="info">

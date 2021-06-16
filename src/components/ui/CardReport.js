@@ -25,6 +25,7 @@ import Typography from "@material-ui/core/Typography";
 import Divider from "@material-ui/core/Divider";
 import TextField from "@material-ui/core/TextField";
 import Chip from "@material-ui/core/Chip";
+import Avatar from "@material-ui/core/Avatar";
 
 import DoneIcon from "@material-ui/icons/Done";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
@@ -120,8 +121,18 @@ const CardReport = ({ report }) => {
 
   return (
     <Grow in={checked}>
-      <Card style={{ backgroundColor: "#f5f5f5" }} className={useStyles.root}>
-        <CardHeader title={report.title} subheader={report.createdAt} />
+      <Card style={{ backgroundColor: "#fff" }} className={useStyles.root}>
+        <CardHeader
+          avatar={
+            <Avatar
+              aria-label="recipe"
+              className={useStyles.avatar}
+              src={report.user.imgURL}
+            />
+          }
+          title={report.title}
+          subheader={report.createdAt}
+        />
         <CardMedia className={useStyles.media} title="Imagen">
           <img style={{ height: 300, width: "100%" }} src={report.imgURL} />
         </CardMedia>

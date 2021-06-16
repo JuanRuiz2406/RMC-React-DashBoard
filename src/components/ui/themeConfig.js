@@ -62,7 +62,7 @@ const theme = createMuiTheme({
       activatedOpacity: 0.12,
     },
     background: {
-      default: "#fff",
+      default: "#F6F7F9",
       paper: "#fff",
     },
   },
