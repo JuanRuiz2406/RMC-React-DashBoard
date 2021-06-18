@@ -17,8 +17,8 @@ const filterReports = (reports, query) => {
     return reports;
   }
 
-  return reports.filter((reports) => {
-    const toFilter = reports.state.toLowerCase();
+  return reports.filter((report) => {
+    const toFilter = report.state.toLowerCase();
     return toFilter.includes(query);
   });
 };

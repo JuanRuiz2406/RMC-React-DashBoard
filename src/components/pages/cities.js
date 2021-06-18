@@ -48,10 +48,6 @@ const Cities = () => {
     deleteCity(cityId);
   };
 
-  const refreshPage = () => {
-    window.location.reload();
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }

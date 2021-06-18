@@ -5,7 +5,7 @@ import { updateUser } from "../../services/user";
 import { Box, Button, Container } from "@material-ui/core";
 import { Success, Error } from "../alerts";
 
-const EditMunicipality = () => {
+const EditAdministrator = () => {
   const history = useHistory();
 
   const userData = JSON.parse(localStorage.getItem("updateAdministrator"));
@@ -168,4 +168,4 @@ const EditMunicipality = () => {
   );
 };
 
-export default EditMunicipality;
+export default EditAdministrator;

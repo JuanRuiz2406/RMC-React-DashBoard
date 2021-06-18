@@ -5,7 +5,7 @@ import { newCity } from "../../services/cities";
 import { Box, Button, Container } from "@material-ui/core";
 import { Success, Error } from "../alerts";
 
-const CreateMunicipality = () => {
+const CreateCity = () => {
   const history = useHistory();
 
   const municipalityStorage = JSON.parse(localStorage.getItem("municipality"));
@@ -67,4 +67,4 @@ const CreateMunicipality = () => {
   );
 };
 
-export default CreateMunicipality;
+export default CreateCity;

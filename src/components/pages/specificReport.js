@@ -31,16 +31,16 @@ const SpecificReport = () => {
     window.location.reload();
   };
 
-  const replyReport = async (report, newState) => {
-    const response = await updateReportState(report, newState);
+  const replyReport = async (specificReport, newState) => {
+    const response = await updateReportState(specificReport, newState);
 
     console.log(response);
 
     refreshPage();
   };
 
-  const reportNewDetail = (report) => {
-    localStorage.setItem("report", JSON.stringify(report));
+  const reportNewDetail = (specificReport) => {
+    localStorage.setItem("report", JSON.stringify(specificReport));
 
     history.push("/reportes/nuevo_detalle", {
       from: "reportes",
@@ -96,10 +96,10 @@ const SpecificReport = () => {
             <h2>Detalles:</h2>
 
             {details.length > 0 ? (
-              details.map((details) => (
-                <ul key={details.id}>
-                  <h2>{details.updateDetail}</h2>
-                  <h4>{details.updateDetail}</h4>
+              details.map((detail) => (
+                <ul key={detail.id}>
+                  <h2>{detail.updateDetail}</h2>
+                  <h4>{detail.updateDetail}</h4>
                 </ul>
               ))
             ) : (

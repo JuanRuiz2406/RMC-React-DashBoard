@@ -1,4 +1,4 @@
-const SearchBar = ({ searchQuery, setSearchQuery }) => (
+const Search = ({ searchQuery, setSearchQuery }) => (
   <form action="/" method="get">
     <label htmlFor="header-search">
       <span className="visually-hidden">Filtro por Estado:</span>
@@ -15,4 +15,4 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => (
   </form>
 );
 
-export default SearchBar;
+export default Search;
