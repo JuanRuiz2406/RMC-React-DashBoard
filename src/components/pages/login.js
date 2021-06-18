@@ -18,6 +18,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
+import { Error } from "../alerts";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -35,7 +36,7 @@ const Login = ({ history }) => {
       password: password,
     });
 
-    if (loginResponse.token !== undefined) {
+    if (loginResponse.token != undefined || loginResponse.token != null) {
       localStorage.setItem("token", "Bearer " + loginResponse.token);
       localStorage.setItem("userData", JSON.stringify(loginResponse.user));
 
@@ -44,7 +45,6 @@ const Login = ({ history }) => {
           loginResponse.user.id
         );
 
-        console.log(departmentResponse);
         localStorage.setItem("departments", JSON.stringify(departmentResponse));
       }
       dispatch({
@@ -54,6 +54,8 @@ const Login = ({ history }) => {
           user: loginResponse.user,
         },
       });
+    } else {
+      Error(loginResponse.message);
     }
 
     history.replace(lastPath);
