@@ -2,16 +2,34 @@ import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { updateMunicipality } from "../../services/municipalities";
-import { Box, Button, Container } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  makeStyles,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from "@material-ui/core";
 import { Success, Error } from "../alerts";
+
+import AddIcon from "@material-ui/icons/Add";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+
 
 const EditMunicipality = () => {
   const history = useHistory();
 
   const municipalityData = JSON.parse(localStorage.getItem("municipality"));
+      console.log(municipalityData);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
+    console.log(data);
     const municipality = {
       id: municipalityData.id,
       name: data.name,
@@ -26,7 +44,7 @@ const EditMunicipality = () => {
       municipality,
       municipalityData.manager
     );
-
+      console.log(updateResponse);
     if (updateResponse.code === 200) {
       Success("Actualizado Correctamente!", updateResponse.message);
       setTimeout(() => {
@@ -41,108 +59,151 @@ const EditMunicipality = () => {
     }
   };
 
+  const classes = useStyles();
   return (
-    <Box bgcolor="background.paper" p={2}>
+    <Box bgcolor="background.default" p={2}>
       <Container>
         <Button
-          variant="contained"
+          style={{ marginTop: 30 }}
           color="primary"
           onClick={() => {
             history.goBack();
           }}
         >
-          Volver
+          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
         </Button>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Editar Municipalidad</h1>
 
-          <h3>Nombre</h3>
-          <input
-            type="text"
-            placeholder="Nombre de Municipalidad"
-            defaultValue={municipalityData.name}
-            name="name"
-            ref={register({
-              required: {
-                value: true,
-                message: "*El Nombre es obligatorio*",
-              },
-            })}
-          />
-          <span>{errors?.name?.message}</span>
+        <Grid container spacing={4} style={{ marginTop: 10 }}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Box bgcolor="common.white" p={1.5} boxShadow={2}>
+              <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Typography variant="h5" gutterBottom>
+                  Municipalidad
+                </Typography>
 
-          <h3>Dirección</h3>
-          <input
-            type="text"
-            placeholder="Dirección de Municipalidad"
-            defaultValue={municipalityData.adress}
-            name="adress"
-            ref={register({
-              required: {
-                value: true,
-                message: "*La dirección es obligatoria*",
-              },
-            })}
-          />
-          <span>{errors?.adress?.message}</span>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Nombre de Municipalidad"
+                  type="text"
+                  name="name"
+                  defaultValue={municipalityData.name}
+                  inputRef={register({
+                    required: "El nombre es requerido.",
+                  })}
+                  error={Boolean(errors.name)}
+                  helperText={errors.name?.message}
+                />
 
-          <h3>Correo Electrónico</h3>
-          <input
-            type="text"
-            placeholder="ejemplo@municipalidad.com"
-            defaultValue={municipalityData.email}
-            name="email"
-            ref={register({
-              required: {
-                value: true,
-                message: "*El Correo Electrónico es obligatorio*",
-              },
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "*El Correo Electrónico debe tener un formato válido*",
-              },
-            })}
-          />
-          <span>{errors?.email?.message}</span>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Direccion"
+                  type="text"
+                  name="address"
+                  defaultValue={municipalityData.adress}
+                  inputRef={register({
+                    required: "El correo es requerido.",
+                  })}
+                  error={Boolean(errors.address)}
+                  helperText={errors.address?.message}
+                />
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Correo"
+                  type="email"
+                  name="email"
+                  defaultValue={municipalityData.email}
+                  inputRef={register({
+                    required: "El correo es requerido.",
+                  })}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email?.message}
+                />
 
-          <h3>Teléfono</h3>
-          <input
-            type="text"
-            placeholder="Número de teléfono"
-            defaultValue={municipalityData.telephone}
-            name="telephone"
-            ref={register({
-              required: {
-                value: true,
-                message: "*El teléfono es obligatorio*",
-              },
-            })}
-          />
-          <span>{errors?.telephone?.message}</span>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Numero de telefono"
+                  type="number"
+                  name="phone"
+                  defaultValue={municipalityData.telephone}
+                  inputRef={register({
+                    required: "El numero de telefono es requerido.",
+                  })}
+                  error={Boolean(errors.phone)}
+                  helperText={errors.phone?.message}
+                />
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Sitio Web"
+                  type="text"
+                  name="web"
+                  defaultValue={municipalityData.webSite}
+                  inputRef={register({
+                    required: false,
+                  })}
+                  error={Boolean(errors.web)}
+                  helperText={errors.web?.message}
+                />
 
-          <h3>Sitio Web</h3>
-          <input
-            type="text"
-            placeholder="www.municipalidad.com"
-            defaultValue={municipalityData.webSite}
-            name="website"
-            ref={register({})}
-          />
-          <span>{errors?.website?.message}</span>
-
-          <input type="submit" value="Editar" />
-
-          <button
-            onClick={() => {
-              history.push("/municipalidades");
-            }}
-          >
-            Volver
-          </button>
-        </form>
+                  <Button
+                  type="submit"
+                  className={classes.submit}
+                  fullWidth
+                  style={{ marginTop: "10%", background: "#4caf50" }}
+                  variant="contained"
+                >
+                  Actualizar
+                </Button>
+              </form>
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );
 };
 
 export default EditMunicipality;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: 300,
+    },
+    textField: {
+      width: "25ch",
+    },
+    button: {
+      margin: theme.spacing(1),
+    },
+  },
+  form: {
+    marginLeft: "10%",
+    marginRight: "10%",
+    width: "80%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 5),
+  },
+  forgot: {
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(8),
+  },
+  title: {
+    color: theme.palette.text.secondary,
+  },
+  next: {
+    margin: theme.spacing(3, 0, 5),
+  },
+}));

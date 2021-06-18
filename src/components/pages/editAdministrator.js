@@ -2,9 +2,17 @@ import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { updateUser } from "../../services/user";
-import { Box, Button, Container } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  makeStyles,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import { Success, Error } from "../alerts";
-
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 const EditAdministrator = () => {
   const history = useHistory();
 
@@ -39,133 +47,169 @@ const EditAdministrator = () => {
       Error(createResponse.error);
     }
   };
-
+  const classes = useStyles();
   return (
-    <Box bgcolor="background.paper" p={2}>
+    <Box bgcolor="background.default" p={2}>
       <Container>
         <Button
-          variant="contained"
+          style={{ marginTop: 30 }}
           color="primary"
           onClick={() => {
             history.goBack();
           }}
         >
-          Volver
+          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
         </Button>
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <h1>Editar Encargado</h1>
 
-          <h3>Nombre</h3>
-          <input
-            type="text"
-            placeholder="Nombre del Encargado"
-            defaultValue={userData.name}
-            name="userName"
-            ref={register({
-              required: {
-                value: true,
-                message: "*El Nombre es obligatorio*",
-              },
-              pattern: {
-                value: /^[a-zA-Z\s]*$/,
-                message: "*El Nombre solo puede tener letras*",
-              },
-            })}
-          />
-          <span>{errors?.userName?.message}</span>
+        <Grid container spacing={4} style={{ marginTop: 10 }}>
 
-          <h3>Apellido</h3>
-          <input
-            type="text"
-            placeholder="Apellido del Encargado"
-            defaultValue={userData.lastname}
-            name="lastName"
-            ref={register({
-              required: {
-                value: true,
-                message: "*El Apellido es obligatorio*",
-              },
-              pattern: {
-                value: /^[a-zA-Z\s]*$/,
-                message: "*El Apellido solo puede tener letras*",
-              },
-            })}
-          />
-          <span>{errors?.lastName?.message}</span>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Box bgcolor="common.white" p={1.5} boxShadow={2}>
+              <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Typography variant="h5" gutterBottom>
+                 Editar Encargado
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Nombre del Encargado"
+                  type="text"
+                  name="userName"
+                  defaultValue={userData.name}
+                  inputRef={register({
+                    required: "El nombre es requerido.",
+                  })}
+                  error={Boolean(errors.userName)}
+                  helperText={errors.userName?.message}
+                />
 
-          <h3>Identificacion</h3>
-          <input
-            type="text"
-            placeholder="Cédula"
-            defaultValue={userData.idCard}
-            name="idCard"
-            ref={register({
-              required: {
-                value: true,
-                message: "*La Cédula es obligatoria*",
-              },
-            })}
-          />
-          <span>{errors?.idCard?.message}</span>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Apellido del Encargado"
+                  type="text"
+                  name="lastName"
+                  defaultValue={userData.lastname}
+                  inputRef={register({
+                    required: "El apellido es requerido.",
+                  })}
+                  error={Boolean(errors.lastName)}
+                  helperText={errors.lastName?.message}
+                />
 
-          <h3>Correo Electrónico</h3>
-          <input
-            type="text"
-            placeholder="Email"
-            defaultValue={userData.email}
-            name="userEmail"
-            ref={register({
-              required: {
-                value: true,
-                message: "*El Correo Electrónico es obligatorio*",
-              },
-              pattern: {
-                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                message: "*El Correo Electrónico debe tener un formato válido*",
-              },
-            })}
-          />
-          <span>{errors?.userEmail?.message}</span>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Tarjeta de Identificacion"
+                  type="text"
+                  name="idCard"
+                  defaultValue={userData.idCard}
+                  inputRef={register({
+                    required: "La tarjeta de identificaion es requerida.",
+                  })}
+                  error={Boolean(errors.idCard)}
+                  helperText={errors.idCard?.message}
+                />
 
-          <h3>Contraseña</h3>
-          <input
-            type="password"
-            placeholder="Contraseña"
-            defaultValue={userData.passdecode}
-            name="password"
-            ref={register({
-              required: {
-                value: true,
-                message: "*La Contraseña es obligatoria*",
-              },
-              minLength: {
-                value: 8,
-                message: "*La Contraseña debe tener mínimo 8 caracteres*",
-              },
-            })}
-          />
-          <span>{errors?.password?.message}</span>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Correo del encargado"
+                  type="email"
+                  name="userEmail"
+                  defaultValue={userData.email}
+                  inputRef={register({
+                    required: "El correo es requerido.",
+                  })}
+                  error={Boolean(errors.userEmail)}
+                  helperText={errors.userEmail?.message}
+                />
 
-          <h3>Dirección</h3>
-          <input
-            type="text"
-            placeholder="Dirección"
-            defaultValue={userData.direction}
-            name="direction"
-            ref={register({
-              required: {
-                value: true,
-                message: "*La Dirección es obligatoria*",
-              },
-            })}
-          />
-          <span>{errors?.direction?.message}</span>
+                <TextField
+                  id="standard-password-input"
+                  margin="normal"
+                  className={classes.title}
+                  fullWidth
+                  type="password"
+                  label="Contraseña"
+                  name="password"
+                  defaultValue={userData.password}
+                  inputRef={register({
+                    required: "La contraseña es requerida.",
+                  })}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password?.message}
+                />
 
-          <input type="submit" value="Editar" />
-        </form>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Direccion"
+                  type="text"
+                  name="direction"
+                  defaultValue={userData.direction}
+                  inputRef={register({
+                    required: "La tarjeta de identificaion es requerida.",
+                  })}
+                  error={Boolean(errors.direction)}
+                  helperText={errors.direction?.message}
+                />
+
+                <Button
+                  type="submit"
+                  className={classes.submit}
+                  fullWidth
+                  style={{ marginTop: "10%", background: "#4caf50" }}
+                  variant="contained"
+                >
+                  Editar
+                </Button>
+              </form>
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );
 };
 
 export default EditAdministrator;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: 300,
+    },
+    textField: {
+      width: "25ch",
+    },
+    button: {
+      margin: theme.spacing(1),
+    },
+  },
+  form: {
+    marginLeft: "10%",
+    marginRight: "10%",
+    width: "80%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 5),
+  },
+  forgot: {
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(8),
+  },
+  title: {
+    color: theme.palette.text.secondary,
+  },
+  next: {
+    margin: theme.spacing(3, 0, 5),
+  },
+}));

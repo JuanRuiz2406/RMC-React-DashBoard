@@ -2,7 +2,23 @@ import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { newDepartment } from "../../services/departments";
+import {
+  Box,
+  Button,
+  Container,
+  Grid,
+  makeStyles,
+  TextField,
+  Typography,
+  InputAdornment,
+  IconButton,
+} from "@material-ui/core";
 import { Success, Error } from "../alerts";
+
+import AddIcon from "@material-ui/icons/Add";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 const CreateDepartment = () => {
   const history = useHistory();
@@ -52,186 +68,238 @@ const CreateDepartment = () => {
       Error(createResponse.error);
     }
   };
-
+  const classes = useStyles();
   return (
-    <div>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <h1>Crear Departamento</h1>
-
-        <h3>Nombre</h3>
-        <input
-          type="text"
-          placeholder="Nombre del Departamento"
-          name="name"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Nombre es obligatorio*",
-            },
-          })}
-        />
-        <span>{errors?.name?.message}</span>
-
-        <h3>Descripción</h3>
-        <input
-          type="text"
-          placeholder="Descripción del Departamento"
-          name="description"
-          ref={register({
-            required: {
-              value: true,
-              message: "*La descripción es obligatoria*",
-            },
-          })}
-        />
-        <span>{errors?.description?.message}</span>
-
-        <h3>Correo Electrónico</h3>
-        <input
-          type="text"
-          placeholder="ejemplo@departamento.com"
-          name="email"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Correo Electrónico es obligatorio*",
-            },
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "*El Correo Electrónico debe tener un formato válido*",
-            },
-          })}
-        />
-        <span>{errors?.email?.message}</span>
-
-        <h3>Teléfono</h3>
-        <input
-          type="text"
-          placeholder="Número de teléfono"
-          name="telephone"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El teléfono es obligatorio*",
-            },
-          })}
-        />
-        <span>{errors?.telephone?.message}</span>
-
-        <h1>Crear Encargado</h1>
-
-        <h3>Nombre</h3>
-        <input
-          type="text"
-          placeholder="Nombre del Encargado"
-          name="userName"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Nombre del Encargado es obligatorio*",
-            },
-            pattern: {
-              value: /^[a-zA-Z\s]*$/,
-              message: "*El Nombre solo puede tener letras*",
-            },
-          })}
-        />
-        <span>{errors?.userName?.message}</span>
-
-        <h3>Apellido</h3>
-        <input
-          type="text"
-          placeholder="Apellido del Encargado"
-          name="lastName"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Apellido es obligatorio*",
-            },
-            pattern: {
-              value: /^[a-zA-Z\s]*$/,
-              message: "*El Apellido solo puede tener letras*",
-            },
-          })}
-        />
-        <span>{errors?.lastName?.message}</span>
-
-        <h3>Identificacion</h3>
-        <input
-          type="text"
-          placeholder="Cédula"
-          name="idCard"
-          ref={register({
-            required: {
-              value: true,
-              message: "*La Cédula es obligatoria*",
-            },
-          })}
-        />
-        <span>{errors?.idCard?.message}</span>
-
-        <h3>Correo Electrónico</h3>
-        <input
-          type="text"
-          placeholder="Email"
-          name="userEmail"
-          ref={register({
-            required: {
-              value: true,
-              message: "*El Correo Electrónico es obligatorio*",
-            },
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "*El Correo Electrónico debe tener un formato válido*",
-            },
-          })}
-        />
-        <span>{errors?.userEmail?.message}</span>
-
-        <h3>Contraseña</h3>
-        <input
-          type="password"
-          placeholder="Contraseña"
-          name="password"
-          ref={register({
-            required: {
-              value: true,
-              message: "*La Contraseña es obligatoria*",
-            },
-            minLength: {
-              value: 8,
-              message: "*La Contraseña debe tener mínimo 8 caracteres*",
-            },
-          })}
-        />
-        <span>{errors?.password?.message}</span>
-
-        <h3>Dirección</h3>
-        <input
-          type="text"
-          placeholder="Dirección"
-          name="direction"
-          ref={register({
-            required: {
-              value: true,
-              message: "*La Dirección es obligatoria*",
-            },
-          })}
-        />
-        <span>{errors?.direction?.message}</span>
-
-        <input type="submit" value="Crear" />
-
-        <button
+    <Box bgcolor="background.default" p={2}>
+      <Container>
+        <Button
+          style={{ marginTop: 30 }}
+          color="primary"
           onClick={() => {
             history.goBack();
           }}
         >
-          Volver
-        </button>
-      </form>
-    </div>
+          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
+        </Button>
+
+        <Grid container spacing={4} style={{ marginTop: 10 }}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Box bgcolor="common.white" p={1.5} boxShadow={2}>
+              <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Typography variant="h5" gutterBottom>
+                  Departamento
+                </Typography>
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Nombre del Departamento"
+                  type="text"
+                  name="name"
+                  inputRef={register({
+                    required: "El nombre es requerido.",
+                  })}
+                  error={Boolean(errors.name)}
+                  helperText={errors.name?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Descripción"
+                  type="text"
+                  name="description"
+                  inputRef={register({
+                    required: "La descripción es requerido.",
+                  })}
+                  error={Boolean(errors.description)}
+                  helperText={errors.description?.message}
+                />
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Correo"
+                  type="email"
+                  name="email"
+                  inputRef={register({
+                    required: "El correo es requerido.",
+                  })}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Numero de telefono"
+                  type="number"
+                  name="telephone"
+                  inputRef={register({
+                    required: "El numero de telefono es requerido.",
+                  })}
+                  error={Boolean(errors.telephone)}
+                  helperText={errors.telephone?.message}
+                />
+
+                <IconButton
+                  className={classes.next}
+                  fullWidth
+                  style={{ marginTop: "10%", marginLeft: "90%" }}
+                >
+                  <ArrowForwardIcon
+                    style={{ color: "#4caf50", fontSize: 40 }}
+                  />
+                </IconButton>
+              </form>
+            </Box>
+          </Grid>
+
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Box bgcolor="common.white" p={1.5} boxShadow={2}>
+              <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Typography variant="h5" gutterBottom>
+                  Encargado
+                </Typography>
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Nombre del Encargado"
+                  type="text" 
+                  name="userName"
+                  inputRef={register({
+                    required: "El nombre es requerido.",
+                  })}
+                  error={Boolean(errors.userName)}
+                  helperText={errors.userName?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Apellido del Encargado"
+                  type="text"
+                  name="lastName"
+                  inputRef={register({
+                    required: "El apellido es requerido.",
+                  })}
+                  error={Boolean(errors.lastName)}
+                  helperText={errors.lastName?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Tarjeta de Identificacion"
+                  type="text"
+                  name="idCard"
+                  inputRef={register({
+                    required: "La tarjeta de identificaion es requerida.",
+                  })}
+                  error={Boolean(errors.idCard)}
+                  helperText={errors.idCard?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Correo del encargado"
+                  type="email"
+                  name="userEmail"
+                  inputRef={register({
+                    required: "El correo es requerido.",
+                  })}
+                  error={Boolean(errors.userEmail)}
+                  helperText={errors.userEmail?.message}
+                />
+
+                <TextField
+                  id="standard-password-input"
+                  margin="normal"
+                  className={classes.title}
+                  fullWidth
+                  type="password"
+                  label="Contraseña"
+                  name="password"
+                  inputRef={register({
+                    required: "La contraseña es requerida.",
+                  })}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Direccion"
+                  type="text"
+                  name="direction"
+                  inputRef={register({
+                    required: "La dirección es requerida.",
+                  })}
+                  error={Boolean(errors.direction)}
+                  helperText={errors.direction?.message}
+                />
+
+                <Button
+                  type="submit"
+                  className={classes.submit}
+                  fullWidth
+                  style={{ marginTop: "10%", background: "#4caf50" }}
+                  variant="contained"
+                  endIcon={<AddIcon />}
+                >
+                  Crear
+                </Button>
+              </form>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+    </Box>
   );
 };
 
 export default CreateDepartment;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: 300,
+    },
+    textField: {
+      width: "25ch",
+    },
+    button: {
+      margin: theme.spacing(1),
+    },
+  },
+  form: {
+    marginLeft: "10%",
+    marginRight: "10%",
+    width: "80%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 5),
+  },
+  forgot: {
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(8),
+  },
+  title: {
+    color: theme.palette.text.secondary,
+  },
+  next: {
+    margin: theme.spacing(3, 0, 5),
+  },
+}));

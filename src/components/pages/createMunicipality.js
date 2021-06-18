@@ -28,7 +28,7 @@ const CreateMunicipality = () => {
   const onSubmit = async (data) => {
     const municipality = {
       name: data.name,
-      adress: data.adress,
+      adress: data.address,
       email: data.email,
       telephone: data.telephone,
       webSite: data.webSite,
@@ -44,7 +44,8 @@ const CreateMunicipality = () => {
       role: "MunicipalityAdmin",
       state: "activo",
     };
-
+    console.log(municipality)
+    console.log(manager)
     const createResponse = await newMunicipality(municipality, manager);
 
     if (createResponse.code === 200) {
@@ -131,12 +132,12 @@ const CreateMunicipality = () => {
                   fullWidth
                   label="Numero de telefono"
                   type="number"
-                  name="phone"
+                  name="telephone"
                   inputRef={register({
                     required: "El numero de telefono es requerido.",
                   })}
-                  error={Boolean(errors.phone)}
-                  helperText={errors.phone?.message}
+                  error={Boolean(errors.telephone)}
+                  helperText={errors.telephone?.message}
                 />
                 <TextField
                   id="standard-basic"
@@ -144,12 +145,12 @@ const CreateMunicipality = () => {
                   fullWidth
                   label="Sitio Web"
                   type="text"
-                  name="web"
+                  name="webSite"
                   inputRef={register({
                     required: false,
                   })}
-                  error={Boolean(errors.web)}
-                  helperText={errors.web?.message}
+                  error={Boolean(errors.webSite)}
+                  helperText={errors.webSite?.message}
                 />
 
                 <IconButton
