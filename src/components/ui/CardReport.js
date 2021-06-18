@@ -60,13 +60,11 @@ const CardReport = ({ report }) => {
     const apiPhotos = await getPhotos(reportId);
 
     let uris = "";
-      apiPhotos.map((x) => (
-            uris = (uris +  "," + x.imagePath)
-        ))
-        uris = uris.substring(1);
-        uris = uris.split(",");
-      setPhotos(uris);
-      console.log(photos);
+    apiPhotos.map((x) => (uris = uris + "," + x.imagePath));
+    uris = uris.substring(1);
+    uris = uris.split(",");
+    setPhotos(uris);
+    console.log(photos);
   };
 
   useEffect(() => {
