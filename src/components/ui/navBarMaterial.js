@@ -7,7 +7,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
+import IconButton from "@material-ui/core/IconButton";
+import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -45,11 +46,11 @@ export const NavBar = () => {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            ReportsMyCity
+            ReportsMyCity Panel de Conrol
           </Typography>
-          <Button variant="text" color="inherit" onClick={handleLogout}>
-            Logout
-          </Button>
+          <IconButton onClick={() => handleLogout()}>
+            <ExitToAppIcon style={{ color: "#fff", fontSize: 40 }} />
+          </IconButton>
         </Toolbar>
       </AppBar>
       <div className={classes.offset}></div>

@@ -2,116 +2,73 @@ import React, { useState } from "react";
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
 import { sendVerificationCode } from "../../services/user";
-import logo from "../../images/ReportsmycityTransp.png";
+import logo from "../../images/ReportsMyCityLogin.png";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../ui/themeConfig";
-import InputLabel from "@material-ui/core/InputLabel";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import Input from "@material-ui/core/Input";
-import FormControl from "@material-ui/core/FormControl";
-import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import Button from "@material-ui/core/Button";
 import Send from "@material-ui/icons/Send";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Container from "@material-ui/core/Container";
+import Typography from "@material-ui/core/Typography";
+import TextField from "@material-ui/core/TextField";
+import { Success, Error } from "../alerts";
 
 const ForgotPassword = ({ history }) => {
   const { register, handleSubmit, errors } = useForm();
-  const onSubmit = async () => {
-    const response = await sendVerificationCode(values.email);
+  const onSubmit = async (data) => {
+    const response = await sendVerificationCode(data.email);
     console.log(response);
     if (response.code === 201) {
-      localStorage.setItem("email", values.email);
+      localStorage.setItem("email", data.email);
+      Success(response.message);
       history.replace("password_reset");
     } else {
-      <span>{response.message}</span>;
+      Error(response.message);
     }
-  };
-
-  const [values, setValues] = useState({
-    amount: "",
-    email: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
   };
 
   const classes = useStyles();
 
   return (
     <ThemeProvider theme={theme}>
-      <div
-        className="row justify-content-center align-item-center"
-        style={{
-          paddingTop: "5%",
-          paddingBottom: "18%",
-          backgroundColor: "#011B42",
-        }}
-      >
-        <div className="col-8 text-center align-self-center rounded">
-          <div className="row justify-content-center">
-            <div
-              className="col-auto text-center align-self-center border border-2 rounded"
-              style={{
-                marginTop: "2%",
-                marginBottom: "2%",
-                padding: "2% 10%",
-                background: "#032D6B",
-              }}
-            >
-              <form
-                className={classes.root}
-                noValidate
-                onSubmit={handleSubmit(onSubmit)}
-              >
-                <img src={logo} style={{ width: "250px", height: "250px" }} />
-                <div
-                  className="form-group text-start"
-                  style={{ marginTop: "3%", marginBottom: "5%" }}
-                >
-                  <FormControl
-                    className={clsx(classes.margin, classes.textField)}
-                  >
-                    <InputLabel htmlFor="standard-adornment-password">
-                      Correo
-                    </InputLabel>
-                    <Input
-                      id="standard-adornment-password"
-                      label="Correo"
-                      type="text"
-                      value={values.email}
-                      onChange={handleChange("email")}
-                      endAdornment={
-                        <InputAdornment position="end">
-                          <IconButton>
-                            <AlternateEmailIcon />
-                          </IconButton>
-                        </InputAdornment>
-                      }
-                    />
-                  </FormControl>
-                </div>
+      <Container component="main" maxWidth="sm">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img src={logo} style={{ width: "250px", height: "250px" }} />
+          <Typography className={classes.title} component="h1" variant="h5">
+            Recuperacion de Contraseña
+          </Typography>
 
-                <Button
-                  type="submit"
-                  className={classes.button}
-                  style={{ marginTop: "10%" }}
-                  variant="contained"
-                  color="primary"
-                  endIcon={<Send />}
-                >
-                  Enviar codigo
-                </Button>
-              </form>
-            </div>
-          </div>
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              id="standard-basic"
+              margin="normal"
+              fullWidth
+              label="Correo"
+              type="email"
+              name="email"
+              inputRef={register({
+                required: "El correo es requerido.",
+              })}
+              error={Boolean(errors.email)}
+              helperText={errors.email?.message}
+            />
+
+            <Button
+              type="submit"
+              className={classes.submit}
+              fullWidth
+              style={{ marginTop: "10%" }}
+              variant="contained"
+              color="primary"
+              endIcon={<Send />}
+            >
+              Enviar Codigo
+            </Button>
+          </form>
         </div>
-      </div>
+      </Container>
     </ThemeProvider>
   );
 };
@@ -130,5 +87,31 @@ const useStyles = makeStyles((theme) => ({
     button: {
       margin: theme.spacing(1),
     },
+  },
+  form: {
+    marginLeft: "10%",
+    marginRight: "10%",
+    width: "80%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 5),
+  },
+  forgot: {
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(8),
+  },
+  title: {
+    color: theme.palette.text.secondary,
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    background: "linear-gradient(45deg, #e3f2fd 10%, #64b5f6 90%)",
+    boxShadow: "0 3px 5px 2px rgba(33, 150, 243, .3)",
+    border: 1,
+    borderRadius: 8,
   },
 }));

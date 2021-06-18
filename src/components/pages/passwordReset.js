@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../auth/AuthContext";
+import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
-import logo from "../../images/ReportsMyCity.png";
+import logo from "../../images/ReportsMyCityLogin.png";
 import { verificationCode } from "../../services/user";
+
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import theme from "../ui/themeConfig";
+import Button from "@material-ui/core/Button";
+import LockOpen from "@material-ui/icons/LockOpen";
+import Link from "@material-ui/core/Link";
+import Container from "@material-ui/core/Container";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import TextField from "@material-ui/core/TextField";
+import { Error } from "../alerts";
+import UpdateIcon from "@material-ui/icons/Update";
 
 const PasswordReset = ({ history }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -21,103 +36,128 @@ const PasswordReset = ({ history }) => {
       console.log("las contraseñas no coinciden");
     }
   };
+
+  const classes = useStyles();
+
   return (
-    <div
-      className="row justify-content-center align-item-center"
-      style={{ marginTop: "5%" }}
-    >
-      <div className="col-8 text-center align-self-center rounded">
-        <div className="row justify-content-center">
-          <div
-            className="col-auto text-center align-self-center border border-3 border-secondary bg-white rounded"
-            style={{ marginTop: "2%", marginBottom: "2%", padding: "2% 10%" }}
-          >
-            <form onSubmit={handleSubmit(onSubmit)}>
-              <h2>Restablecer Contraseña</h2>
+    <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="sm">
+        <CssBaseline />
+        <div className={classes.paper}>
+          <img src={logo} style={{ width: "250px", height: "250px" }} />
+          <Typography className={classes.title} component="h1" variant="h5">
+            Verificacion y Cambio de Contraseña
+          </Typography>
 
-              <img src={logo} style={{ width: "300px", height: "100px" }} />
+          <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+            <TextField
+              id="standard-basic"
+              margin="normal"
+              fullWidth
+              label="Codigo de verificacion"
+              type="code"
+              name="code"
+              inputRef={register({
+                required: "El codigo es obligatorio.",
+              })}
+              error={Boolean(errors.code)}
+              helperText={errors.email?.message}
+            />
 
-              <div
-                className="form-group text-start"
-                style={{ marginTop: "5%", marginBottom: "5%" }}
-              >
-                <label>Código de verificación</label>
-                <input
-                  className="form-control"
-                  type="code"
-                  placeholder="********"
-                  name="code"
-                  ref={register({
-                    required: {
-                      value: true,
-                      message: "*El código es obligatorio*",
-                    },
-                    minLength: {
-                      value: 8,
-                      message: "*El código es de mínimo 8 caracteres*",
-                    },
-                  })}
-                />
-                <span>{errors?.password?.message}</span>
-              </div>
+            <TextField
+              id="standard-password-input"
+              margin="normal"
+              className={classes.title}
+              fullWidth
+              type="password"
+              label="Contraseña"
+              name="password1"
+              inputRef={register({
+                required: "La contraseña es requerida.",
+              })}
+              error={Boolean(errors.password1)}
+              helperText={errors.password1?.message}
+            />
 
-              <div
-                className="form-group text-start"
-                style={{ marginTop: "5%", marginBottom: "5%" }}
-              >
-                <label>Contraseña</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  placeholder="Contraseña"
-                  name="password1"
-                  ref={register({
-                    required: {
-                      value: true,
-                      message: "*La Contraseña es obligatoria*",
-                    },
-                    minLength: {
-                      value: 8,
-                      message: "*La Contraseña debe tener mínimo 8 caracteres*",
-                    },
-                  })}
-                />
-                <span>{errors?.password?.message}</span>
-              </div>
+            <TextField
+              id="standard-password-input"
+              margin="normal"
+              className={classes.title}
+              fullWidth
+              type="password"
+              label="Contraseña"
+              name="password2"
+              inputRef={register({
+                required: "La contraseña es requerida.",
+              })}
+              error={Boolean(errors.password2)}
+              helperText={errors.password2?.message}
+            />
 
-              <div
-                className="form-group text-start"
-                style={{ marginTop: "5%", marginBottom: "5%" }}
-              >
-                <label>Confirmar Contraseña</label>
-                <input
-                  className="form-control"
-                  type="password"
-                  placeholder="Contraseña"
-                  name="password2"
-                  ref={register({
-                    required: {
-                      value: true,
-                      message: "*La Contraseña es obligatoria*",
-                    },
-                    minLength: {
-                      value: 8,
-                      message: "*La Contraseña debe tener mínimo 8 caracteres*",
-                    },
-                  })}
-                />
-                <span>{errors?.password?.message}</span>
-              </div>
-
-              <button type="submit" className="btn btn-outline-primary">
-                Actualizar Contraseña
-              </button>
-            </form>
-          </div>
+            <Button
+              type="submit"
+              className={classes.submit}
+              fullWidth
+              style={{ marginTop: "10%" }}
+              variant="contained"
+              color="primary"
+              endIcon={<UpdateIcon />}
+            >
+              Actualizar Contraseña
+            </Button>
+          </form>
         </div>
-      </div>
-    </div>
+      </Container>
+    </ThemeProvider>
   );
 };
 
 export default PasswordReset;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    "& .MuiTextField-root": {
+      margin: theme.spacing(1),
+      width: 300,
+    },
+    textField: {
+      width: "25ch",
+    },
+    button: {
+      margin: theme.spacing(1),
+    },
+  },
+  paper: {
+    marginTop: theme.spacing(8),
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    background: "linear-gradient(45deg, #e3f2fd 10%, #64b5f6 90%)",
+    boxShadow: "0 3px 5px 2px rgba(33, 150, 243, .3)",
+    border: 1,
+    borderRadius: 8,
+  },
+  avatar: {
+    margin: theme.spacing(1),
+    backgroundColor: theme.palette.secondary.main,
+  },
+  form: {
+    marginLeft: "10%",
+    marginRight: "10%",
+    width: "80%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 5),
+  },
+  forgot: {
+    color: theme.palette.primary.main,
+    marginTop: theme.spacing(8),
+  },
+  title: {
+    color: theme.palette.text.secondary,
+  },
+  containerColor: {
+    color: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)",
+  },
+}));

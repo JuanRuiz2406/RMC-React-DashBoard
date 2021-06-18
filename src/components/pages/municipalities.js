@@ -7,15 +7,32 @@ import {
 import {
   Box,
   Button,
-  Divider,
-  Grid,
   Container,
   Typography,
   withStyles,
-  CardActions,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  makeStyles,
+  Menu,
+  MenuItem,
+  ListItemIcon,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
 import { ConfirmDelete } from "../alerts";
+import { RowingSharp, Tab } from "@material-ui/icons";
+import IconButton from "@material-ui/core/IconButton";
+import MoreVertIcon from "@material-ui/icons/MoreVert";
+import EditIcon from "@material-ui/icons/Edit";
+import SupervisorAccountIcon from "@material-ui/icons/SupervisorAccount";
+import LocationCityIcon from "@material-ui/icons/LocationCity";
+import BusinessIcon from "@material-ui/icons/Business";
+import DeleteIcon from "@material-ui/icons/Delete";
+import AddIcon from "@material-ui/icons/Add";
 
 const Municipalities = () => {
   const history = useHistory();
@@ -24,6 +41,16 @@ const Municipalities = () => {
 
   const [municipalities, setMunicipalities] = useState({});
   const [loading, setLoading] = useState(true);
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   useEffect(() => {
     fetchMunicipalities();
@@ -90,6 +117,7 @@ const Municipalities = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
+
   const ColorButton = withStyles((theme) => ({
     root: {
       color: theme.palette.getContrastText(green[500]),
@@ -100,103 +128,146 @@ const Municipalities = () => {
     },
   }))(Button);
 
+  const useStyles = makeStyles({
+    table: {
+      minWidth: 650,
+    },
+  });
+
   return (
-    <Box bgcolor="background.paper" p={2}>
+    <Box bgcolor="background.default" p={2}>
       <Container>
-        <ColorButton
-          variant="contained"
-          color="primary"
+        <Button
+          style={{ marginTop: 30 }}
           onClick={() =>
             history.push("/municipalidades/crear", {
               from: "municipalidades",
             })
           }
         >
-          Crear
-        </ColorButton>
+          <AddIcon style={{ color: "#4caf50", fontSize: 40 }} /> Crear
+        </Button>
 
-        {municipalities.map((municipality) => (
-          <ul key={municipality.id}>
-            <div>
-              <Grid item xs>
-                <Box bgcolor="common.black" p={1.5} boxShadow={2}>
-                  <Grid item xs={12}>
-                    <Typography variant="h2" component="h2">
-                      {municipality.name}
-                    </Typography>
-                  </Grid>
-                  <Box item xs={6}>
-                    <Typography variant="h5" component="p">
-                      {municipality.adress}
-                    </Typography>
-                  </Box>
-                  <Box item xs={6}>
-                    <Typography variant="h5" component="p">
-                      {municipality.email}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="h5" component="p">
-                      {municipality.telephone}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="h5" component="p">
-                      {municipality.state}
-                    </Typography>
-                  </Box>
-                  <Box>
-                    <Typography variant="h5" component="p">
-                      {municipality.website}
-                    </Typography>
-                  </Box>
-                  <Divider />
-                  <CardActions>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => municipalityDepartments(municipality)}
-                    >
-                      Ver Departamentos
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => municipalityCities(municipality)}
-                    >
-                      Ver Ciudades
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() => editMunicipality(municipality)}
-                    >
-                      Editar Municipalidad
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      onClick={() =>
-                        editMunicipalityAdministrator(municipality)
-                      }
-                    >
-                      Editar Administrador
-                    </Button>
-                    <Button
-                      variant="contained"
-                      color="secondary"
-                      onClick={() =>
-                        deleteMunicipalitySelected(municipality.id)
-                      }
-                    >
-                      Eliminar Municipalidad
-                    </Button>
-                  </CardActions>
-                </Box>
-              </Grid>
-            </div>
-          </ul>
-        ))}
+        <TableContainer component={Paper} style={{ marginTop: 50 }}>
+          <Table
+            className={useStyles.table}
+            size="small"
+            aria-label="a dense table"
+          >
+            <TableHead style={{ paddingTop: 100 }}>
+              <TableRow>
+                <TableCell style={{ fontSize: 40, padding: 20 }}>
+                  Municipalidades
+                </TableCell>
+                <TableCell style={{ fontSize: 20 }} align="right">
+                  Correo
+                </TableCell>
+                <TableCell style={{ fontSize: 20 }} align="right">
+                  Telefono
+                </TableCell>
+                <TableCell style={{ fontSize: 20 }} align="right">
+                  Estado
+                </TableCell>
+                <TableCell style={{ fontSize: 20 }} align="right">
+                  Acciones
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {municipalities.map((municipality) => (
+                <TableRow key={municipality.id}>
+                  <TableCell
+                    style={{ fontSize: 20 }}
+                    component="th"
+                    scope="row"
+                  >
+                    {municipality.name}
+                  </TableCell>
+                  <TableCell style={{ fontSize: 15 }} align="right">
+                    {municipality.email}
+                  </TableCell>
+                  <TableCell style={{ fontSize: 15 }} align="right">
+                    {municipality.telephone}
+                  </TableCell>
+                  <TableCell style={{ fontSize: 15 }} align="right">
+                    {municipality.state}
+                  </TableCell>
+                  <TableCell style={{ fontSize: 15 }} align="right">
+                    <div>
+                      <IconButton
+                        aria-controls="simple-menu"
+                        aria-haspopup="true"
+                        onClick={handleClick}
+                      >
+                        <MoreVertIcon style={{ color: "#0277BD" }} />
+                      </IconButton>
+                      <Menu
+                        id="simple-menu"
+                        anchorEl={anchorEl}
+                        keepMounted
+                        open={Boolean(anchorEl)}
+                        onClose={handleClose}
+                      >
+                        <MenuItem
+                          onClick={() => editMunicipality(municipality)}
+                        >
+                          <ListItemIcon>
+                            <EditIcon style={{ color: "#0277BD" }} />
+                          </ListItemIcon>
+                          <Typography variant="inherit">Editar</Typography>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() =>
+                            editMunicipalityAdministrator(municipality)
+                          }
+                        >
+                          <ListItemIcon>
+                            <SupervisorAccountIcon
+                              style={{ color: "#0277BD" }}
+                            />
+                          </ListItemIcon>
+                          <Typography variant="inherit">
+                            Editar Administrador
+                          </Typography>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => municipalityCities(municipality)}
+                        >
+                          <ListItemIcon>
+                            <LocationCityIcon style={{ color: "#0277BD" }} />
+                          </ListItemIcon>
+                          <Typography variant="inherit">
+                            Ver Ciudades
+                          </Typography>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => municipalityDepartments(municipality)}
+                        >
+                          <ListItemIcon>
+                            <BusinessIcon style={{ color: "#0277BD" }} />
+                          </ListItemIcon>
+                          <Typography variant="inherit">
+                            Ver Departamentos
+                          </Typography>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() =>
+                            deleteMunicipalitySelected(municipality.id)
+                          }
+                        >
+                          <ListItemIcon>
+                            <DeleteIcon style={{ color: "#FF0000" }} />
+                          </ListItemIcon>
+                          <Typography variant="inherit">Eliminar</Typography>
+                        </MenuItem>
+                      </Menu>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
       </Container>
     </Box>
   );

@@ -89,9 +89,9 @@ const Reports = () => {
       )}
 
       <Container>
-        <div className="mb-3 mt-2">
+        <Box component="span" mt={4}>
           <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
-        </div>
+        </Box>
 
         <Grid container spacing={3} className={useStyles.gridContainer}>
           {filteredReports.map((report) => (

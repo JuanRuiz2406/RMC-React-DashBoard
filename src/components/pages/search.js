@@ -1,14 +1,13 @@
+import { TextField } from "@material-ui/core";
+
 const Search = ({ searchQuery, setSearchQuery }) => (
-  <form action="/" method="get">
-    <label htmlFor="header-search">
-      <span className="visually-hidden">Filtro por Estado:</span>
-    </label>
-    <input
+  <form style={{ marginBottom: 20, marginTop: 10 }} action="/" method="get">
+    <TextField
       value={searchQuery}
       onInput={(e) => setSearchQuery(e.target.value)}
       type="text"
-      id="header-search"
-      placeholder="Filtrar por Estado..."
+      id="standard-basic"
+      label="Filtrar por Estado..."
       name="s"
     />
     {/* <button type="submit">Buscar</button> */}
