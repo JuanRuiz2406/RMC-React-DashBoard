@@ -1,20 +1,15 @@
-import React, { useContext, useState } from "react";
-import clsx from "clsx";
+import React, { useContext } from "react";
 import { AuthContext } from "../../auth/AuthContext";
 import { types } from "../../types/types";
 import { useForm } from "react-hook-form";
 import { login } from "../../services/user";
 import { getDepartmentAdmin } from "../../services/departments";
+
 import logo from "../../images/ReportsMyCityLogin.png";
 import { Link as RouterLink } from "react-router-dom";
 
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../ui/themeConfig";
-import InputAdornment from "@material-ui/core/InputAdornment";
-import IconButton from "@material-ui/core/IconButton";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import Button from "@material-ui/core/Button";
 import LockOpen from "@material-ui/icons/LockOpen";
 import Link from "@material-ui/core/Link";
@@ -23,14 +18,13 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import Box from "@material-ui/core/Box";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
-  const { handleSubmit } = useForm();
+  const { register, handleSubmit, errors } = useForm();
 
-  const onSubmit = () => {
-    handleLogin(values.email, values.password);
+  const onSubmit = (data) => {
+    handleLogin(data.email, data.password);
   };
 
   const handleLogin = async (email, password) => {
@@ -66,19 +60,6 @@ const Login = ({ history }) => {
   };
   const classes = useStyles();
 
-  const [values, setValues] = useState({
-    amount: "",
-    email: "",
-    password: "",
-    weight: "",
-    weightRange: "",
-    showPassword: false,
-  });
-
-  const handleChange = (prop) => (event) => {
-    setValues({ ...values, [prop]: event.target.value });
-  };
-
   return (
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="sm">
@@ -93,31 +74,32 @@ const Login = ({ history }) => {
             <TextField
               id="standard-basic"
               margin="normal"
-              required
               fullWidth
               label="Correo"
-              type="text"
-              value={values.email}
-              onChange={handleChange("email")}
-              endAdornment={
-                <InputAdornment position="end">
-                  <IconButton>
-                    <AlternateEmailIcon />
-                  </IconButton>
-                </InputAdornment>
-              }
+              type="email"
+              name="email"
+              inputRef={register({
+                required: "El correo es requerido.",
+              })}
+              error={Boolean(errors.email)}
+              helperText={errors.email?.message}
             />
+
             <TextField
               id="standard-password-input"
               margin="normal"
               className={classes.title}
-              required
               fullWidth
+              type="password"
               label="Contraseña"
-              type={values.showPassword ? "text" : "password"}
-              value={values.password}
-              onChange={handleChange("password")}
+              name="password"
+              inputRef={register({
+                required: "La contraseña es requerida.",
+              })}
+              error={Boolean(errors.password)}
+              helperText={errors.password?.message}
             />
+
             <Grid container>
               <Grid item xs>
                 <Link
