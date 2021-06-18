@@ -16,6 +16,7 @@ const Confirm = (title, text, action) => {
     cancelButtonColor: "#d33",
     cancelButtonText: "¡No, cancelar!",
     confirmButtonText: "Si, eliminar!",
+    reverseButtons: true,
   }).then(async (result) => {
     if (result.isConfirmed) {
       const deleteResponse = await action;
