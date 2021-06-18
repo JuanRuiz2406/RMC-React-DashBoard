@@ -5,7 +5,7 @@ import {
   updateReportState,
   newDetail,
 } from "../../services/reports";
-
+import { getPhotos } from "../../services/photography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
 import Grow from "@material-ui/core/Grow";
@@ -35,6 +35,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const CardReport = ({ report }) => {
   const [details, setDetails] = useState({});
+  const [photos, setPhotos] = useState({});
   const [expanded, setExpanded] = React.useState(false);
   const [coment, setComent] = useState("");
 
@@ -55,8 +56,17 @@ const CardReport = ({ report }) => {
 
   const fetchDetails = async (reportId) => {
     const apiDetails = await getDetails(reportId);
-
     setDetails(apiDetails);
+    const apiPhotos = await getPhotos(reportId);
+
+    let uris = "";
+      apiPhotos.map((x) => (
+            uris = (uris +  "," + x.imagePath)
+        ))
+        uris = uris.substring(1);
+        uris = uris.split(",");
+      setPhotos(uris);
+      console.log(photos);
   };
 
   useEffect(() => {
@@ -136,7 +146,7 @@ const CardReport = ({ report }) => {
           subheader={report.createdAt}
         />
         <CardMedia className={useStyles.media} title="Imagen">
-          <img style={{ height: 300, width: "100%" }} src={report.imgURL} />
+          <img style={{ height: 300, width: "100%" }} src={photos[0]} />
         </CardMedia>
         <CardContent>
           <Typography variant="body2" color="textSecondary" component="p">
