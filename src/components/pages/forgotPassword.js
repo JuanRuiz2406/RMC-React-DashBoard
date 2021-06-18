@@ -10,13 +10,10 @@ import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import IconButton from "@material-ui/core/IconButton";
 import Input from "@material-ui/core/Input";
-import Visibility from "@material-ui/icons/Visibility";
-import VisibilityOff from "@material-ui/icons/VisibilityOff";
 import FormControl from "@material-ui/core/FormControl";
 import AlternateEmailIcon from "@material-ui/icons/AlternateEmail";
 import Button from "@material-ui/core/Button";
 import Send from "@material-ui/icons/Send";
-import Link from "@material-ui/core/Link";
 
 const ForgotPassword = ({ history }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -42,14 +39,6 @@ const ForgotPassword = ({ history }) => {
 
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
-  };
-
-  const handleClickShowPassword = () => {
-    setValues({ ...values, showPassword: !values.showPassword });
-  };
-
-  const handleMouseDownPassword = (event) => {
-    event.preventDefault();
   };
 
   const classes = useStyles();

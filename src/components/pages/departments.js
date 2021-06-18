@@ -4,18 +4,10 @@ import { deleteDepartment, getDepartments } from "../../services/departments";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
   Grid,
-  TextField,
   Container,
   Typography,
   withStyles,
-  makeStyles,
-  CardActions,
-  ColorButton,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
 import { ConfirmDelete } from "../alerts";
@@ -39,10 +31,6 @@ const Departments = () => {
 
     setDepartments(apiDepartments);
     setLoading(false);
-  };
-
-  const refreshPage = () => {
-    window.location.reload();
   };
 
   const editDepartment = (department) => {

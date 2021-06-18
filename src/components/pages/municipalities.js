@@ -7,16 +7,11 @@ import {
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardHeader,
   Divider,
   Grid,
-  TextField,
   Container,
   Typography,
   withStyles,
-  makeStyles,
   CardActions,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
@@ -39,10 +34,6 @@ const Municipalities = () => {
 
     setMunicipalities(apiMunicipalities);
     setLoading(false);
-  };
-
-  const refreshPage = () => {
-    window.location.reload();
   };
 
   const municipalityDepartments = (municipality) => {
@@ -99,15 +90,6 @@ const Municipalities = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  const defaultProps = {
-    bgcolor: "common.white",
-    mt: 5,
-  };
-
-  const defaultProps2 = {
-    bgcolor: "common.white",
-  };
-
   const ColorButton = withStyles((theme) => ({
     root: {
       color: theme.palette.getContrastText(green[500]),

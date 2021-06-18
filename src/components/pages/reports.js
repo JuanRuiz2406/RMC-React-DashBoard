@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useHistory } from "react-router";
 import { Search } from ".";
 import { getReports } from "../../services/reports";
 import CardReport from "../ui/CardReport";
@@ -8,11 +7,10 @@ import Box from "@material-ui/core/Box";
 import Grid from "@material-ui/core/Grid";
 import Container from "@material-ui/core/Container";
 
-import Button from "@material-ui/core/Button";
-import { green, red } from "@material-ui/core/colors";
+import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 
-import { makeStyles, withStyles } from "@material-ui/core/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
 const filterReports = (reports, query) => {
   if (!query) {
@@ -26,7 +24,6 @@ const filterReports = (reports, query) => {
 };
 
 const Reports = () => {
-  const history = useHistory();
   const { search } = window.location;
   const query = new URLSearchParams(search).get("s");
   const [searchQuery, setSearchQuery] = useState(query || "");
@@ -47,10 +44,6 @@ const Reports = () => {
     setReports(apiReports);
 
     setLoading(false);
-  };
-
-  const refreshPage = () => {
-    window.location.reload();
   };
 
   if (loading) {
@@ -83,16 +76,6 @@ const Reports = () => {
       color: "#011B42",
     },
   }));
-
-  const ColorButton = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(green[500]),
-      backgroundColor: green[500],
-      "&:hover": {
-        backgroundColor: green[700],
-      },
-    },
-  }))(Button);
 
   return (
     <Box bgcolor="background.default" p={2}>

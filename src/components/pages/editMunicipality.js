@@ -2,23 +2,7 @@ import React from "react";
 import { useHistory } from "react-router";
 import { useForm } from "react-hook-form";
 import { updateMunicipality } from "../../services/municipalities";
-import {
-  Box,
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
-  Grid,
-  TextField,
-  Container,
-  Typography,
-  withStyles,
-  makeStyles,
-  CardActions,
-  ColorButton,
-} from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import { Box, Button, Container } from "@material-ui/core";
 import { Success, Error } from "../alerts";
 
 const EditMunicipality = () => {

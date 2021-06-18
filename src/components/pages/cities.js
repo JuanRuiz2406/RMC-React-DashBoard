@@ -4,18 +4,10 @@ import { getCities, deleteCity } from "../../services/cities";
 import {
   Box,
   Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Divider,
   Grid,
-  TextField,
   Container,
   Typography,
   withStyles,
-  makeStyles,
-  CardActions,
-  ColorButton,
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
 import { ConfirmDelete } from "../alerts";
@@ -131,33 +123,3 @@ const Cities = () => {
 };
 
 export default Cities;
-
-/* 
-    <div>
-      <button
-        onClick={() =>
-          history.push("/municipalidades/ciudades/crear", {
-            from: "municipalidades/ciudades",
-          })
-        }
-      >
-        Crear
-      </button>
-
-      <button
-        onClick={() => {
-          history.goBack();
-        }}
-      >
-        Volver
-      </button>
-
-      <ul>
-        {cities.map((cities) => (
-          <ul key={cities.id}>
-            <h2>{cities.name}</h2>
-          </ul>
-        ))}
-      </ul>
-    </div>
-*/
