@@ -48,6 +48,8 @@ const CardReport = ({ report }) => {
   };
 
   const handleExpandClick = () => {
+    localStorage.setItem("report", JSON.stringify(report));
+
     setExpanded(!expanded);
   };
 
