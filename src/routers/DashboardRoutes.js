@@ -15,6 +15,7 @@ import {
   Municipalities,
   Reports,
   SpecificReport,
+  UserProfile,
 } from "../components/pages/index";
 import { NavBar } from "../components/ui/navBarMaterial";
 import { Lists } from "../components/ui/Lists";
@@ -84,6 +85,8 @@ export const DashboardRoutes = () => {
             <Switch>
               <Route exact path="/reportes" component={Reports} />
               <Route exact path="/reporte" component={SpecificReport} />
+
+              <Route exact path="/perfil" component={UserProfile} />
 
               {/* Rutas RMCTeam */}
               <Route exact path="/municipalidades" component={Municipalities} />
