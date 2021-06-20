@@ -16,7 +16,7 @@ const Cities = () => {
   const history = useHistory();
 
   const municipality = JSON.parse(localStorage.getItem("municipality"));
-  console.log(municipality)
+  console.log(municipality);
   const [cities, setCities] = useState({});
   const [loading, setLoading] = useState(true);
 
@@ -26,7 +26,8 @@ const Cities = () => {
 
   const fetchCities = async () => {
     const apiCities = await getCities(municipality.id);
- 
+    console.log(apiCities.city);
+
     setCities(apiCities);
     setLoading(false);
   };
