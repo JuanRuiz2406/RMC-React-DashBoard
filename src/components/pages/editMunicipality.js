@@ -10,6 +10,8 @@ import {
   makeStyles,
   TextField,
   Typography,
+  Breadcrumbs,
+  Link,
 } from "@material-ui/core";
 import { Success, Error } from "../alerts";
 
@@ -53,19 +55,54 @@ const EditMunicipality = () => {
     }
   };
 
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
+
   const classes = useStyles();
   return (
     <Box bgcolor="background.default" p={2}>
       <Container>
-        <Button
-          style={{ marginTop: 30 }}
-          color="primary"
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
-        </Button>
+        <Grid container>
+          <Grid item xs={6} sm={6} md={8} lg={8}>
+            <Button
+              style={{ marginTop: 30 }}
+              color="primary"
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} />{" "}
+              Volver
+            </Button>
+          </Grid>
+          <Grid item xs={6} sm={6} md={4} lg={4}>
+            <Breadcrumbs aria-label="breadcrumb" style={{ marginTop: 40 }}>
+              <Link
+                color="inherit"
+                onClick={() =>
+                  history.push("/", {
+                    from: "reportes",
+                  })
+                }
+              >
+                Inicio
+              </Link>
+              <Link
+                color="inherit"
+                onClick={() =>
+                  history.push("/municipalidades", {
+                    from: "municipalidades",
+                  })
+                }
+              >
+                Municipalidades
+              </Link>
+              <Typography color="primary">Editar Municipalidad</Typography>
+            </Breadcrumbs>
+          </Grid>
+        </Grid>
 
         <Grid container spacing={4} style={{ marginTop: 10 }}>
           <Grid item xs={12} sm={12} md={6} lg={6}>

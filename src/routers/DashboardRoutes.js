@@ -145,14 +145,6 @@ export const DashboardRoutes = () => {
               />
 
               {/* Rutas MunicipalityAdmin */}
-
-              {user.role === "DepartmentAdmin" && (
-                <Route
-                  exact
-                  path="/reportes/nuevo_detalle"
-                  component={CreateDetail}
-                />
-              )}
               <Redirect to="/reportes" />
             </Switch>
           </div>

@@ -11,6 +11,5 @@ export { default as EditDepartment } from "./editDepartment";
 export { default as Cities } from "./cities";
 export { default as CreateCity } from "./createCity";
 export { default as EditCity } from "./editCity";
-export { default as CreateDetail } from "./createDetail";
 export { default as Search } from "./search";
 export { default as UserProfile } from "./userProfile";

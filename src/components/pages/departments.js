@@ -1,7 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { getDepartments } from "../../services/departments";
-import { Box, Button, Grid, Container, makeStyles } from "@material-ui/core";
+import {
+  Box,
+  Button,
+  Grid,
+  Container,
+  makeStyles,
+  Breadcrumbs,
+  Link,
+  Typography,
+} from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import CardDepartament from "../ui/CardDepartament";
@@ -36,25 +45,60 @@ const Departments = () => {
     },
   }));
 
+  function handleClick(event) {
+    event.preventDefault();
+    console.info("You clicked a breadcrumb.");
+  }
+
   return (
     <Box bgcolor="background.default" p={2}>
       <Container>
-        <Button
-          style={{ marginTop: 30, marginBottom: 30 }}
-          onClick={() => {
-            history.goBack();
-          }}
-        >
-          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
-        </Button>
-        <Button
-          style={{ marginTop: 30, marginBottom: 30 }}
-          onClick={() => {
-            history.push("/municipalidades/departamentos/crear");
-          }}
-        >
-          <AddIcon style={{ color: "#4caf50", fontSize: 40 }} /> Crear
-        </Button>
+        <Grid container>
+          <Grid item xs={6} sm={6} md={8} lg={9}>
+            <Button
+              style={{ marginTop: 30, marginBottom: 30 }}
+              onClick={() => {
+                history.goBack();
+              }}
+            >
+              <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} />{" "}
+              Volver
+            </Button>
+            <Button
+              style={{ marginTop: 30, marginBottom: 30 }}
+              onClick={() => {
+                history.push("/municipalidades/departamentos/crear");
+              }}
+            >
+              <AddIcon style={{ color: "#4caf50", fontSize: 40 }} /> Crear
+            </Button>
+          </Grid>
+          <Grid item xs={6} sm={6} md={4} lg={3}>
+            <Breadcrumbs aria-label="breadcrumb" style={{ marginTop: 40 }}>
+              <Link
+                color="inherit"
+                onClick={() =>
+                  history.push("/", {
+                    from: "reportes",
+                  })
+                }
+              >
+                Inicio
+              </Link>
+              <Link
+                color="inherit"
+                onClick={() =>
+                  history.push("/municipalidades", {
+                    from: "municipalidades",
+                  })
+                }
+              >
+                Municipalidades
+              </Link>
+              <Typography color="primary">Departamentos</Typography>
+            </Breadcrumbs>
+          </Grid>
+        </Grid>
       </Container>
 
       <Container>
