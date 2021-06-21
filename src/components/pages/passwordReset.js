@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../auth/AuthContext";
-import { types } from "../../types/types";
+import React from "react";
 import { useForm } from "react-hook-form";
 import logo from "../../images/ReportsMyCityLogin.png";
 import { verificationCode } from "../../services/user";
@@ -8,14 +6,10 @@ import { verificationCode } from "../../services/user";
 import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
 import theme from "../ui/themeConfig";
 import Button from "@material-ui/core/Button";
-import LockOpen from "@material-ui/icons/LockOpen";
-import Link from "@material-ui/core/Link";
 import Container from "@material-ui/core/Container";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
-import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
-import { Error } from "../alerts";
 import UpdateIcon from "@material-ui/icons/Update";
 
 const PasswordReset = ({ history }) => {
@@ -44,7 +38,11 @@ const PasswordReset = ({ history }) => {
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
-          <img src={logo} style={{ width: "250px", height: "250px" }} />
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ width: "250px", height: "250px" }}
+          />
           <Typography className={classes.title} component="h1" variant="h5">
             Verificacion y Cambio de Contraseña
           </Typography>

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import clsx from "clsx";
+import React from "react";
 import { useForm } from "react-hook-form";
 import { sendVerificationCode } from "../../services/user";
 import logo from "../../images/ReportsMyCityLogin.png";
@@ -35,7 +34,11 @@ const ForgotPassword = ({ history }) => {
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
-          <img src={logo} style={{ width: "250px", height: "250px" }} />
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ width: "250px", height: "250px" }}
+          />
           <Typography className={classes.title} component="h1" variant="h5">
             Recuperacion de Contraseña
           </Typography>

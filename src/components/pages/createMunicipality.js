@@ -10,14 +10,12 @@ import {
   makeStyles,
   TextField,
   Typography,
-  InputAdornment,
   IconButton,
 } from "@material-ui/core";
 import { Success, Error } from "../alerts";
 
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 const CreateMunicipality = () => {
@@ -44,8 +42,8 @@ const CreateMunicipality = () => {
       role: "MunicipalityAdmin",
       state: "activo",
     };
-    console.log(municipality)
-    console.log(manager)
+    console.log(municipality);
+    console.log(manager);
     const createResponse = await newMunicipality(municipality, manager);
 
     if (createResponse.code === 200) {

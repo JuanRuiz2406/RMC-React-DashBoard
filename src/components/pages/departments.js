@@ -14,16 +14,16 @@ const Departments = () => {
   const [departments, setDepartments] = useState({});
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchDepartments();
-  }, []);
-
   const fetchDepartments = async () => {
     const apiDepartments = await getDepartments(municipality.id);
 
     setDepartments(apiDepartments);
     setLoading(false);
   };
+
+  useEffect(() => {
+    fetchDepartments();
+  }, []);
 
   if (loading) {
     return <div>Loading...</div>;

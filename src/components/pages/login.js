@@ -36,7 +36,7 @@ const Login = ({ history }) => {
       password: password,
     });
 
-    if (loginResponse.token != undefined || loginResponse.token != null) {
+    if (loginResponse.token !== undefined || loginResponse.token !== null) {
       localStorage.setItem("token", "Bearer " + loginResponse.token);
       localStorage.setItem("userData", JSON.stringify(loginResponse.user));
 
@@ -67,7 +67,11 @@ const Login = ({ history }) => {
       <Container component="main" maxWidth="sm">
         <CssBaseline />
         <div className={classes.paper}>
-          <img src={logo} style={{ width: "250px", height: "250px" }} />
+          <img
+            src={logo}
+            alt="Logo"
+            style={{ width: "250px", height: "250px" }}
+          />
           <Typography className={classes.title} component="h1" variant="h5">
             Inicio de Sesion
           </Typography>

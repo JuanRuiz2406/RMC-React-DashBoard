@@ -1,15 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
 import { getCities, deleteCity } from "../../services/cities";
-import {
-  Box,
-  Button,
-  Grid,
-  Container,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
+import { Box, Button, Grid, Container, Typography } from "@material-ui/core";
 import { ConfirmDelete } from "../alerts";
 import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
@@ -23,7 +15,6 @@ const Cities = () => {
   console.log(municipality);
   const [cities, setCities] = useState({});
   const [loading, setLoading] = useState(true);
-  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     fetchCities();

@@ -10,22 +10,16 @@ import {
   makeStyles,
   TextField,
   Typography,
-  InputAdornment,
-  IconButton,
 } from "@material-ui/core";
 import { Success, Error } from "../alerts";
 
-import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-
 
 const EditMunicipality = () => {
   const history = useHistory();
 
   const municipalityData = JSON.parse(localStorage.getItem("municipality"));
-      console.log(municipalityData);
+  console.log(municipalityData);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
@@ -44,7 +38,7 @@ const EditMunicipality = () => {
       municipality,
       municipalityData.manager
     );
-      console.log(updateResponse);
+    console.log(updateResponse);
     if (updateResponse.code === 200) {
       Success("Actualizado Correctamente!", updateResponse.message);
       setTimeout(() => {
@@ -154,7 +148,7 @@ const EditMunicipality = () => {
                   helperText={errors.web?.message}
                 />
 
-                  <Button
+                <Button
                   type="submit"
                   className={classes.submit}
                   fullWidth

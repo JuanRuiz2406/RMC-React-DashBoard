@@ -13,7 +13,6 @@ import {
 } from "@material-ui/core";
 import { Success, Error } from "../alerts";
 
-import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const EditMunicipality = () => {
@@ -49,55 +48,55 @@ const EditMunicipality = () => {
   const classes = useStyles();
   return (
     <Box bgcolor="background.default" p={2}>
-    <Container>
-      <Button
-        style={{ marginTop: 30 }}
-        color="primary"
-        onClick={() => {
-          history.goBack();
-        }}
-      >
-        <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
-      </Button>
+      <Container>
+        <Button
+          style={{ marginTop: 30 }}
+          color="primary"
+          onClick={() => {
+            history.goBack();
+          }}
+        >
+          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
+        </Button>
 
-      <Grid container spacing={4} style={{ marginTop: 10 }}>
-        <Grid item xs={12} sm={12} md={6} lg={6}>
-          <Box bgcolor="common.white" p={1.5} boxShadow={2}>
-            <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
-              <Typography variant="h5" gutterBottom>
-                Editar Ciudad
-              </Typography>
+        <Grid container spacing={4} style={{ marginTop: 10 }}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Box bgcolor="common.white" p={1.5} boxShadow={2}>
+              <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Typography variant="h5" gutterBottom>
+                  Editar Ciudad
+                </Typography>
 
-              <TextField
-                id="standard-basic"
-                margin="normal"
-                fullWidth
-                label="Nombre de la ciudad"
-                type="text"
-                name="cityName"
-                defaultValue={cityData.name}
-                inputRef={register({
-                  required: false,
-                })}
-                error={Boolean(errors.cityName)}
-                helperText={errors.cityName?.message}
-              />
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Nombre de la ciudad"
+                  type="text"
+                  name="cityName"
+                  defaultValue={cityData.name}
+                  inputRef={register({
+                    required: false,
+                  })}
+                  error={Boolean(errors.cityName)}
+                  helperText={errors.cityName?.message}
+                />
 
-              <Button
-                type="submit"
-                className={classes.submit}
-                fullWidth
-                style={{ marginTop: "10%", background: "#4caf50" }}
-                variant="contained"
-              >
-                Editar
-              </Button>
-            </form>
-          </Box>
+                <Button
+                  type="submit"
+                  className={classes.submit}
+                  fullWidth
+                  style={{ marginTop: "10%", background: "#4caf50" }}
+                  variant="contained"
+                >
+                  Editar
+                </Button>
+              </form>
+            </Box>
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
-  </Box>
+      </Container>
+    </Box>
   );
 };
 

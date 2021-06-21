@@ -14,7 +14,6 @@ import {
   EditMunicipality,
   Municipalities,
   Reports,
-  SpecificReport,
   UserProfile,
 } from "../components/pages/index";
 import { NavBar } from "../components/ui/navBarMaterial";
@@ -84,7 +83,6 @@ export const DashboardRoutes = () => {
           <div className={classes.toolbar}>
             <Switch>
               <Route exact path="/reportes" component={Reports} />
-              <Route exact path="/reporte" component={SpecificReport} />
 
               <Route exact path="/perfil" component={UserProfile} />
 
