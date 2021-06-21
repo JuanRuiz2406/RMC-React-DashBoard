@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search } from ".";
+<<<<<<< HEAD
 import { getReports } from "../../services/reports";
 import CardReport from "../ui/CardReport";
 
@@ -11,6 +12,9 @@ import { red } from "@material-ui/core/colors";
 import { Alert } from "@material-ui/lab";
 
 import { makeStyles } from "@material-ui/core/styles";
+=======
+import { getReports, updateReportState } from "../../services/reports";
+>>>>>>> parent of 74efc78 (Vista reportes semi terminada)
 
 const filterReports = (reports, query) => {
   if (!query) {
@@ -50,6 +54,7 @@ const Reports = () => {
     return <div>Loading...</div>;
   }
 
+<<<<<<< HEAD
   const useStyles = makeStyles((theme) => ({
     root: {
       maxWidth: 600,
@@ -102,6 +107,68 @@ const Reports = () => {
         </Grid>
       </Container>
     </Box>
+=======
+  return (
+    <div>
+      <ul>
+        {user.role !== "DepartmentAdmin" && (
+          <h4>
+            Solo los Administradores de los departamentos pueden añadir detalles
+            a los reportes
+          </h4>
+        )}
+
+        <Search searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+
+        {filteredReports.map((report) => (
+          
+          <ul key={report.id}>
+            <h2>{report.title}</h2>
+            <h4>{report.description}</h4>
+            <img src={report.imgURL}></img>
+            <h4>{report.state}</h4>
+            <h5>
+              {report.coordenates.latitude} {report.coordenates.longitude}
+            </h5>
+
+            <button
+              onClick={() => {
+                replyReport(report, "Aceptado");
+              }}
+            >
+              Aceptar
+            </button>
+
+            <button
+              onClick={() => {
+                replyReport(report, "Rechazado");
+              }}
+            >
+              Rechazar
+            </button>
+
+            {user.role === "DepartmentAdmin" && (
+              <button
+                onClick={() => {
+                  reportNewDetail(report);
+                }}
+              >
+                Añadir Nuevo Detalle
+              </button>
+            )}
+
+            <button
+              onClick={() => {
+                specificReport(report);
+              }}
+            >
+              Ver más
+            </button>
+          </ul>
+        ))}
+      </ul>
+    </div>
+>>>>>>> parent of 74efc78 (Vista reportes semi terminada)
   );
 };
 
