@@ -11,6 +11,10 @@ import {
 } from "@material-ui/core";
 import { green } from "@material-ui/core/colors";
 import { ConfirmDelete } from "../alerts";
+import AddIcon from "@material-ui/icons/Add";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const Cities = () => {
   const history = useHistory();
@@ -19,6 +23,7 @@ const Cities = () => {
   console.log(municipality);
   const [cities, setCities] = useState({});
   const [loading, setLoading] = useState(true);
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     fetchCities();
@@ -52,62 +57,52 @@ const Cities = () => {
   if (loading) {
     return <div>Loading...</div>;
   }
-  const ColorButton = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(green[500]),
-      backgroundColor: green[500],
-      "&:hover": {
-        backgroundColor: green[700],
-      },
-    },
-  }))(Button);
+
   return (
-    <Box bgcolor="background.paper" p={2}>
+    <Box bgcolor="background.default" p={2}>
       <Container>
         <Button
-          variant="contained"
-          color="primary"
+          style={{ marginTop: 30 }}
           onClick={() => {
             history.goBack();
           }}
         >
-          Volver
+          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
         </Button>
-        <ColorButton
-          variant="contained"
-          color="primary"
+        <Button
+          style={{ marginTop: 30 }}
           onClick={() =>
             history.push("/municipalidades/ciudades/crear", {
               from: "municipalidades/ciudades",
             })
           }
         >
-          Crear
-        </ColorButton>
+          <AddIcon style={{ color: "#4caf50", fontSize: 40 }} /> Crear
+        </Button>
 
         {cities.map((city) => (
           <ul key={city.id}>
             <div>
               <Grid item xs>
-                <Box bgcolor="common.black" p={1.5} boxShadow={2}>
+                <Box bgcolor="common.white" p={1.5} boxShadow={1}>
                   <Grid item xs={12}>
                     <Typography variant="h2" component="h2">
                       {city.name}
                     </Typography>
                   </Grid>
                   <Button
-                    variant="contained"
+                    style={{ marginTop: 30 }}
                     color="primary"
                     onClick={() => editCity(city)}
                   >
-                    Editar
+                    <EditIcon style={{ color: "#0277BD" }} /> Editar
                   </Button>
                   <Button
-                    variant="contained"
+                    style={{ marginTop: 30 }}
                     color="secondary"
                     onClick={() => deleteCitySelected(city.id)}
                   >
-                    Eliminar
+                    <DeleteIcon style={{ color: "#FF0000" }} /> Eliminar
                   </Button>
                 </Box>
               </Grid>

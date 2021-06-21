@@ -19,6 +19,8 @@ import AddIcon from "@material-ui/icons/Add";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import EditIcon from "@material-ui/icons/Edit";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 const CreateDepartment = () => {
   const history = useHistory();
@@ -74,7 +76,6 @@ const CreateDepartment = () => {
       <Container>
         <Button
           style={{ marginTop: 30 }}
-          color="primary"
           onClick={() => {
             history.goBack();
           }}
@@ -169,7 +170,7 @@ const CreateDepartment = () => {
                   margin="normal"
                   fullWidth
                   label="Nombre del Encargado"
-                  type="text" 
+                  type="text"
                   name="userName"
                   inputRef={register({
                     required: "El nombre es requerido.",

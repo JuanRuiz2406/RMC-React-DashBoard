@@ -1,20 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router";
-import { deleteDepartment, getDepartments } from "../../services/departments";
-import {
-  Box,
-  Button,
-  Grid,
-  Container,
-  Typography,
-  withStyles,
-} from "@material-ui/core";
-import { green } from "@material-ui/core/colors";
-import { ConfirmDelete } from "../alerts";
+import { getDepartments } from "../../services/departments";
+import { Box, Button, Grid, Container, makeStyles } from "@material-ui/core";
+import AddIcon from "@material-ui/icons/Add";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import CardDepartament from "../ui/CardDepartament";
 
 const Departments = () => {
-  const user = JSON.parse(localStorage.getItem("userData"));
-
   const history = useHistory();
 
   const municipality = JSON.parse(localStorage.getItem("municipality"));
@@ -33,129 +25,46 @@ const Departments = () => {
     setLoading(false);
   };
 
-  const editDepartment = (department) => {
-    if (user.role === "RMCTeam") {
-      localStorage.setItem("department", JSON.stringify(department));
-    }
-
-    history.push("/municipalidades/departamentos/editar", {
-      from: "municipalidades/departamentos",
-    });
-  };
-
-  const editDepartmentAdministrator = (department) => {
-    if (user.role === "RMCTeam") {
-      localStorage.setItem(
-        "updateAdministrator",
-        JSON.stringify(department.manager)
-      );
-    }
-
-    history.push("/municipalidades/departamentos/editarAdministrador", {
-      from: "municipalidades",
-    });
-  };
-
-  const deleteDepartmentSelected = async (departmentId) => {
-    ConfirmDelete(
-      "¿Estás seguro de eliminar este departamento?",
-      "No podrás deshacer esta acción",
-      deleteDepartment(departmentId)
-    );
-  };
-
   if (loading) {
     return <div>Loading...</div>;
   }
 
-  const ColorButton = withStyles((theme) => ({
-    root: {
-      color: theme.palette.getContrastText(green[500]),
-      backgroundColor: green[500],
-      "&:hover": {
-        backgroundColor: green[700],
-      },
+  const useStyles = makeStyles((theme) => ({
+    gridContainer: {
+      marginTop: "20%",
+      color: "#011B42",
     },
-  }))(Button);
+  }));
 
   return (
-    <Box bgcolor="background.paper" p={2}>
+    <Box bgcolor="background.default" p={2}>
       <Container>
         <Button
-          variant="contained"
-          color="primary"
+          style={{ marginTop: 30, marginBottom: 30 }}
           onClick={() => {
             history.goBack();
           }}
         >
-          Volver
+          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
         </Button>
-        <ColorButton
-          variant="contained"
-          color="primary"
+        <Button
+          style={{ marginTop: 30, marginBottom: 30 }}
           onClick={() => {
             history.push("/municipalidades/departamentos/crear");
           }}
         >
-          Crear
-        </ColorButton>
+          <AddIcon style={{ color: "#4caf50", fontSize: 40 }} /> Crear
+        </Button>
+      </Container>
 
-        {departments.map((department) => (
-          <ul key={department.id}>
-            <div>
-              <Grid item xs>
-                <Box bgcolor="common.black" p={1.5} boxShadow={2}>
-                  <Grid item xs={12}>
-                    <Typography variant="h2" component="h2">
-                      {department.name}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="h5" component="h2">
-                      {department.description}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="h5" component="h2">
-                      {department.email}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="h5" component="h2">
-                      {department.state}
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Typography variant="h5" component="h2">
-                      {department.telephone}
-                    </Typography>
-                  </Grid>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => editDepartment(department)}
-                  >
-                    Editar Departamento
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    onClick={() => editDepartmentAdministrator(department)}
-                  >
-                    Editar Administrador
-                  </Button>
-                  <Button
-                    variant="contained"
-                    color="secondary"
-                    onClick={() => deleteDepartmentSelected(department.id)}
-                  >
-                    Eliminar Departamento
-                  </Button>
-                </Box>
-              </Grid>
-            </div>
-          </ul>
-        ))}
+      <Container>
+        <Grid container spacing={3} className={useStyles.gridContainer}>
+          {departments.map((department) => (
+            <Grid item xs={12} sm={6} md={4} lg={4}>
+              <CardDepartament department={department} />
+            </Grid>
+          ))}
+        </Grid>
       </Container>
     </Box>
   );
