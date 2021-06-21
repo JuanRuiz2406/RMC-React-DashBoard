@@ -14,6 +14,9 @@ import { Alert } from "@material-ui/lab";
 import { makeStyles } from "@material-ui/core/styles";
 =======
 import { getReports, updateReportState } from "../../services/reports";
+<<<<<<< HEAD
+>>>>>>> parent of 74efc78 (Vista reportes semi terminada)
+=======
 >>>>>>> parent of 74efc78 (Vista reportes semi terminada)
 
 const filterReports = (reports, query) => {

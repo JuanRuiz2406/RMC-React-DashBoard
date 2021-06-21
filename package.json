@@ -16,8 +16,11 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "reactjs-popup": "^2.0.4",
     "sweetalert2": "^11.0.16",
+=======
+>>>>>>> parent of 74efc78 (Vista reportes semi terminada)
 =======
 >>>>>>> parent of 74efc78 (Vista reportes semi terminada)
     "web-vitals": "^1.0.1"
