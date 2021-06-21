@@ -1,57 +1,230 @@
 import React from "react";
+import { useHistory } from "react-router";
 import {
   Box,
   Button,
-  Divider,
   Grid,
   Container,
   Typography,
-  CardActions,
+  TextField,
+  makeStyles,
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
+import { updateUser } from "../../services/user";
+import { useForm } from "react-hook-form";
+import { Success, Error } from "../alerts";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import UpdateIcon from "@material-ui/icons/Update";
 
 const UserProfile = () => {
+  const history = useHistory();
   const user = JSON.parse(localStorage.getItem("user")).user;
+  const { register, handleSubmit, errors } = useForm();
 
+  const onSubmit = async (data) => {
+    const manager = {
+      id: user.id,
+      name: data.userName,
+      lastname: data.lastName,
+      idCard: data.idCard,
+      email: data.userEmail,
+      password: data.password,
+      direction: data.direction,
+      role: user.role,
+      state: user.state,
+    };
+
+    const createResponse = await updateUser(manager);
+
+    if (createResponse.code === 201) {
+      Success("Actualizado Correctamente!", createResponse.message);
+      setTimeout(() => {
+        history.goBack();
+      }, 1000 * 2);
+    }
+    if (createResponse.code === 400) {
+      Error(createResponse.message);
+    }
+    if (createResponse.status === 401) {
+      Error(createResponse.error);
+    }
+  };
+  const classes = useStyles();
   return (
-    <Box bgcolor="background.paper" p={2}>
+    <Box bgcolor="background.default" p={2}>
       <Container>
-        <div>
-          <Grid item xs>
-            <Box bgcolor="common.black" p={1.5} boxShadow={2}>
-              <Avatar aria-label="recipe" src={user.imgURL} />
-              <Grid item xs={12}>
-                <Typography variant="h2" component="h2">
-                  {user.name} {user.lastname}
+        <Button
+          style={{ marginTop: 30 }}
+          color="primary"
+          onClick={() => {
+            history.goBack();
+          }}
+        >
+          <ArrowBackIcon style={{ color: "#0277BD", fontSize: 40 }} /> Volver
+        </Button>
+      </Container>
+      <Container>
+        <Grid container spacing={7} style={{ marginTop: 10 }}>
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Box bgcolor="common.white" p={1.5} boxShadow={2}>
+              <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Typography variant="h4" gutterBottom>
+                  Usuario
                 </Typography>
-              </Grid>
-              <Box item xs={6}>
-                <Typography variant="h5" component="p">
-                  {user.idCard}
-                </Typography>
-              </Box>
-              <Box item xs={6}>
-                <Typography variant="h5" component="p">
-                  {user.email}
-                </Typography>
-              </Box>
-              <Box item xs={6}>
-                <Typography variant="h5" component="p">
-                  {user.direction}
-                </Typography>
-              </Box>
-              <Divider />
-              <CardActions>
-                <Button variant="contained" color="primary" onClick={() => {}}>
-                  Editar
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Nombre del usuario"
+                  type="text"
+                  name="name"
+                  defaultValue={user.name}
+                  inputRef={register({
+                    required: "El nombre es requerido.",
+                  })}
+                  error={Boolean(errors.name)}
+                  helperText={errors.name?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Apellido del usuario"
+                  type="text"
+                  name="lastName"
+                  defaultValue={user.lastName}
+                  inputRef={register({
+                    required: "El apellido es requerido.",
+                  })}
+                  error={Boolean(errors.lastName)}
+                  helperText={errors.lastName?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Identificacion"
+                  type="text"
+                  name="idCard"
+                  defaultValue={user.idCard}
+                  inputRef={register({
+                    required: "La identificacion es requerida.",
+                  })}
+                  error={Boolean(errors.idCard)}
+                  helperText={errors.idCard?.message}
+                />
+
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Direccion"
+                  type="text"
+                  name="direction"
+                  defaultValue={user.direction}
+                  inputRef={register({
+                    required: "El correo es requerido.",
+                  })}
+                  error={Boolean(errors.address)}
+                  helperText={errors.address?.message}
+                />
+                <TextField
+                  id="standard-basic"
+                  margin="normal"
+                  fullWidth
+                  label="Correo"
+                  type="email"
+                  name="email"
+                  defaultValue={user.email}
+                  inputRef={register({
+                    required: "El correo es requerido.",
+                  })}
+                  error={Boolean(errors.email)}
+                  helperText={errors.email?.message}
+                />
+
+                <TextField
+                  id="standard-password-input"
+                  margin="normal"
+                  className={classes.title}
+                  fullWidth
+                  type="password"
+                  label="Contraseña"
+                  name="password"
+                  defaultValue={user.password}
+                  inputRef={register({
+                    required: "La contraseña es requerida.",
+                  })}
+                  error={Boolean(errors.password)}
+                  helperText={errors.password?.message}
+                />
+
+                <Button
+                  type="submit"
+                  className={classes.submit}
+                  fullWidth
+                  style={{ marginTop: "10%", background: "#03A9F4" }}
+                  variant="contained"
+                  endIcon={<UpdateIcon />}
+                >
+                  Actualizar
                 </Button>
-              </CardActions>
+              </form>
             </Box>
           </Grid>
-        </div>
+
+          <Grid item xs={12} sm={12} md={6} lg={6}>
+            <Box
+              bgcolor="background.default"
+              p={1.5}
+              style={{ textAlign: "center", alignItems: "center" }}
+            >
+              <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
+                <Typography variant="h5" gutterBottom>
+                  Foto de Perfil
+                </Typography>
+                <Avatar
+                  aria-label="perfil"
+                  src={user.imgURL}
+                  className={classes.large}
+                />
+              </form>
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   );
 };
 
 export default UserProfile;
+
+const useStyles = makeStyles((theme) => ({
+  root: {
+    display: "flex",
+    "& > *": {
+      margin: theme.spacing(1),
+    },
+  },
+  small: {
+    width: theme.spacing(3),
+    height: theme.spacing(3),
+  },
+  large: {
+    width: theme.spacing(60),
+    height: theme.spacing(60),
+    alignContent: "center",
+  },
+  form: {
+    marginLeft: "10%",
+    marginRight: "10%",
+    width: "80%", // Fix IE 11 issue.
+    marginTop: theme.spacing(3),
+  },
+  submit: {
+    margin: theme.spacing(3, 0, 5),
+  },
+}));

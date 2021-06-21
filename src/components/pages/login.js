@@ -36,7 +36,7 @@ const Login = ({ history }) => {
       password: password,
     });
 
-    if (loginResponse.token !== undefined || loginResponse.token !== null) {
+    if (loginResponse.token != undefined || loginResponse.token != null) {
       localStorage.setItem("token", "Bearer " + loginResponse.token);
       localStorage.setItem("userData", JSON.stringify(loginResponse.user));
 
