@@ -166,11 +166,11 @@ const CreateDepartment = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Correo"
+                  label="Correo Electrónico"
                   type="email"
                   name="email"
                   inputRef={register({
-                    required: "El correo es requerido.",
+                    required: "El Correo Electrónico es requerido.",
                   })}
                   error={Boolean(errors.email)}
                   helperText={errors.email?.message}
@@ -180,11 +180,11 @@ const CreateDepartment = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Numero de telefono"
+                  label="Número de teléfono"
                   type="number"
                   name="telephone"
                   inputRef={register({
-                    required: "El numero de telefono es requerido.",
+                    required: "El número de teléfono es requerido.",
                   })}
                   error={Boolean(errors.telephone)}
                   helperText={errors.telephone?.message}
@@ -255,11 +255,11 @@ const CreateDepartment = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Correo del encargado"
+                  label="Correo Electrónico del encargado"
                   type="email"
                   name="userEmail"
                   inputRef={register({
-                    required: "El correo es requerido.",
+                    required: "El Correo Electrónico del encargado es requerido.",
                   })}
                   error={Boolean(errors.userEmail)}
                   helperText={errors.userEmail?.message}

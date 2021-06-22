@@ -186,7 +186,7 @@ const CardReport = ({ report }) => {
           >
             {report.title}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
+          <Typography variant="body1" color="textSecondary" component="p">
             {report.description}
           </Typography>
         </CardContent>
@@ -201,17 +201,17 @@ const CardReport = ({ report }) => {
           </IconButton>
           <IconButton
             onClick={() => {
-              replyReport(report, "Finalizado");
-            }}
-          >
-            <DoneAllIcon color="primary" />
-          </IconButton>
-          <IconButton
-            onClick={() => {
               replyReport(report, "Procesando");
             }}
           >
             <BuildRoundedIcon style={{ color: "#ff9800" }} />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              replyReport(report, "Finalizado");
+            }}
+          >
+            <DoneAllIcon color="primary" />
           </IconButton>
           <IconButton
             onClick={() => {
@@ -220,7 +220,6 @@ const CardReport = ({ report }) => {
           >
             <DeleteForeverIcon color="secondary" />
           </IconButton>
-
           <IconButton
             className={clsx(useStyles.expand, {
               [useStyles.expandOpen]: expanded,
@@ -234,12 +233,19 @@ const CardReport = ({ report }) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Detalles </Typography>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="h2"
+              style={{ marginTop: 10 }}
+            >
+              Detalles
+            </Typography>
             {details.length > 0 ? (
               details.map((details) => (
                 <ul key={details.id}>
                   <Typography
-                    variant="body2"
+                    variant="body1"
                     color="textSecondary"
                     component="p"
                   >
@@ -248,11 +254,20 @@ const CardReport = ({ report }) => {
                 </ul>
               ))
             ) : (
-              <Typography variant="body2" color="textSecondary" component="p">
-                No hay Detalles sobre este Reporte
-              </Typography>
+              <ul>
+                <Typography variant="body2" color="textSecondary" component="p">
+                  No hay Detalles sobre este Reporte
+                </Typography>
+              </ul>
             )}
-            <Typography paragraph>Ubicacion </Typography>
+            <Typography
+              gutterBottom
+              variant="h6"
+              component="h2"
+              style={{ marginTop: 10 }}
+            >
+              Ubicacion
+            </Typography>
             <CardMedia className={useStyles.media} title="Map">
               <Map />
             </CardMedia>

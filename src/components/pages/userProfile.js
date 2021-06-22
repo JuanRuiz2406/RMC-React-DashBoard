@@ -18,7 +18,7 @@ import UpdateIcon from "@material-ui/icons/Update";
 
 const UserProfile = () => {
   const history = useHistory();
-  const user = JSON.parse(localStorage.getItem("user")).user;
+  const user = JSON.parse(localStorage.getItem("userData"));
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
@@ -121,7 +121,7 @@ const UserProfile = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Direccion"
+                  label="Dirección"
                   type="text"
                   name="direction"
                   defaultValue={user.direction}
@@ -135,7 +135,7 @@ const UserProfile = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Correo"
+                  label="Correo Electrónico"
                   type="email"
                   name="email"
                   defaultValue={user.email}
@@ -166,9 +166,12 @@ const UserProfile = () => {
                   type="submit"
                   className={classes.submit}
                   fullWidth
-                  style={{ marginTop: "10%", background: "#03A9F4", color:"#fff" }}
+                  style={{
+                    marginTop: "10%",
+                    background: "#03A9F4",
+                    color: "#fff",
+                  }}
                   variant="contained"
-                  endIcon={<UpdateIcon />}
                 >
                   Actualizar
                 </Button>

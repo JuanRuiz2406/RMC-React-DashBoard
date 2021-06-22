@@ -127,7 +127,7 @@ const CreateMunicipality = () => {
                   type="text"
                   name="address"
                   inputRef={register({
-                    required: "El correo es requerido.",
+                    required: "La dirección es requerida.",
                   })}
                   error={Boolean(errors.address)}
                   helperText={errors.address?.message}
@@ -136,11 +136,11 @@ const CreateMunicipality = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Correo"
+                  label="Correo Electrónico"
                   type="email"
                   name="email"
                   inputRef={register({
-                    required: "El correo es requerido.",
+                    required: "El Correo Electrónico es requerido.",
                   })}
                   error={Boolean(errors.email)}
                   helperText={errors.email?.message}
@@ -150,11 +150,11 @@ const CreateMunicipality = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Numero de telefono"
+                  label="Número de teléfono"
                   type="number"
                   name="telephone"
                   inputRef={register({
-                    required: "El numero de telefono es requerido.",
+                    required: "El número de teléfono es requerido.",
                   })}
                   error={Boolean(errors.telephone)}
                   helperText={errors.telephone?.message}
@@ -238,11 +238,11 @@ const CreateMunicipality = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Correo del encargado"
+                  label="Correo Electrónico del encargado"
                   type="email"
                   name="userEmail"
                   inputRef={register({
-                    required: "El correo es requerido.",
+                    required: "El Correo Electrónico es requerido.",
                   })}
                   error={Boolean(errors.userEmail)}
                   helperText={errors.userEmail?.message}
@@ -267,7 +267,7 @@ const CreateMunicipality = () => {
                   id="standard-basic"
                   margin="normal"
                   fullWidth
-                  label="Direccion"
+                  label="Dirección"
                   type="text"
                   name="direction"
                   inputRef={register({
