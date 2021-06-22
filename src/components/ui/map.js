@@ -10,7 +10,7 @@ const Map = () => {
 
   const { ref, map, google } = useGoogleMaps(
     // Use your own API key, you can get one from Google (https://console.cloud.google.com/google/maps-apis/overview)
-    "AIzaSyDdno1V3wgP_FwtoTVYzgYnBWQNQpq_JOI",
+    "AIzaSyBEuDt_qDnSmmFuTN0i2MX3OCcx9Ps9Blo",
     // NOTE: even if you change options later
     {
       center: {
@@ -18,6 +18,7 @@ const Map = () => {
         lng: Number(report.coordenates.longitude),
       },
       zoom: 16,
+      streetViewControl: false,
     }
   );
   if (map) {
