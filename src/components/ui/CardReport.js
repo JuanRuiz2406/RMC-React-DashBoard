@@ -30,6 +30,10 @@ import Avatar from "@material-ui/core/Avatar";
 import DoneIcon from "@material-ui/icons/Done";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import moment from "moment";
+import "moment/locale/es";
+import DoneAllIcon from "@material-ui/icons/DoneAll";
+import BuildRoundedIcon from "@material-ui/icons/BuildRounded";
 
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -38,6 +42,7 @@ const CardReport = ({ report }) => {
   const [photos, setPhotos] = useState({});
   const [expanded, setExpanded] = React.useState(false);
   const [coment, setComent] = useState("");
+  const [date, setDate] = useState("");
 
   const departmentStorage = JSON.parse(localStorage.getItem("department"));
   const user = JSON.parse(localStorage.getItem("userData"));
@@ -68,6 +73,10 @@ const CardReport = ({ report }) => {
   };
 
   useEffect(() => {
+    var m = moment(report.createdAt, "DD/MM/YYYY");
+    m.locale("es");
+    setDate(m.format("LL"));
+    console.log(date);
     fetchDetails(report.id);
   }, []);
 
@@ -140,36 +149,46 @@ const CardReport = ({ report }) => {
               src={report.user.imgURL}
             />
           }
-          title={report.title}
-          subheader={report.createdAt}
+          title={report.user.name + " " + report.user.lastname}
+          subheader={date}
         />
         <CardMedia className={useStyles.media} title="Imagen">
           <img style={{ height: 300, width: "100%" }} src={photos[0]} />
         </CardMedia>
         <CardContent>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {report.description}
-          </Typography>
-
-          <Typography variant="body1" color="textSecondary" component="p">
-            Estado:
-          </Typography>
           <Chip
-            size="small"
-            //icon={<DoneIcon color="primary" />}
             label={report.state}
             style={{
               background:
                 report.state === "Aceptado"
                   ? "#4caf50"
                   : report.state === "Procesando"
-                  ? "#ffb74d"
+                  ? "#ff9800"
                   : report.state === "Rechazado"
                   ? "#FF0000"
-                  : "#f57c00",
+                  : "#0277BD",
               color: report.state === "Procesando" ? "#000" : "#fff",
             }}
           />
+          <Chip
+            label={report.privacy}
+            style={{
+              background: report.privacy === "Privado" ? "#011B42" : "#03A9F4",
+              color: report.privacy === "Procesando" ? "#000" : "#fff",
+              margin: 5,
+            }}
+          />
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            style={{ marginTop: 10 }}
+          >
+            {report.title}
+          </Typography>
+          <Typography variant="body2" color="textSecondary" component="p">
+            {report.description}
+          </Typography>
         </CardContent>
         <Divider />
         <CardActions disableSpacing>
@@ -179,6 +198,20 @@ const CardReport = ({ report }) => {
             }}
           >
             <DoneIcon style={{ color: "#4caf50" }} />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              replyReport(report, "Finalizado");
+            }}
+          >
+            <DoneAllIcon color="primary" />
+          </IconButton>
+          <IconButton
+            onClick={() => {
+              replyReport(report, "Procesando");
+            }}
+          >
+            <BuildRoundedIcon style={{ color: "#ff9800" }} />
           </IconButton>
           <IconButton
             onClick={() => {
@@ -201,15 +234,7 @@ const CardReport = ({ report }) => {
         </CardActions>
         <Collapse in={expanded} timeout="auto" unmountOnExit>
           <CardContent>
-            <Typography paragraph>Privacidad: </Typography>
-            <Typography paragraph variant="body2">
-              - {report.privacy}
-            </Typography>
-            <Typography paragraph>Ubicacion: </Typography>
-            <CardMedia className={useStyles.media} title="Map">
-              <Map />
-            </CardMedia>
-            <Typography paragraph>Detalles: </Typography>
+            <Typography paragraph>Detalles </Typography>
             {details.length > 0 ? (
               details.map((details) => (
                 <ul key={details.id}>
@@ -227,6 +252,10 @@ const CardReport = ({ report }) => {
                 No hay Detalles sobre este Reporte
               </Typography>
             )}
+            <Typography paragraph>Ubicacion </Typography>
+            <CardMedia className={useStyles.media} title="Map">
+              <Map />
+            </CardMedia>
 
             {user.role === "DepartmentAdmin" && (
               <Container>

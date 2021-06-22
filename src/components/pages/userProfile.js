@@ -25,7 +25,7 @@ const UserProfile = () => {
     const manager = {
       id: user.id,
       name: data.userName,
-      lastname: data.lastName,
+      lastname: data.lastname,
       idCard: data.idCard,
       email: data.userEmail,
       password: data.password,
@@ -93,13 +93,13 @@ const UserProfile = () => {
                   fullWidth
                   label="Apellido del usuario"
                   type="text"
-                  name="lastName"
-                  defaultValue={user.lastName}
+                  name="lastname"
+                  defaultValue={user.lastname}
                   inputRef={register({
                     required: "El apellido es requerido.",
                   })}
-                  error={Boolean(errors.lastName)}
-                  helperText={errors.lastName?.message}
+                  error={Boolean(errors.lastname)}
+                  helperText={errors.lastname?.message}
                 />
 
                 <TextField

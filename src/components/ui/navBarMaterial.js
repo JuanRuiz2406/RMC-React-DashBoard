@@ -46,7 +46,7 @@ export const NavBar = () => {
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography className={classes.title} variant="h6">
-            ReportsMyCity Panel de Conrol
+            ReportsMyCity Panel de Control
           </Typography>
           <IconButton onClick={() => handleLogout()}>
             <ExitToAppIcon style={{ color: "#fff", fontSize: 40 }} />
