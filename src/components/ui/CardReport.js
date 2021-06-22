@@ -5,6 +5,7 @@ import {
   updateReportState,
   newDetail,
 } from "../../services/reports";
+import { useForm } from "react-hook-form";
 import { getPhotos } from "../../services/photography";
 import Container from "@material-ui/core/Container";
 import Grid from "@material-ui/core/Grid";
@@ -41,10 +42,10 @@ const CardReport = ({ report }) => {
   const [details, setDetails] = useState({});
   const [photos, setPhotos] = useState({});
   const [expanded, setExpanded] = React.useState(false);
-  const [coment, setComent] = useState("");
   const [date, setDate] = useState("");
+  const { register, handleSubmit, errors } = useForm();
 
-  const departmentStorage = JSON.parse(localStorage.getItem("department"));
+  const departmentStorage = JSON.parse(localStorage.getItem("departments"));
   const user = JSON.parse(localStorage.getItem("userData"));
 
   const [checked, setChecked] = React.useState(true);
@@ -83,7 +84,7 @@ const CardReport = ({ report }) => {
   const onSubmit = async (data) => {
     const department = departmentStorage[0];
 
-    const createResponse = await newDetail(data.detail, department, report);
+    const createResponse = await newDetail(data.coment, department, report);
 
     if (createResponse.code === 200 || createResponse.code === 400) {
       alert(createResponse.message);
@@ -92,10 +93,6 @@ const CardReport = ({ report }) => {
     if (createResponse.status === 401) {
       alert(createResponse.error);
     }
-  };
-
-  const handleChange = (prop) => (event) => {
-    setComent({ ...coment, [prop]: event.target.value });
   };
 
   const replyReport = async (report, newState) => {
@@ -274,26 +271,27 @@ const CardReport = ({ report }) => {
 
             {user.role === "DepartmentAdmin" && (
               <Container>
-                <Grid container xs={12}>
-                  <TextField
-                    id="standard-multiline-static"
-                    label="Comentario"
-                    multiline
-                    rows={3}
-                    fullWidth
-                    value={coment}
-                    onChange={handleChange("coment")}
-                  />
-                </Grid>
-                <Grid container>
-                  <Button
-                    type="submit"
-                    color="primary"
-                    onClick={() => onSubmit()}
-                  >
-                    Agregar
-                  </Button>
-                </Grid>
+                <form onSubmit={handleSubmit(onSubmit)}>
+                  <Grid container xs={12}>
+                    <TextField
+                      id="standard-multiline-static"
+                      label="Comentario"
+                      multiline
+                      rows={3}
+                      fullWidth
+                      type="text"
+                      name="coment"
+                      inputRef={register({
+                        required: false,
+                      })}
+                    />
+                  </Grid>
+                  <Grid container>
+                    <Button type="submit" color="primary">
+                      Agregar
+                    </Button>
+                  </Grid>
+                </form>
               </Container>
             )}
           </CardContent>
