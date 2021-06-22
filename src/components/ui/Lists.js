@@ -13,6 +13,7 @@ import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
 import ReportIcon from "@material-ui/icons/Report";
 import Avatar from "@material-ui/core/Avatar";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
+import BusinessIcon from "@material-ui/icons/Business";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,6 +52,20 @@ export const Lists = () => {
     history.replace("/municipalidades");
   };
 
+  const handletAdminMuni = () => {
+    history.replace("/municipalidades/editar");
+  };
+
+  const handletAdminDepartment = () => {
+    history.replace("/municipalidades/departamentos/editar");
+  };
+
+  const municipalityDepartments = () => {
+    history.push("/municipalidades/departamentos", {
+      from: "municipalidades",
+    });
+  };
+
   const handletProfile = () => {
     history.replace("/perfil");
   };
@@ -71,17 +86,43 @@ export const Lists = () => {
             </ListItemIcon>
             <ListItemText className={classes.title} primary="Municipalidades" />
           </ListItem>
+        ) : user.role === "MunicipalityAdmin" ? (
+          <>
+            <ListItem button onClick={handletAdminMuni}>
+              <ListItemIcon>
+                <AccountBalanceIcon className={classes.icon} />
+              </ListItemIcon>
+              <ListItemText
+                className={classes.title}
+                primary="Municipalidad"
+                onClick={handletAdminMuni}
+              />
+            </ListItem>
+
+            <ListItem button onClick={municipalityDepartments}>
+              <ListItemIcon>
+                <BusinessIcon className={classes.icon} />
+              </ListItemIcon>
+              <ListItemText
+                className={classes.title}
+                primary="Departamentos"
+                onClick={municipalityDepartments}
+              />
+            </ListItem>
+          </>
         ) : (
-          <ListItem button onClick={handletMuni}>
-            <ListItemIcon>
-              <AccountBalanceIcon className={classes.icon} />
-            </ListItemIcon>
-            <ListItemText
-              className={classes.title}
-              primary="Municipalidad"
-              onClick={handletMuni}
-            />
-          </ListItem>
+          user.role === "DepartmentAdmin" && (
+            <ListItem button onClick={handletAdminDepartment}>
+              <ListItemIcon>
+                <AccountBalanceIcon className={classes.icon} />
+              </ListItemIcon>
+              <ListItemText
+                className={classes.title}
+                primary="Departamento"
+                onClick={handletAdminDepartment}
+              />
+            </ListItem>
+          )
         )}
         <ListItem button>
           <ListItemIcon>

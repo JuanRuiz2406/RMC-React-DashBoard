@@ -19,6 +19,7 @@ import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import { Error } from "../alerts";
+import { getMunicipalityByAdmin } from "../../services/municipalities";
 
 const Login = ({ history }) => {
   const { dispatch } = useContext(AuthContext);
@@ -36,26 +37,46 @@ const Login = ({ history }) => {
       password: password,
     });
 
-    if (loginResponse.token != undefined || loginResponse.token != null) {
-      localStorage.setItem("token", "Bearer " + loginResponse.token);
-      localStorage.setItem("userData", JSON.stringify(loginResponse.user));
+    if (loginResponse.user.role !== "user") {
+      if (loginResponse.token != undefined || loginResponse.token != null) {
+        localStorage.setItem("token", "Bearer " + loginResponse.token);
+        localStorage.setItem("userData", JSON.stringify(loginResponse.user));
 
-      if (loginResponse.user.role === "DepartmentAdmin") {
-        const departmentResponse = await getDepartmentAdmin(
-          loginResponse.user.id
-        );
+        if (loginResponse.user.role === "MunicipalityAdmin") {
+          const municipalityResponse = await getMunicipalityByAdmin(
+            loginResponse.user.id
+          );
 
-        localStorage.setItem("departments", JSON.stringify(departmentResponse));
+          localStorage.setItem(
+            "municipality",
+            JSON.stringify(municipalityResponse[0])
+          );
+        }
+
+        if (loginResponse.user.role === "DepartmentAdmin") {
+          const departmentResponse = await getDepartmentAdmin(
+            loginResponse.user.id
+          );
+
+          localStorage.setItem(
+            "department",
+            JSON.stringify(departmentResponse)
+          );
+        }
+        dispatch({
+          type: types.login,
+          payload: {
+            token: "Bearer " + loginResponse.token,
+            user: loginResponse.user,
+          },
+        });
+      } else {
+        Error(loginResponse.message);
       }
-      dispatch({
-        type: types.login,
-        payload: {
-          token: "Bearer " + loginResponse.token,
-          user: loginResponse.user,
-        },
-      });
     } else {
-      Error(loginResponse.message);
+      Error(
+        "Esta es una aplicación Administrativa, no tienes permiso para acceder..."
+      );
     }
 
     history.replace(lastPath);

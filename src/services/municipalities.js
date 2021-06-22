@@ -13,6 +13,19 @@ export const getMunicipalities = async () => {
     });
 };
 
+export const getMunicipalityByAdmin = async (userId) => {
+  return fetch(baseUrl + "municipality/byUser/" + userId, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    });
+};
+
 export const newMunicipality = async (municipality, manager) => {
   return fetch(baseUrl + "municipality", {
     method: "POST",
