@@ -54,7 +54,7 @@ const Departments = () => {
     <Box bgcolor="background.default" p={2}>
       <Container>
         <Grid container>
-          <Grid item xs={6} sm={6} md={8} lg={9}>
+          <Grid item xs={6} sm={6} md={8} lg={8}>
             <Button
               style={{ marginTop: 30, marginBottom: 30 }}
               onClick={() => {
@@ -73,7 +73,7 @@ const Departments = () => {
               <AddIcon style={{ color: "#4caf50", fontSize: 40 }} /> Crear
             </Button>
           </Grid>
-          <Grid item xs={6} sm={6} md={4} lg={3}>
+          <Grid item xs={6} sm={6} md={4} lg={4}>
             <Breadcrumbs aria-label="breadcrumb" style={{ marginTop: 40 }}>
               <Link
                 color="inherit"

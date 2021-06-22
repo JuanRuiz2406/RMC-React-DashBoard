@@ -50,8 +50,8 @@ const theme = createMuiTheme({
     },
     action: {
       active: "rgba(0, 0, 0, 0.54)",
-      hover: "rgba(0, 0, 0, 0.54)",
-      hoverOpacity: 0.04,
+      hover: "rgba(232, 232, 232, 0.70)",
+      hoverOpacity: 0.1,
       selected: "rgba(0, 0, 0, 0.08)",
       selectedOpacity: 0.8,
       disabled: "rgba(0, 0, 0, 0.26)",

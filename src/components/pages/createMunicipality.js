@@ -281,9 +281,8 @@ const CreateMunicipality = () => {
                   type="submit"
                   className={classes.submit}
                   fullWidth
-                  style={{ marginTop: "10%", background: "#4caf50" }}
+                  style={{ marginTop: "10%", background: "#4caf50", color:"#fff" }}
                   variant="contained"
-                  endIcon={<AddIcon />}
                 >
                   Crear
                 </Button>

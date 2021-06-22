@@ -167,7 +167,7 @@ const CardReport = ({ report }) => {
                   : report.state === "Rechazado"
                   ? "#FF0000"
                   : "#0277BD",
-              color: report.state === "Procesando" ? "#000" : "#fff",
+              color: "#fff",
             }}
           />
           <Chip

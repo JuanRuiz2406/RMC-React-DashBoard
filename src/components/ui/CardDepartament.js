@@ -13,6 +13,14 @@ import { ConfirmDelete } from "../alerts";
 import EditIcon from "@material-ui/icons/Edit";
 import DeleteIcon from "@material-ui/icons/Delete";
 import PersonIcon from "@material-ui/icons/Person";
+import Chip from "@material-ui/core/Chip";
+import EmailIcon from '@material-ui/icons/Email';
+import PhoneIcon from '@material-ui/icons/Phone';
+import DescriptionIcon from '@material-ui/icons/Description';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const useStyles = makeStyles({
   root: {
@@ -62,28 +70,42 @@ export default function CardDepartament({ department }) {
 
   return (
     <Card className={classes.root}>
-      <CardActionArea>
+
         <CardContent>
-          <Typography gutterBottom variant="h4" component="h2">
-            Departamento
-          </Typography>
-          <Typography gutterBottom variant="h5" component="h2">
+          <Typography gutterBottom variant="h3" component="h2" style={{marginLeft: 10}}>
             {department.name}
           </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {department.description}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {department.email}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {department.state}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {department.telephone}
-          </Typography>
+          <Chip
+          size="small"
+            label={department.state}
+            style={{
+              marginLeft: 10,
+              background: department.state === "Activo" ? "#4caf50" : "#FF0000",
+              color:"#fff",
+            }}
+          />
+          <List component="nav" aria-label="main mailbox folders">
+        <ListItem>
+          <ListItemIcon>
+            <DescriptionIcon />
+          </ListItemIcon>
+          <ListItemText primary={department.description} />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <EmailIcon />
+          </ListItemIcon>
+          <ListItemText primary={department.email} />
+        </ListItem>
+        <ListItem>
+          <ListItemIcon>
+            <PhoneIcon />
+          </ListItemIcon>
+          <ListItemText primary={department.telephone} />
+        </ListItem>
+      </List>
         </CardContent>
-      </CardActionArea>
+
       <CardActions>
         <Button color="primary" onClick={() => editDepartment(department)}>
           <EditIcon />

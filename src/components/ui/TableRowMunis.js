@@ -8,6 +8,7 @@ import {
   Menu,
   MenuItem,
   ListItemIcon,
+  Chip,
 } from "@material-ui/core";
 import { ConfirmDelete } from "../alerts";
 import IconButton from "@material-ui/core/IconButton";
@@ -96,7 +97,14 @@ const TableRowMunis = ({ municipality }) => {
         {municipality.telephone}
       </TableCell>
       <TableCell style={{ fontSize: 15 }} align="right">
-        {municipality.state}
+      <Chip
+            label={municipality.state}
+            style={{
+              background: municipality.state === "activo" ? "#4caf50" : "#FF0000",
+              color:"#fff",
+              margin: 5,
+            }}
+          />
       </TableCell>
       <TableCell style={{ fontSize: 15 }} align="right">
         <div>

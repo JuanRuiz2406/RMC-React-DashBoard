@@ -166,7 +166,7 @@ const UserProfile = () => {
                   type="submit"
                   className={classes.submit}
                   fullWidth
-                  style={{ marginTop: "10%", background: "#03A9F4" }}
+                  style={{ marginTop: "10%", background: "#03A9F4", color:"#fff" }}
                   variant="contained"
                   endIcon={<UpdateIcon />}
                 >
