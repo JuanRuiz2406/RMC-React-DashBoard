@@ -60,7 +60,7 @@ const Login = ({ history }) => {
 
           localStorage.setItem(
             "department",
-            JSON.stringify(departmentResponse)
+            JSON.stringify(departmentResponse[0])
           );
         }
         dispatch({

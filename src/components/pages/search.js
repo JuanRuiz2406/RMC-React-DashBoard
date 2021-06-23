@@ -7,7 +7,7 @@ const Search = ({ searchQuery, setSearchQuery }) => (
       onInput={(e) => setSearchQuery(e.target.value)}
       type="text"
       id="standard-basic"
-      label="Filtrar por Estado..."
+      label="Filtrar por Título..."
       name="s"
     />
     {/* <button type="submit">Buscar</button> */}

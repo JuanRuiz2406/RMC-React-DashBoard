@@ -45,7 +45,7 @@ const CardReport = ({ report }) => {
   const [date, setDate] = useState("");
   const { register, handleSubmit, errors } = useForm();
 
-  const departmentStorage = JSON.parse(localStorage.getItem("departments"));
+  const departmentStorage = JSON.parse(localStorage.getItem("department"));
   const user = JSON.parse(localStorage.getItem("userData"));
 
   const [checked, setChecked] = React.useState(true);
@@ -82,7 +82,7 @@ const CardReport = ({ report }) => {
   }, []);
 
   const onSubmit = async (data) => {
-    const department = departmentStorage[0];
+    const department = departmentStorage;
 
     const createResponse = await newDetail(data.coment, department, report);
 
@@ -183,7 +183,7 @@ const CardReport = ({ report }) => {
           >
             {report.title}
           </Typography>
-          <Typography variant="body1" color="textSecondary" component="p">
+          <Typography variant="body2" color="textSecondary" component="p">
             {report.description}
           </Typography>
         </CardContent>
