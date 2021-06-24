@@ -14,7 +14,6 @@ import { updateUser } from "../../services/user";
 import { useForm } from "react-hook-form";
 import { Success, Error } from "../alerts";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import UpdateIcon from "@material-ui/icons/Update";
 
 const UserProfile = () => {
   const history = useHistory();
@@ -24,16 +23,16 @@ const UserProfile = () => {
   const onSubmit = async (data) => {
     const manager = {
       id: user.id,
-      name: data.userName,
+      name: data.name,
       lastname: data.lastname,
       idCard: data.idCard,
-      email: data.userEmail,
+      email: data.email,
       password: data.password,
       direction: data.direction,
       role: user.role,
       state: user.state,
     };
-
+    console.log(manager);
     const createResponse = await updateUser(manager);
 
     if (createResponse.code === 201) {
