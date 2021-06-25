@@ -50,19 +50,18 @@ const Reports = () => {
         municipality.id
       );
       setReports(apiMunicipalityAdminReports);
-    } else {
-      // if (user.role === "DepartmentAdmin")
+    } else if (user.role === "DepartmentAdmin") {
       const departmentMunicipality = JSON.parse(
         localStorage.getItem("department")
       ).municipality;
 
-      const apiMunicipalityAdminReports = await getMunicipalityReports(
+      const apiDepartmentAdminReports = await getMunicipalityReports(
         departmentMunicipality.id
       );
-      setReports(apiMunicipalityAdminReports);
-
-      setLoading(false);
+      setReports(apiDepartmentAdminReports);
     }
+
+    setLoading(false);
   };
 
   const useStyles = makeStyles((theme) => ({
