@@ -43,11 +43,22 @@ const Reports = () => {
     if (user.role === "RMCTeam") {
       const apiAllReports = await getReports();
       setReports(apiAllReports);
-    } else {
+    } else if (user.role === "MunicipalityAdmin") {
       const municipality = JSON.parse(localStorage.getItem("municipality"));
 
-      const apiAdminReports = await getMunicipalityReports(municipality.id);
-      setReports(apiAdminReports);
+      const apiMunicipalityAdminReports = await getMunicipalityReports(
+        municipality.id
+      );
+      setReports(apiMunicipalityAdminReports);
+    } else if (user.role === "DepartmentAdmin") {
+      const departmentMunicipality = JSON.parse(
+        localStorage.getItem("department")
+      ).municipality;
+
+      const apiDepartmentAdminReports = await getMunicipalityReports(
+        departmentMunicipality.id
+      );
+      setReports(apiDepartmentAdminReports);
     }
 
     setLoading(false);
