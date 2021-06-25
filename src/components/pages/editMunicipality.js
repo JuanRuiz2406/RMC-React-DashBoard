@@ -21,19 +21,17 @@ const EditMunicipality = () => {
   const history = useHistory();
 
   const municipalityData = JSON.parse(localStorage.getItem("municipality"));
-  console.log(municipalityData);
   const { register, handleSubmit, errors } = useForm();
 
   const onSubmit = async (data) => {
-    console.log(data);
     const municipality = {
       id: municipalityData.id,
       name: data.name,
-      adress: data.adress,
+      adress: data.address,
       email: data.email,
-      telephone: data.telephone,
+      telephone: data.phone,
       state: municipalityData.state,
-      webSite: data.website,
+      webSite: data.webSite,
     };
 
     const updateResponse = await updateMunicipality(
@@ -54,11 +52,6 @@ const EditMunicipality = () => {
       Error(updateResponse.error);
     }
   };
-
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
 
   const classes = useStyles();
   return (
