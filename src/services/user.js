@@ -62,7 +62,37 @@ export const verificationCode = async (email, code, password) => {
 };
 
 export const updateUser = async (user) => {
+  console.log(user);
   return fetch(baseUrl + "user", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: localStorage.getItem("token"),
+    },
+    body: JSON.stringify({
+      id: user.id,
+      name: user.name,
+      lastname: user.lastname,
+      idCard: user.idCard,
+      email: user.email,
+      password: user.password,
+      direction: user.direction,
+      role: user.role,
+      state: user.state,
+    }),
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      console.log(responseJson);
+      return responseJson;
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+};
+
+export const updateUserProfile = async (user) => {
+  return fetch(baseUrl + "user/updateProfile", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",

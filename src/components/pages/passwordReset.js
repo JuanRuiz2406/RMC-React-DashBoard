@@ -11,6 +11,7 @@ import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import UpdateIcon from "@material-ui/icons/Update";
+import { Success, Error } from "../alerts";
 
 const PasswordReset = ({ history }) => {
   const { register, handleSubmit, errors } = useForm();
@@ -24,9 +25,11 @@ const PasswordReset = ({ history }) => {
       );
       console.log(response);
       if (response.code === 201) {
+        Success("Se cambio la contraseña correctamente");
         history.replace("login");
       }
     } else {
+      Error("Las contraseñas no coinciden");
       console.log("las contraseñas no coinciden");
     }
   };

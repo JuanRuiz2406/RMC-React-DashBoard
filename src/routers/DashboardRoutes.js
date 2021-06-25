@@ -15,6 +15,7 @@ import {
   Municipalities,
   Reports,
   UserProfile,
+  EditPasswordManager,
 } from "../components/pages/index";
 import { NavBar } from "../components/ui/navBarMaterial";
 import { Lists } from "../components/ui/Lists";
@@ -142,6 +143,12 @@ export const DashboardRoutes = () => {
                 exact
                 path="/municipalidades/ciudades/editar"
                 component={EditCity}
+              />
+
+              <Route
+                exact
+                path="/perfil/editar"
+                component={EditPasswordManager}
               />
 
               {/* Rutas MunicipalityAdmin */}

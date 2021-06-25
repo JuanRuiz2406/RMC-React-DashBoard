@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import {
   Box,
@@ -10,10 +10,13 @@ import {
   makeStyles,
 } from "@material-ui/core";
 import Avatar from "@material-ui/core/Avatar";
-import { updateUser } from "../../services/user";
+import { updateUserProfile } from "../../services/user";
+import { AuthContext } from "../../auth/AuthContext";
 import { useForm } from "react-hook-form";
 import { Success, Error } from "../alerts";
 import ArrowBackIcon from "@material-ui/icons/ArrowBack";
+import theme from "../ui/themeConfig";
+import { types } from "../../types/types";
 
 const UserProfile = () => {
   const history = useHistory();
@@ -27,18 +30,21 @@ const UserProfile = () => {
       lastname: data.lastname,
       idCard: data.idCard,
       email: data.email,
-      password: data.password,
+      password: user.passwordNew,
       direction: data.direction,
       role: user.role,
       state: user.state,
     };
     console.log(manager);
-    const createResponse = await updateUser(manager);
+    const createResponse = await updateUserProfile(manager);
 
     if (createResponse.code === 201) {
+      localStorage.setItem("userData", JSON.stringify(manager));
       Success("Actualizado Correctamente!", createResponse.message);
       setTimeout(() => {
-        history.goBack();
+        history.push("/perfil", {
+          from: "perfil",
+        });
       }, 1000 * 2);
     }
     if (createResponse.code === 400) {
@@ -48,6 +54,13 @@ const UserProfile = () => {
       Error(createResponse.error);
     }
   };
+
+  const editPassword = () => {
+    history.push("/perfil/editar", {
+      from: "perfil",
+    });
+  };
+
   const classes = useStyles();
   return (
     <Box bgcolor="background.default" p={2}>
@@ -145,28 +158,26 @@ const UserProfile = () => {
                   helperText={errors.email?.message}
                 />
 
-                <TextField
-                  id="standard-password-input"
-                  margin="normal"
-                  className={classes.title}
+                <Button
+                  className={classes.submit}
                   fullWidth
-                  type="password"
-                  label="Contraseña"
-                  name="password"
-                  defaultValue={user.password}
-                  inputRef={register({
-                    required: "La contraseña es requerida.",
-                  })}
-                  error={Boolean(errors.password)}
-                  helperText={errors.password?.message}
-                />
+                  style={{
+                    marginTop: "10%",
+                    background: "#ff9800",
+                    color: "#fff",
+                  }}
+                  variant="contained"
+                  onClick={() => editPassword()}
+                >
+                  Editar Contraseña
+                </Button>
 
                 <Button
                   type="submit"
                   className={classes.submit}
                   fullWidth
                   style={{
-                    marginTop: "10%",
+                    marginTop: "-5%",
                     background: "#03A9F4",
                     color: "#fff",
                   }}
