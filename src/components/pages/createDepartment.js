@@ -47,7 +47,7 @@ const CreateDepartment = () => {
       passdecode: data.password,
       direction: data.direction,
       role: "DepartmentAdmin",
-      state: "activo",
+      state: "Activo",
     };
 
     const createResponse = await newDepartment(

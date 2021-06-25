@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Search } from ".";
-import { getReports } from "../../services/reports";
+import { getReports, getMunicipalityReports } from "../../services/reports";
 import CardReport from "../ui/CardReport";
 
 import Box from "@material-ui/core/Box";
@@ -40,15 +40,30 @@ const Reports = () => {
   const filteredReports = filterReports(reports, searchQuery);
 
   const fetchReports = async () => {
-    const apiReports = await getReports();
-    setReports(apiReports);
+    if (user.role === "RMCTeam") {
+      const apiAllReports = await getReports();
+      setReports(apiAllReports);
+    } else if (user.role === "MunicipalityAdmin") {
+      const municipality = JSON.parse(localStorage.getItem("municipality"));
 
-    setLoading(false);
+      const apiMunicipalityAdminReports = await getMunicipalityReports(
+        municipality.id
+      );
+      setReports(apiMunicipalityAdminReports);
+    } else {
+      // if (user.role === "DepartmentAdmin")
+      const departmentMunicipality = JSON.parse(
+        localStorage.getItem("department")
+      ).municipality;
+
+      const apiMunicipalityAdminReports = await getMunicipalityReports(
+        departmentMunicipality.id
+      );
+      setReports(apiMunicipalityAdminReports);
+
+      setLoading(false);
+    }
   };
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -77,6 +92,21 @@ const Reports = () => {
     },
   }));
 
+  if (loading) {
+    return (
+      <Box bgcolor="background.default" p={2}>
+        <Grid container spacing={3} className={useStyles.gridContainer}>
+          <Container m={2}>
+            <Alert severity="info">
+              <strong>Informacion: </strong>
+              No hay Reportes en esta Municipalidad
+            </Alert>
+          </Container>
+        </Grid>
+      </Box>
+    );
+  }
+
   return (
     <Box bgcolor="background.default" p={2}>
       {user.role !== "DepartmentAdmin" && (
@@ -94,11 +124,20 @@ const Reports = () => {
         </Box>
 
         <Grid container spacing={3} className={useStyles.gridContainer}>
-          {filteredReports.map((report) => (
-            <Grid item xs={12} sm={6} md={4} lg={4}>
-              <CardReport report={report} />
-            </Grid>
-          ))}
+          {reports.length > 0 ? (
+            filteredReports.map((report) => (
+              <Grid item xs={12} sm={6} md={4} lg={4}>
+                <CardReport report={report} />
+              </Grid>
+            ))
+          ) : (
+            <Container m={2}>
+              <Alert severity="info">
+                <strong>Informacion: </strong>
+                No hay Reportes en esta Municipalidad
+              </Alert>
+            </Container>
+          )}
         </Grid>
       </Container>
     </Box>

@@ -51,9 +51,7 @@ const Login = ({ history }) => {
             "municipality",
             JSON.stringify(municipalityResponse[0])
           );
-        }
-
-        if (loginResponse.user.role === "DepartmentAdmin") {
+        } else if (loginResponse.user.role === "DepartmentAdmin") {
           const departmentResponse = await getDepartmentAdmin(
             loginResponse.user.id
           );

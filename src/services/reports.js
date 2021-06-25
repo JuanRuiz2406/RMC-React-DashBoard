@@ -13,6 +13,19 @@ export const getReports = async () => {
     });
 };
 
+export const getMunicipalityReports = async (municipalityId) => {
+  return fetch(baseUrl + "report/byMunicipality/" + municipalityId, {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+      Authorization: localStorage.getItem("token"),
+    },
+  })
+    .then((response) => response.json())
+    .then((responseJson) => {
+      return responseJson;
+    });
+};
+
 export const updateReportState = async (report, newState) => {
   return fetch(baseUrl + "report", {
     method: "PUT",
@@ -34,7 +47,6 @@ export const updateReportState = async (report, newState) => {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
       return responseJson;
     });
 };
@@ -67,7 +79,6 @@ export const newDetail = async (detail, department, report) => {
   })
     .then((response) => response.json())
     .then((responseJson) => {
-      console.log(responseJson);
       return responseJson;
     })
     .catch((error) => {
