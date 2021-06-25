@@ -5,7 +5,6 @@ import {
   Cities,
   CreateCity,
   CreateDepartment,
-  CreateDetail,
   CreateMunicipality,
   Departments,
   EditAdministrator,
@@ -86,49 +85,58 @@ export const DashboardRoutes = () => {
 
               <Route exact path="/perfil" component={UserProfile} />
 
-              {/* Rutas RMCTeam */}
-              <Route exact path="/municipalidades" component={Municipalities} />
-              <Route
-                exact
-                path="/municipalidades/crear"
-                component={CreateMunicipality}
-              />
+              {user.role === "RMCTeam" && (
+                <>
+                  <Route
+                    exact
+                    path="/municipalidades"
+                    component={Municipalities}
+                  />
+                  <Route
+                    exact
+                    path="/municipalidades/editarAdministrador"
+                    component={EditAdministrator}
+                  />
+                </>
+              )}
 
-              <Route
-                exact
-                path="/municipalidades/editar"
-                component={EditMunicipality}
-              />
+              {user.role === "MunicipalityAdmin" ||
+                (user.role === "RMCTeam" && (
+                  <>
+                    <Route
+                      exact
+                      path="/municipalidades/crear"
+                      component={CreateMunicipality}
+                    />
+                    <Route
+                      exact
+                      path="/municipalidades/editar"
+                      component={EditMunicipality}
+                    />
+                    <Route
+                      exact
+                      path="/municipalidades/departamentos"
+                      component={Departments}
+                    />
+                    <Route
+                      exact
+                      path="/municipalidades/departamentos/crear"
+                      component={CreateDepartment}
+                    />
 
-              <Route
-                exact
-                path="/municipalidades/editarAdministrador"
-                component={EditAdministrator}
-              />
+                    <Route
+                      exact
+                      path="/municipalidades/departamentos/editar"
+                      component={EditDepartment}
+                    />
 
-              <Route
-                exact
-                path="/municipalidades/departamentos"
-                component={Departments}
-              />
-
-              <Route
-                exact
-                path="/municipalidades/departamentos/crear"
-                component={CreateDepartment}
-              />
-
-              <Route
-                exact
-                path="/municipalidades/departamentos/editar"
-                component={EditDepartment}
-              />
-
-              <Route
-                exact
-                path="/municipalidades/departamentos/editarAdministrador"
-                component={EditAdministrator}
-              />
+                    <Route
+                      exact
+                      path="/municipalidades/departamentos/editarAdministrador"
+                      component={EditAdministrator}
+                    />
+                  </>
+                ))}
 
               <Route exact path="/municipalidad/ciudades" component={Cities} />
 
@@ -144,7 +152,6 @@ export const DashboardRoutes = () => {
                 component={EditCity}
               />
 
-              {/* Rutas MunicipalityAdmin */}
               <Redirect to="/reportes" />
             </Switch>
           </div>

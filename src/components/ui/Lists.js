@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const user = JSON.parse(localStorage.getItem("userData"));
-
+console.log(user.role);
 export const Lists = () => {
   const history = useHistory();
 
@@ -62,6 +62,12 @@ export const Lists = () => {
 
   const municipalityDepartments = () => {
     history.push("/municipalidades/departamentos", {
+      from: "municipalidades",
+    });
+  };
+
+  const handletCities = () => {
+    history.push("/municipalidad/ciudades", {
       from: "municipalidades",
     });
   };
@@ -109,21 +115,46 @@ export const Lists = () => {
                 onClick={municipalityDepartments}
               />
             </ListItem>
-          </>
-        ) : (
-          user.role === "DepartmentAdmin" && (
-            <ListItem button onClick={handletAdminDepartment}>
+
+            <ListItem button onClick={handletCities}>
               <ListItemIcon>
-                <AccountBalanceIcon className={classes.icon} />
+                <BusinessIcon className={classes.icon} />
               </ListItemIcon>
               <ListItemText
                 className={classes.title}
-                primary="Departamento"
-                onClick={handletAdminDepartment}
+                primary="Ciudades"
+                onClick={handletCities}
               />
             </ListItem>
+          </>
+        ) : (
+          user.role === "DepartmentAdmin" && (
+            <>
+              <ListItem button onClick={handletAdminDepartment}>
+                <ListItemIcon>
+                  <AccountBalanceIcon className={classes.icon} />
+                </ListItemIcon>
+                <ListItemText
+                  className={classes.title}
+                  primary="Departamento"
+                  onClick={handletAdminDepartment}
+                />
+              </ListItem>
+
+              <ListItem button onClick={handletCities}>
+                <ListItemIcon>
+                  <BusinessIcon className={classes.icon} />
+                </ListItemIcon>
+                <ListItemText
+                  className={classes.title}
+                  primary="Ciudades"
+                  onClick={handletCities}
+                />
+              </ListItem>
+            </>
           )
         )}
+
         <ListItem button>
           <ListItemIcon>
             <PersonIcon className={classes.icon} />

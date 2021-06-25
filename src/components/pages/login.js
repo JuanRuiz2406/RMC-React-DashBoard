@@ -60,6 +60,11 @@ const Login = ({ history }) => {
             "department",
             JSON.stringify(departmentResponse[0])
           );
+
+          localStorage.setItem(
+            "municipality",
+            JSON.stringify(departmentResponse[0].municipality)
+          );
         }
         dispatch({
           type: types.login,
