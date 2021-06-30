@@ -113,8 +113,10 @@ const CardReport = ({ report }) => {
       maxWidth: 600,
     },
     media: {
-      height: 0,
+      height: "100%",
       paddingTop: "56.25%", // 16:9
+      width: "100%",
+      objectFit: "cover",
     },
     expand: {
       transform: "rotate(0deg)",
@@ -150,7 +152,10 @@ const CardReport = ({ report }) => {
           subheader={date}
         />
         <CardMedia className={useStyles.media} title="Imagen">
-          <img style={{ height: 300, width: "100%" }} src={photos[0]} />
+          <img
+            style={{ height: 300, width: "100%", objectFit: "cover" }}
+            src={photos[0]}
+          />
         </CardMedia>
         <CardContent>
           <Chip

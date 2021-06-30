@@ -34,13 +34,11 @@ export const NavBar = () => {
   const classes = useStyles();
 
   const handleLogout = () => {
-    history.replace("/login");
-
     localStorage.clear();
-
     dispatch({
       type: types.logout,
     });
+    history.replace("/login");
   };
 
   return (

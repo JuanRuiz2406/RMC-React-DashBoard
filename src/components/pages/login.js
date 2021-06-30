@@ -37,7 +37,9 @@ const Login = ({ history }) => {
       password: password,
     });
 
-    if (loginResponse.user.role !== "user") {
+    console.log(loginResponse);
+
+    if (loginResponse.user.role != "user") {
       if (loginResponse.token != undefined || loginResponse.token != null) {
         localStorage.setItem("token", "Bearer " + loginResponse.token);
         localStorage.setItem("userData", JSON.stringify(loginResponse.user));
@@ -62,12 +64,13 @@ const Login = ({ history }) => {
           );
         }
         dispatch({
-          type: types.login,
+          type: "[auth] login",
           payload: {
             token: "Bearer " + loginResponse.token,
             user: loginResponse.user,
           },
         });
+        history.replace(lastPath);
       } else {
         Error(loginResponse.message);
       }
@@ -76,8 +79,6 @@ const Login = ({ history }) => {
         "Esta es una aplicación Administrativa, no tienes permiso para acceder..."
       );
     }
-
-    history.replace(lastPath);
   };
   const classes = useStyles();
 
