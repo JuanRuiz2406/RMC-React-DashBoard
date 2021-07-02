@@ -150,7 +150,10 @@ const CardReport = ({ report }) => {
           subheader={date}
         />
         <CardMedia className={useStyles.media} title="Imagen">
-          <img style={{ height: 300, width: "100%" }} src={photos[0]} />
+          <img
+            style={{ height: 300, width: "100%", objectFit: "cover" }}
+            src={photos[0]}
+          />
         </CardMedia>
         <CardContent>
           <Chip

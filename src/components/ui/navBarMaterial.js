@@ -36,8 +36,6 @@ export const NavBar = () => {
   const handleLogout = () => {
     history.replace("/login");
 
-    localStorage.clear();
-
     dispatch({
       type: types.logout,
     });
