@@ -34,7 +34,6 @@ export const NavBar = () => {
   const classes = useStyles();
 
   const handleLogout = () => {
-    localStorage.clear();
     dispatch({
       type: types.logout,
     });
